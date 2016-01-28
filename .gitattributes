@@ -61,3 +61,12 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+##############################################################################
+# JM: Add file revisions (identity) to sources.
+##############################################################################
+*.c     ident
+*.cpp   ident
+*.h     ident
+*.txt   ident
+
