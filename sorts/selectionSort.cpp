@@ -1,16 +1,13 @@
 // ------------------------------------------------------------------------------------
-// Copyright (c) 2016, Jason Meng
-//       Filename:  selectionSorts.h
-//
-//    Description: The header file for the sort algorithms.
-//                 Currently inlcuded: insertion sort, selection sort
+//          $Date$
+//            $Id$
+//       Filename:  selectionSorts.cpp
+//    Description:  The header file for the sort algorithms.
+//                  Currently inlcuded: insertion sort, selection sort
 //        Version:  1.0
 //        Created:  01/28/2016 01:00:30 PM
-//       Revision:  $Id$
 //       Compiler:  g++
-//
 //         Author:  Jason Meng (jm), jm652564@sju.edu
-//
 // ------------------------------------------------------------------------------------
 
 #include <iostream>
