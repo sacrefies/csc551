@@ -1,6 +1,6 @@
 // ------------------------------------------------------------------------------------
 // Copyright (c) 2016, Jason Meng
-//       Filename:  sorts.h
+//       Filename:  selectionSorts.h
 //
 //    Description: The header file for the sort algorithms.
 //                 Currently inlcuded: insertion sort, selection sort
@@ -13,15 +13,11 @@
 //
 // ------------------------------------------------------------------------------------
 
-#include <stdlib.h>
 #include <iostream>
-#include <time.h>
 // use the modern C11 standard
 #include <stdint.h>
 
 using namespace std;
-
-static bool debug = false;
 
 
 /**
@@ -34,7 +30,7 @@ static bool debug = false;
  *         returns -1 if some exception happened.
  *
  */
-int64_t sort(const int64_t size, int64_t list[]) {
+int64_t selectionSort(const int64_t size, int64_t list[]) {
     // boundry checks
     if (size < 0) {
         printf("The given array size < 0.\n");
@@ -59,25 +55,4 @@ int64_t sort(const int64_t size, int64_t list[]) {
         };
     };
 };
-
-
-/**
- * Calculate the elapsed time of sort_function for the given runs.
- *
- * @param 
- */
-int64_t timing(const int64_t runs, const int64_t size, int64_t list[]) {
-    clock_t start = clock();
-    for (int64_t i=0; i< runs; i++) {
-        
-    };
-    clock_t end = clock();
-    double elapsed = ((double)end - start) / CLOCKS_PER_SEC;
-};
-
-
-int main(int argc, char* argv[]) {
-    
-
-}
 
