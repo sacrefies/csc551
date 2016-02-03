@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------------
 //          $Date$
 //            $Id$
-//       Filename:  selectionSorts.cpp
+//       Filename:  insertionSort.cpp
 //    Description:  The header file for the sort algorithms.
 //                  Currently inlcuded: insertion sort, selection sort
 //        Version:  1.0
@@ -21,7 +21,7 @@ using namespace std;
 
 
 /**
- * Do selection sort to the given list(array).
+ * Do insertion sort to the given list(array).
  *
  * @param size The size of the given list(array).
  * @param list An array to be sorted.
@@ -30,7 +30,7 @@ using namespace std;
  *         returns -1 if some exception happened.
  *
  */
-int64_t selectionSort(int64_t size, int64_t list[]) {
+int64_t insertionSort(int64_t size, int64_t list[]) {
     // boundry checks
     if (size < 0) {
         printf("The given array size < 0.\n");
@@ -42,20 +42,17 @@ int64_t selectionSort(int64_t size, int64_t list[]) {
     };
 
     // init tmp
-    int64_t tmp = list[0];
-    // start with the first item in the array.
-    // set the first item as the first marker list[0].
-    for (int64_t i = 0; i < size; i++) {
-        // set the marker as list[i]
-        for (int64_t j = i + 1; j < size; j++) {
-            // looking for the local minimum value
-            // swap the min value with the marker list[i].
-            if (list[i] > list[j]) {
-                tmp = list[i];
-                list[i] = list[j];
-                list[j] = tmp;
-            };
+    int64_t sorted, key;
+    sorted = key = 0;
+    for (int64_t i = 1; i < size; i++) {
+        // get the key
+        key = list[i];
+        // find a space for the key in the sorted sublist.
+        for (sorted = i-1; sorted > 0; sorted--) {
+            if (list[sorted] > key) list[sorted+1] = list[sorted];
         };
+
+        list[sorted+1] = key;
     };
     return 0;
 };

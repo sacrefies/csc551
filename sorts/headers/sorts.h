@@ -17,8 +17,10 @@
 #include <stdint.h>
 
 
+using namespace std;
+
 /**
- * Do selection  sort to the given list(array).
+ * Do selection sort to the given list(array).
  *
  * @param size The size of the given list(array).
  * @param list An array to be sorted.
