@@ -24,5 +24,5 @@ using namespace std;
  * @param runs Iteration times that a sort function runs.
  * @param
  */
-int64_t timing(const int64_t runs, int64_t (*func)(int64_t, int64_t[]), int64_t size, int64_t list[]);
+int64_t timing(const int64_t runs, const int64_t size, int64_t (*func)(int64_t, int64_t[]));
 

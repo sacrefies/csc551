@@ -4,7 +4,7 @@
 //       Filename:  timing.cpp
 //
 //    Description:  this file contains the timeing function to profile a function's
-//                  performance.
+//                  performance. Note: This function works only on top of a POSIX env.
 //
 //        Version:  1.0
 //        Created:  02/02/2016 02:46:19 PM
@@ -26,53 +26,79 @@ using namespace std;
 
 
 /**
+ * Fill up a given array by using random int64 numbers
+ *
+ * @param size The size of the array
+ * @param list The array to be filled
+ */
+void fillArray(const int64_t seed, const int64_t size, int64_t list[]) {
+    if (size < 1) {
+        return;
+    }
+
+    // srand(time(NULL));
+    for (int64_t i = 0; i < size; i++) {
+        list[i] = rand() % size;
+    };
+};
+
+/**
+ * Print the given array to the stdout
+ *
+ * @param size The size of the array
+ * @param list The array of type int64
+ */
+void printArray(const int64_t size, int64_t list[]) {
+    cout << "[";
+    for (int64_t i = 0; i < size; i++) {
+        cout << list[i] << ",";
+    };
+    cout << "]" << endl;
+};
+
+/**
  * Calculate the elapsed time of sort_function for the given runs.
  * @param runs Iteration times that a sort function runs.
- * @param
+ * @param size 
  */
-int64_t timing(const int64_t runs, int64_t (*func)(int64_t, int64_t[]), int64_t size, list[]) {
+int64_t timing(const int64_t runs, const int64_t size, int64_t (*func)(const int64_t, int64_t[])) {
     if (runs < 1) {
         cout << "The function iteration is less than 1. Do nothing" << endl;
         return 0;
     };
 
-    cout << "Running " << __func__ << " for " << runs << " times with size=" << size << endl;
+    if (size < 2) {
+        cout << "The given size is less than 2. Do nothing" << endl;
+        return 0;
+    };
 
     // cpu time start
     clock_t start, end;
     struct timeval startTv, endTv;
     double cpuTime, avgCpuTime, funcElapseTime;
+    int64_t *list = new int64_t[size];
 
     cpuTime = avgCpuTime = funcElapseTime = .0;
 
-     cout << "Sort: " << __func__ << ", Size: " << size << endl;
-    // print out the original input
-    cout << "Input: ";
-    for (int64_i i = 0; i < size; i++) {
-        cout << i << ",";
-    };
-    cout << endl;
-
+    cout << "start..." << endl;
     // function elapse time clocking
-    cout << "Runs: " << runs << endl;
     gettimeofday(&startTv, NULL);
     // cpu start clocking
     start = clock();
+    // iterate sort runs
     for (int64_t i = 0; i < runs; i++) {
-        if ((*func)(size, list) < 0) {
-            cerr << "ERROR happened at run " << i <<  endl;
-        } else if (i == 0) {
-            cout << "Sorted: ";
-            for (int64_t j = 0; j < size; j++) {
-                cout << list[j] << ",";
-            };
-            cout << endl;
-        };
+        // create a new array in size of the given size.
+        fillArray(time(NULL), size, list);
+        // print out the original
+        // printArray(size, list);
+        // do sorting
+        (*func)(size, list);
+        // print out the sorted
+        // printArray(size, list);
     };
-    cout << "fin." << endl;
+
     // cpu time end
     end = clock();
-
     // function elapse time end
     gettimeofday(&endTv, NULL);
     // cpu elapse time
@@ -81,6 +107,9 @@ int64_t timing(const int64_t runs, int64_t (*func)(int64_t, int64_t[]), int64_t 
     // total elapse time
     funcElapseTime = (double)endTv.tv_sec - startTv.tv_sec + ((double)endTv.tv_usec - startTv.tv_usec) / 1e6;
 
+    cout << "fin." << endl;
+    // free the array
+    delete[] list;
     // outputs
     cout << "Iteration: " << runs << ", ";
     cout << "total elapse time: " << funcElapseTime << ", ";

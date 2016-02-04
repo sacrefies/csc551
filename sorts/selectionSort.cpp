@@ -30,14 +30,14 @@ using namespace std;
  *         returns -1 if some exception happened.
  *
  */
-int64_t selectionSort(int64_t size, int64_t list[]) {
+int64_t selectionSort(const int64_t size, int64_t list[]) {
     // boundary checks
     if (size < 0) {
-        printf("The given array size < 0.\n");
+        cout << "The given array size < 0." << endl;
         return -1;
     };
     if (size < 2) {
-        cout << "The given size is either 0 or 1. Do nothing.";
+        cout << "The given size is either 0 or 1. Do nothing." << endl;
         return 0;
     };
 

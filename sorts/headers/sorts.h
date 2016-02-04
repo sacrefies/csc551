@@ -28,7 +28,7 @@ using namespace std;
  * @return 0/-1, returns 0 if this function ends without error;
  *         returns -1 if some exception happened.
  */
-int64_t selectionSort(int64_t size, int64_t list[]);
+int64_t selectionSort(const int64_t size, int64_t list[]);
 
 /**
  * Do insertion sort to the given list(array).
@@ -39,5 +39,5 @@ int64_t selectionSort(int64_t size, int64_t list[]);
  * @return 0/-1, returns 0 if this function ends without error;
  *         returns -1 if some exception happened.
  */
-int64_t insertionSort(int64_t size, int64_t list[]);
+int64_t insertionSort(const int64_t size, int64_t list[]);
 

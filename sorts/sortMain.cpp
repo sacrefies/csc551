@@ -73,7 +73,7 @@ options_t readOptions(const int argc, const char *argv[]) {
     };
 
     for (int64_t i = 0; i < argc; i ++) {
-        if (strcmp("-r", argv[i]) || strcmp("--runs", argv[i])) {
+        if (strcmp("-r", argv[i]) == 0 || strcmp("--runs", argv[i]) == 0) {
             try {
                 options.runs = strtoll(argv[i+1], NULL, 10);
             } catch (...) {
@@ -83,12 +83,12 @@ options_t readOptions(const int argc, const char *argv[]) {
             continue;
         };
 
-        if (strcmp("-s", argv[i]) || strcmp("--sort", argv[i])) {
+        if (strcmp("-s", argv[i]) == 0 || strcmp("--sort", argv[i]) == 0) {
             options.sort = argv[i+1];
             continue;
         };
 
-        if (strcmp("-n", argv[i]) || strcmp("--size", argv[i])) {
+        if (strcmp("-n", argv[i]) == 0 || strcmp("--size", argv[i]) == 0) {
             try {
                 options.size = strtoll(argv[i+1], NULL, 10);
             } catch (...) {
@@ -103,32 +103,14 @@ options_t readOptions(const int argc, const char *argv[]) {
 };
 
 /**
- * fill the given array with random integers.
- *
- * @param size The size of the array.
- * @param list An array of integer.
- */
-void fillArray(const int64_t size, int64_t list[]) {
-    if (size < 1) {
-        return;
-    }
-
-    srand(time(NULL));
-    for (int64_t i = 0; i < size; i++) {
-        list[i] = rand() % size;
-    };
-};
-
-
-/**
  *         Name:  main
  *  Description:  
  */
 int main(const int argc, const char *argv[]) {
     string help = "sortMain.out [OPTIONS]\n";
     struct options_t options;
-    int64_t *list;
 
+    help += "Usages: ./sortMain[.out] -n 20 -r 50 -s selectionSort\n";
     help += "OPTIONS:\n";
     help += "-n/--size     The size of the array to be sorted\n";
     help += "-r/--runs     The iteration number\n";
@@ -138,41 +120,39 @@ int main(const int argc, const char *argv[]) {
     help += "The command above triggers insertion sort apply for 50 times to an array which conatins 50 elements.\n";
 
 
-    if (argc == 0) {
+    if (argc < 2) {
         // print help;
         cout << help << endl;
         return 0;
     };
 
     try {
+        // cout << "parse options" << endl;
         options = readOptions(argc, argv);
+        cout << "size: " << options.size << " iter: " << options.runs << " sort: " << options.sort << endl;
     } catch (...){
         cout << help << endl;
         return -1;
     };
 
-    if (!validateOptions(options)) {
+    if (validateOptions(options) != 0) {
+        cout << "Wrong options" << endl;
         cout << help << endl;
         return -1;
     };
 
-    // fill the array
-    list = new int64_t[options.size];
-    fillArray(options.size, list);
-
     // exec sorts.
     if (options.sort.compare("insertionSort") == 0) {
         // do timing insortion sort.
-        timing(options.runs, insertionSort, options.size, list);
-    } else if (options.sort.compare("selectionSort")) {
+        cout << "insertion sort" << endl;
+        timing(options.runs, options.size, insertionSort);
+    } else if (options.sort.compare("selectionSort") == 0) {
         // do timing selection sort.
-        timing(options.runs, selectionSort, options.size, list);
+        cout << "selection sort" << endl;
+        timing(options.runs, options.size, selectionSort);
     } else {
         cout << options.sort << " not supported yet." << endl;
     };
-
-    // free the mem
-    delete[] list;
 
     return 0;
 

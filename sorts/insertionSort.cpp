@@ -30,31 +30,33 @@ using namespace std;
  *         returns -1 if some exception happened.
  *
  */
-int64_t insertionSort(int64_t size, int64_t list[]) {
+int64_t insertionSort(const int64_t size, int64_t list[]) {
     // boundary checks
     if (size < 0) {
-        printf("The given array size < 0.\n");
+        cout << "The given array size < 0." << endl;
         return -1;
     };
     if (size < 2) {
-        cout << "The given size is either 0 or 1. Do nothing.";
+        cout << "The given size is either 0 or 1. Do nothing." << endl;
         return 0;
     };
 
     // init tmp
-    int64_t sorted, key;
-    sorted = key = 0;
+    int64_t sortedIndex, key;
+    sortedIndex = key = 0;
     for (int64_t i = 1; i < size; i++) {
         // get the key
         key = list[i];
         // find a space for the key in the sorted sublist.
-        for (sorted = i-1; sorted > 0; sorted--) {
-            if (list[sorted] > key) {
-                list[sorted+1] = list[sorted];
+        for (sortedIndex = i - 1; sortedIndex >= 0; sortedIndex--) {
+            if (list[sortedIndex] > key) {
+                list[sortedIndex+1] = list[sortedIndex];
+            } else {
+                break;
             };
         };
         // insert the key here
-        list[sorted+1] = key;
+        list[sortedIndex+1] = key;
     };
     return 0;
 };
