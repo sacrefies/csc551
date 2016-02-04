@@ -113,11 +113,9 @@ void fillArray(const int64_t size, int64_t list[]) {
         return;
     }
 
-    int64_t mod = (size > 100000)? 1000000: 100000;
-
     srand(time(NULL));
     for (int64_t i = 0; i < size; i++) {
-        list[i] = rand() % mod;
+        list[i] = rand() % size;
     };
 };
 
@@ -149,10 +147,12 @@ int main(const int argc, const char *argv[]) {
     try {
         options = readOptions(argc, argv);
     } catch (...){
+        cout << help << endl;
         return -1;
     };
 
     if (!validateOptions(options)) {
+        cout << help << endl;
         return -1;
     };
 

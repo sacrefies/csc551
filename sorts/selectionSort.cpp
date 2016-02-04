@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------------
 //          $Date$
 //            $Id$
-//       Filename:  selectionSorts.cpp
+//       Filename:  selectionSort.cpp
 //    Description:  The header file for the sort algorithms.
 //                  Currently inlcuded: insertion sort, selection sort
 //        Version:  1.0
@@ -31,18 +31,18 @@ using namespace std;
  *
  */
 int64_t selectionSort(int64_t size, int64_t list[]) {
-    // boundry checks
+    // boundary checks
     if (size < 0) {
         printf("The given array size < 0.\n");
         return -1;
     };
     if (size < 2) {
-        count << "The given size is either 0 or 1. Do nothing.";
-         return 0;
+        cout << "The given size is either 0 or 1. Do nothing.";
+        return 0;
     };
 
     // init tmp
-    int64_t tmp = list[0];
+    int64_t tmp = 0;
     // start with the first item in the array.
     // set the first item as the first marker list[0].
     for (int64_t i = 0; i < size; i++) {

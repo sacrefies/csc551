@@ -31,14 +31,14 @@ using namespace std;
  *
  */
 int64_t insertionSort(int64_t size, int64_t list[]) {
-    // boundry checks
+    // boundary checks
     if (size < 0) {
         printf("The given array size < 0.\n");
         return -1;
     };
     if (size < 2) {
-        count << "The given size is either 0 or 1. Do nothing.";
-         return 0;
+        cout << "The given size is either 0 or 1. Do nothing.";
+        return 0;
     };
 
     // init tmp
@@ -49,9 +49,11 @@ int64_t insertionSort(int64_t size, int64_t list[]) {
         key = list[i];
         // find a space for the key in the sorted sublist.
         for (sorted = i-1; sorted > 0; sorted--) {
-            if (list[sorted] > key) list[sorted+1] = list[sorted];
+            if (list[sorted] > key) {
+                list[sorted+1] = list[sorted];
+            };
         };
-
+        // insert the key here
         list[sorted+1] = key;
     };
     return 0;
