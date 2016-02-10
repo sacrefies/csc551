@@ -14,12 +14,13 @@
 // Copyright (c) 2016, Jason Meng
 // ------------------------------------------------------------------------------------
 
-
-#include <iostream>
+// c includes
 #include <sys/time.h>
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
+// c++ includes
+#include <iostream>
 #include <string>
 #include "headers/sorts.h"
 #include "headers/timing.h"
@@ -150,6 +151,10 @@ int main(const int argc, const char *argv[]) {
         // do timing selection sort.
         cout << "selection sort" << endl;
         timing(options.runs, options.size, selectionSort);
+    } else if (options.sort.compare("mergeSort") == 0) {
+        // do timing merge sort
+        cout << "merge sort" << endl;
+        timing(options.runs, options.size, mergeSort);
     } else {
         cout << options.sort << " not supported yet." << endl;
     };

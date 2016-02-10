@@ -41,3 +41,13 @@ int64_t selectionSort(const int64_t size, int64_t list[]);
  */
 int64_t insertionSort(const int64_t size, int64_t list[]);
 
+/**
+ * Merge sort algorithm implementation.
+ *
+ * @param   size    The size of the array to be sorted.
+ * @param   list    The array to be sorted.
+ *
+ * @return Returns 0 if no error happens; returns -1 if otherwise.
+ */
+int64_t mergeSort(const int64_t size, int64_t list[]);
+

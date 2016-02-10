@@ -13,22 +13,25 @@ This program is written in C++, with C11 standard.
 
 Files and Directories
 ---------------------
-headers                                         // headers
+headers                                 // headers
   |- timing.h
   |- sorts.h
-insertionSort.cpp
-selectionSort.cpp
-sortMain.cpp
-timing.cpp
-README.txt
+insertionSort.cpp                       // The implementation of insertion sort
+selectionSort.cpp                       // The implementation of selection sort
+mergeSort.cpp                           // The implementation of merge sort
+sortMain.cpp                            // The program exection entrance
+timing.cpp                              // The implementation of performance profiling
+README.txt                              // This file
 
 
 To Complile
 -----------
+This program is developed and runs only on Linux.
+
 1. Unizp the package and save the directories under a certain directory, i.e.: ~\source.
 2. Launch a terminal environment, change current directory to ~\source.
-3. run g++ with the options:
-    g++ -O3 -std=c++11 -Wstrict-overflow -Wno-missing-field-initializers -Wno-missing-field-initializers -Wall -o sortMain sortMain.cpp timing.cpp insertionSort.cpp selectionSort.cpp
+3. Run build.sh
+    $ ./build.sh
 
 
 To Run
