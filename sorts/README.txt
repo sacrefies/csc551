@@ -10,6 +10,12 @@ Description
 This program invokes functions which implement sort algorithms and profile the functions repectively.
 This program is written in C++, with C11 standard.
 
+There are 3 merge sort implementation included in mergeSort.cpp:
+  1. mergeSort              [SLOWEST] In-place array item swap
+  2. mergeSortInnerSwap     At merge step, an inner temp array is maintained.
+  3. mergeSortOuterSwap     [FASTEST] At merge step, a temp array which is passed from the caller is used.
+The performance difference is significant!
+
 
 Files and Directories
 ---------------------
@@ -39,6 +45,11 @@ To Run
 The command is as below:
     ./sortMain -r <runs> -n <array_size> -s <sort_method>
 E.g.: ./sortMain -r 500 -n 1000 -s selectionSort
+
+Merge sort commands:
+  $ ./sortMain -r 100 -n 200000 -s mergeSort            // not recommended
+  $ ./sortMain -r 100 -n 200000 -s mergeSortInnerSwap
+  $ ./sortMain -r 100 -n 200000 -s mergeSortOuterSwap   // recommended
 
 
 [EOF]

@@ -28,15 +28,21 @@
 
 using namespace std;
 
+
 /**
  * A structure which holds the translated command line
  * arguments for the program to run the sorts.
  */
 struct options_t {
+    // count of iterations
     int64_t runs;
-    string sort;
+    // sort algorithm to apply
+    // insertion=0; selection=1; merge=2, mergeInner=3, mergeOuter=4
+    int64_t sort;
+    // array size
     int64_t size;
 };
+
 
 /*
  * Validate the options
@@ -57,6 +63,7 @@ int64_t validateOptions(struct options_t options) {
     return 0;
 };
 
+
 /**
  * read the command line arguments and store the arguments into
  * options object.
@@ -69,7 +76,7 @@ options_t readOptions(const int argc, const char *argv[]) {
     // define and set the default values of the options.
     struct options_t options = {
         20,
-        "insertionSort",
+        0,
         20,
     };
 
@@ -85,7 +92,20 @@ options_t readOptions(const int argc, const char *argv[]) {
         };
 
         if (strcmp("-s", argv[i]) == 0 || strcmp("--sort", argv[i]) == 0) {
-            options.sort = argv[i+1];
+            if (strcmp("insertionSort", argv[i+1]) == 0)
+                options.sort = 0;
+            else if (strcmp("selectionSort", argv[i+1]) == 0)
+                options.sort = 1;
+            else if (strcmp("mergeSort", argv[i+1]) == 0)
+                options.sort = 2;
+            else if (strcmp("mergeSortInnerSwap", argv[i+1]) == 0)
+                options.sort = 3;
+            else if (strcmp("mergeSortOuterSwap", argv[i+1]) == 0)
+                options.sort = 4;
+            else {
+                cout << "Sort " << argv[i+1] << " is not supported yet." << endl;
+                cout << "The default insertion sort will be applied." << endl;
+            }
             continue;
         };
 
@@ -112,13 +132,14 @@ int main(const int argc, const char *argv[]) {
     struct options_t options;
 
     help += "Usages: ./sortMain[.out] -n 20 -r 50 -s selectionSort\n";
-    help += "OPTIONS:\n";
+    help += "\nOPTIONS:\n";
     help += "-n/--size     The size of the array to be sorted\n";
     help += "-r/--runs     The iteration number\n";
     help += "-s/--sort     The sort algorithm to be used\n\n";
     help += "EX:\n";
     help += "./sortMain.out -r 50 -s insertionSort -n 50\n";
     help += "The command above triggers insertion sort apply for 50 times to an array which conatins 50 elements.\n";
+    help += "\n";
 
 
     if (argc < 2) {
@@ -143,22 +164,41 @@ int main(const int argc, const char *argv[]) {
     };
 
     // exec sorts.
+    switch (options.sort) {
+        case 0:
+            timing(options.runs, options.size, insertionSort);
+            break;
+        case 1:
+            timing(options.runs, options.size, selectionSort);
+            break;
+        case 2:
+            timing(options.runs, options.size, mergeSort);
+            break;
+        case 3:
+            timing(options.runs, options.size, mergeSortInnerSwap);
+            break;
+        case 4:
+            timing(options.runs, options.size, mergeSortOuterSwap);
+            break;
+        default:
+            cout << "Unknown sort, stopped." << endl;
+            return -1;
+    }
+
+/*
     if (options.sort.compare("insertionSort") == 0) {
         // do timing insortion sort.
-        cout << "insertion sort" << endl;
         timing(options.runs, options.size, insertionSort);
     } else if (options.sort.compare("selectionSort") == 0) {
         // do timing selection sort.
-        cout << "selection sort" << endl;
         timing(options.runs, options.size, selectionSort);
     } else if (options.sort.compare("mergeSort") == 0) {
         // do timing merge sort
-        cout << "merge sort" << endl;
         timing(options.runs, options.size, mergeSort);
     } else {
         cout << options.sort << " not supported yet." << endl;
     };
-
+*/
     return 0;
 
 }

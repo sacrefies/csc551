@@ -14,12 +14,15 @@
 // Copyright (c) 2016, Jason Meng
 // ------------------------------------------------------------------------------------
 
-
-#include <iostream>
-#include <sys/time.h>
+// c includes
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 #include <stdint.h>
+#include <sys/time.h>
+// c++ includes
+#include <iostream>
+// custom includes
 #include "headers/timing.h"
 
 using namespace std;
@@ -42,19 +45,21 @@ void fillArray(const int64_t seed, const int64_t size, int64_t list[]) {
     };
 };
 
+
 /**
  * Print the given array to the stdout
  *
  * @param size The size of the array
  * @param list The array of type int64
  */
-void printArray(const int64_t size, int64_t list[]) {
-    cout << "[";
+void printArray(const int64_t size, int64_t list[], string msg) {
+    cout << __func__ << " -- " << msg << " [";
     for (int64_t i = 0; i < size; i++) {
         cout << list[i] << ",";
     };
     cout << "]" << endl;
 };
+
 
 /**
  * Calculate the elapsed time of sort_function for the given runs.
@@ -79,8 +84,6 @@ int64_t timing(const int64_t runs, const int64_t size, int64_t (*func)(const int
     int64_t *list = new int64_t[size];
 
     cpuTime = avgCpuTime = funcElapseTime = .0;
-
-    cout << "start..." << endl;
     // function elapse time clocking
     gettimeofday(&startTv, NULL);
     // cpu start clocking
@@ -90,11 +93,11 @@ int64_t timing(const int64_t runs, const int64_t size, int64_t (*func)(const int
         // create a new array in size of the given size.
         fillArray(time(NULL), size, list);
         // print out the original
-        // printArray(size, list);
+        // printArray(size, list, "The shuffled: ");
         // do sorting
         (*func)(size, list);
         // print out the sorted
-        // printArray(size, list);
+        // printArray(size, list, "The sorted: ");
     };
 
     // cpu time end
@@ -107,13 +110,12 @@ int64_t timing(const int64_t runs, const int64_t size, int64_t (*func)(const int
     // total elapse time
     funcElapseTime = (double)endTv.tv_sec - startTv.tv_sec + ((double)endTv.tv_usec - startTv.tv_usec) / 1e6;
 
-    cout << "fin." << endl;
     // free the array
     delete[] list;
     // outputs
-    cout << "Iteration: " << runs << ", ";
-    cout << "total elapse time: " << funcElapseTime << ", ";
-    cout << "CPU time: total= " << cpuTime << ", average=" << avgCpuTime;
+    cout << "Runs: " << runs << ", ";
+    cout << "Elapse Time: " << funcElapseTime << endl;
+    cout << "CPU Time: total=" << cpuTime << ", avg=" << avgCpuTime;
     cout << endl;
 
     return 0;

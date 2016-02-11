@@ -51,3 +51,26 @@ int64_t insertionSort(const int64_t size, int64_t list[]);
  */
 int64_t mergeSort(const int64_t size, int64_t list[]);
 
+/**
+ * An alternative merge sort implementation. The difference between
+ * this implementation and mergeSort's is such that the merging part
+ * employed different approach. This method creates a temp array to store
+ * the merged elements and then copied the temp array back to the original
+ *
+ * @param   size    The size of the given list(array).
+ * @param   list    An array to be sorted
+ *
+ * @return  Returns 0 if no error happens; returns -1 if otherwise.
+ */
+int64_t mergeSortInnerSwap(const int64_t size, int64_t list[]);
+
+/**
+ * Merge sort algorithm implementation.
+ *
+ * @param   size    The size of the array to be sorted.
+ * @param   list    The array to be sorted.
+ *
+ * @return Returns 0 if no error happens; returns -1 if otherwise.
+ */
+int64_t mergeSortOuterSwap(const int64_t size, int64_t list[]);
+
