@@ -49,7 +49,7 @@ int64_t insertionSort(const int64_t size, int64_t list[]);
  *
  * @return Returns 0 if no error happens; returns -1 if otherwise.
  */
-int64_t mergeSort(const int64_t size, int64_t list[]);
+int64_t mergeSortInplace(const int64_t size, int64_t list[]);
 
 /**
  * An alternative merge sort implementation. The difference between
@@ -72,5 +72,5 @@ int64_t mergeSortInnerSwap(const int64_t size, int64_t list[]);
  *
  * @return Returns 0 if no error happens; returns -1 if otherwise.
  */
-int64_t mergeSortOuterSwap(const int64_t size, int64_t list[]);
+int64_t mergeSort(const int64_t size, int64_t list[]);
 

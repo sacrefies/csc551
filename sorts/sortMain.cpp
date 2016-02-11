@@ -37,7 +37,7 @@ struct options_t {
     // count of iterations
     int64_t runs;
     // sort algorithm to apply
-    // insertion=0; selection=1; merge=2, mergeInner=3, mergeOuter=4
+    // insertion=0; selection=1; merge=2, mergeInplace=3, mergeInner=4
     int64_t sort;
     // array size
     int64_t size;
@@ -98,9 +98,9 @@ options_t readOptions(const int argc, const char *argv[]) {
                 options.sort = 1;
             else if (strcmp("mergeSort", argv[i+1]) == 0)
                 options.sort = 2;
-            else if (strcmp("mergeSortInnerSwap", argv[i+1]) == 0)
+            else if (strcmp("mergeSortInplace", argv[i+1]) == 0)
                 options.sort = 3;
-            else if (strcmp("mergeSortOuterSwap", argv[i+1]) == 0)
+            else if (strcmp("mergeSortInnerSwap", argv[i+1]) == 0)
                 options.sort = 4;
             else {
                 cout << "Sort " << argv[i+1] << " is not supported yet." << endl;
@@ -175,30 +175,16 @@ int main(const int argc, const char *argv[]) {
             timing(options.runs, options.size, mergeSort);
             break;
         case 3:
-            timing(options.runs, options.size, mergeSortInnerSwap);
+            timing(options.runs, options.size, mergeSortInplace);
             break;
         case 4:
-            timing(options.runs, options.size, mergeSortOuterSwap);
+            timing(options.runs, options.size, mergeSortInnerSwap);
             break;
         default:
             cout << "Unknown sort, stopped." << endl;
             return -1;
     }
 
-/*
-    if (options.sort.compare("insertionSort") == 0) {
-        // do timing insortion sort.
-        timing(options.runs, options.size, insertionSort);
-    } else if (options.sort.compare("selectionSort") == 0) {
-        // do timing selection sort.
-        timing(options.runs, options.size, selectionSort);
-    } else if (options.sort.compare("mergeSort") == 0) {
-        // do timing merge sort
-        timing(options.runs, options.size, mergeSort);
-    } else {
-        cout << options.sort << " not supported yet." << endl;
-    };
-*/
     return 0;
 
 }

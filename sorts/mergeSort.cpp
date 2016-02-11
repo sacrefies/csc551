@@ -83,8 +83,10 @@ int64_t mergeInnerSwap(const int64_t lStart, const int64_t lEnd, const int64_t r
  * @param   rEnd    The ending index of the right sub-array
  * @param   list    The array which conatins the left and right sub arrays to be merged
  *
+ * @return  Returns 0 if no error happens; return -1 if otherwise
+ *
  */
-int64_t mergeOuterSwap(const int64_t lStart, const int64_t lEnd, const int64_t rStart, const int64_t rEnd, int64_t list[], int64_t cache[]) {
+int64_t merge(const int64_t lStart, const int64_t lEnd, const int64_t rStart, const int64_t rEnd, int64_t list[], int64_t cache[]) {
 
     int64_t leftHead = lStart;
     int64_t rightHead = rStart;
@@ -130,7 +132,7 @@ int64_t mergeOuterSwap(const int64_t lStart, const int64_t lEnd, const int64_t r
  *
  * @return Returns 0 if no error happens; returns -1 if otherwise.
  */
-int64_t merge(const int64_t lStart, const int64_t lEnd, const int64_t rStart, const int64_t rEnd, int64_t list[]) {
+int64_t mergeInplace(const int64_t lStart, const int64_t lEnd, const int64_t rStart, const int64_t rEnd, int64_t list[]) {
     int64_t leftHead, rightHead, leftEnd, tmpRHItem;
 
     leftHead = lStart;
@@ -202,7 +204,7 @@ int64_t getMedian(int64_t lowEnd, int64_t highEnd) {
  *
  * @return Returns 0 if no error happens; returns -1 if otherwise.
  */
-int64_t innerSort(const int64_t startIndex, const int64_t endIndex, int64_t list[]) {
+int64_t innerSortInplace(const int64_t startIndex, const int64_t endIndex, int64_t list[]) {
     // return condition
     // -- only one item in the array, it is sorted.
     if (endIndex == startIndex) {
@@ -217,21 +219,21 @@ int64_t innerSort(const int64_t startIndex, const int64_t endIndex, int64_t list
     }
 
     // sort left
-    if (innerSort(startIndex, median, list) != 0) {
+    if (innerSortInplace(startIndex, median, list) != 0) {
         cout << __func__ << " -- ";
         cout << "Error happened: Sorting left sub array failed." << endl;
         return -1;
     }
 
     // sort right
-    if (innerSort(median + 1, endIndex, list) != 0) {
+    if (innerSortInplace(median + 1, endIndex, list) != 0) {
         cout << __func__ << " -- ";
         cout << "Error happened: Sorting right sub array failed." << endl;
         return -1;
     }
 
     // merge
-    if (merge(startIndex, median, median + 1, endIndex, list) != 0) {
+    if (mergeInplace(startIndex, median, median + 1, endIndex, list) != 0) {
     // if (alterMerge(startIndex, median + startIndex, median + startIndex + 1, endIndex, list) != 0) {
         cout << __func__ << " -- ";
         cout << "Error happened: Merging failed." << endl;
@@ -304,7 +306,7 @@ int64_t innerSortWithInnerSwap(const int64_t startIndex, const int64_t endIndex,
  *
  * @return Returns 0 if no error happens; returns -1 if otherwise.
  */
-int64_t innerSortWithOuterSwap(const int64_t startIndex, const int64_t endIndex, int64_t list[], int64_t cache[]) {
+int64_t innerSort(const int64_t startIndex, const int64_t endIndex, int64_t list[], int64_t cache[]) {
     // return condition
     // -- only one item in the array, it is sorted.
     if (endIndex == startIndex) {
@@ -319,21 +321,21 @@ int64_t innerSortWithOuterSwap(const int64_t startIndex, const int64_t endIndex,
     }
 
     // sort left
-    if (innerSortWithOuterSwap(startIndex, median, list, cache) != 0) {
+    if (innerSort(startIndex, median, list, cache) != 0) {
         cout << __func__ << " -- ";
         cout << "Error happened: Sorting left sub array failed." << endl;
         return -1;
     }
 
     // sort right
-    if (innerSortWithOuterSwap(median + 1, endIndex, list, cache) != 0) {
+    if (innerSort(median + 1, endIndex, list, cache) != 0) {
         cout << __func__ << " -- ";
         cout << "Error happened: Sorting right sub array failed." << endl;
         return -1;
     }
 
     // merge
-    if (mergeOuterSwap(startIndex, median, median + 1, endIndex, list, cache) != 0) {
+    if (merge(startIndex, median, median + 1, endIndex, list, cache) != 0) {
         cout << __func__ << " -- ";
         cout << "Error happened: Merging failed." << endl;
         return -1;
@@ -351,7 +353,7 @@ int64_t innerSortWithOuterSwap(const int64_t startIndex, const int64_t endIndex,
  *
  * @return Returns 0 if no error happens; returns -1 if otherwise.
  */
-int64_t mergeSort(const int64_t size, int64_t list[]) {
+int64_t mergeSortInplace(const int64_t size, int64_t list[]) {
     // some boundary checks
     if (size < 2) {
         cout << __func__ << " -- size == " << size << ", no sorting" << endl;
@@ -364,7 +366,7 @@ int64_t mergeSort(const int64_t size, int64_t list[]) {
         return -1;
     }
 
-    innerSort(0, size - 1, list);
+    innerSortInplace(0, size - 1, list);
     // end of program
     return 0;
 }
@@ -405,7 +407,7 @@ int64_t mergeSortInnerSwap(const int64_t size, int64_t list[]) {
  *
  * @return Returns 0 if no error happens; returns -1 if otherwise.
  */
-int64_t mergeSortOuterSwap(const int64_t size, int64_t list[]) {
+int64_t mergeSort(const int64_t size, int64_t list[]) {
     // some boundary checks
     if (size < 2) {
         cout << __func__ << " -- size == " << size << ", no sorting" << endl;
@@ -419,11 +421,12 @@ int64_t mergeSortOuterSwap(const int64_t size, int64_t list[]) {
     }
 
     int64_t *swap = new int64_t[size];
-    
-    innerSortWithOuterSwap(0, size - 1, list, swap);
+
+    innerSort(0, size - 1, list, swap);
 
     delete[] swap;
-    
+
     // end of program
     return 0;
 }
+
