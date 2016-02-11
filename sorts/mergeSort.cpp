@@ -185,7 +185,7 @@ int64_t getMedian(int64_t lowEnd, int64_t highEnd) {
     if (lowEnd == highEnd)
         return 0;
 
-    int64_t sub = (highEnd - lowEnd);
+    int64_t sub = (highEnd + lowEnd);
     // ensure len(left) <= len(right)
     return ((sub & 1) == 1) ? sub >> 1: (sub - 1) >> 1;
 }
@@ -217,21 +217,21 @@ int64_t innerSort(const int64_t startIndex, const int64_t endIndex, int64_t list
     }
 
     // sort left
-    if (innerSort(startIndex, median + startIndex, list) != 0) {
+    if (innerSort(startIndex, median, list) != 0) {
         cout << __func__ << " -- ";
         cout << "Error happened: Sorting left sub array failed." << endl;
         return -1;
     }
 
     // sort right
-    if (innerSort(median + startIndex + 1, endIndex, list) != 0) {
+    if (innerSort(median + 1, endIndex, list) != 0) {
         cout << __func__ << " -- ";
         cout << "Error happened: Sorting right sub array failed." << endl;
         return -1;
     }
 
     // merge
-    if (merge(startIndex, median + startIndex, median + startIndex + 1, endIndex, list) != 0) {
+    if (merge(startIndex, median, median + 1, endIndex, list) != 0) {
     // if (alterMerge(startIndex, median + startIndex, median + startIndex + 1, endIndex, list) != 0) {
         cout << __func__ << " -- ";
         cout << "Error happened: Merging failed." << endl;
@@ -268,21 +268,21 @@ int64_t innerSortWithInnerSwap(const int64_t startIndex, const int64_t endIndex,
     }
 
     // sort left
-    if (innerSortWithInnerSwap(startIndex, median + startIndex, list) != 0) {
+    if (innerSortWithInnerSwap(startIndex, median, list) != 0) {
         cout << __func__ << " -- ";
         cout << "Error happened: Sorting left sub array failed." << endl;
         return -1;
     }
 
     // sort right
-    if (innerSortWithInnerSwap(median + startIndex + 1, endIndex, list) != 0) {
+    if (innerSortWithInnerSwap(median + 1, endIndex, list) != 0) {
         cout << __func__ << " -- ";
         cout << "Error happened: Sorting right sub array failed." << endl;
         return -1;
     }
 
     // merge
-    if (mergeInnerSwap(startIndex, median + startIndex, median + startIndex + 1, endIndex, list) != 0) {
+    if (mergeInnerSwap(startIndex, median, median + 1, endIndex, list) != 0) {
         cout << __func__ << " -- ";
         cout << "Error happened: Merging failed." << endl;
         return -1;
@@ -319,21 +319,21 @@ int64_t innerSortWithOuterSwap(const int64_t startIndex, const int64_t endIndex,
     }
 
     // sort left
-    if (innerSortWithOuterSwap(startIndex, median + startIndex, list, cache) != 0) {
+    if (innerSortWithOuterSwap(startIndex, median, list, cache) != 0) {
         cout << __func__ << " -- ";
         cout << "Error happened: Sorting left sub array failed." << endl;
         return -1;
     }
 
     // sort right
-    if (innerSortWithOuterSwap(median + startIndex + 1, endIndex, list, cache) != 0) {
+    if (innerSortWithOuterSwap(median + 1, endIndex, list, cache) != 0) {
         cout << __func__ << " -- ";
         cout << "Error happened: Sorting right sub array failed." << endl;
         return -1;
     }
 
     // merge
-    if (mergeOuterSwap(startIndex, median + startIndex, median + startIndex + 1, endIndex, list, cache) != 0) {
+    if (mergeOuterSwap(startIndex, median, median + 1, endIndex, list, cache) != 0) {
         cout << __func__ << " -- ";
         cout << "Error happened: Merging failed." << endl;
         return -1;

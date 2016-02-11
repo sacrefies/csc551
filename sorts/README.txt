@@ -11,7 +11,8 @@ This program invokes functions which implement sort algorithms and profile the f
 This program is written in C++, with C11 standard.
 
 There are 3 merge sort implementation included in mergeSort.cpp:
-  1. mergeSort              [SLOWEST] In-place array item swap
+  1. mergeSort              In-place array item swap which beats mergeSortInnerSwap when size <= 200,
+                            and which is defeated by mergeSortOuterSwap in any case.
   2. mergeSortInnerSwap     At merge step, an inner temp array is maintained.
   3. mergeSortOuterSwap     [FASTEST] At merge step, a temp array which is passed from the caller is used.
 The performance difference is significant!
