@@ -34,13 +34,13 @@ using namespace std;
  * @param size The size of the array
  * @param list The array to be filled
  */
-void fillArray(const int64_t seed, const int64_t size, int64_t list[]) {
+void fillArray(const int seed, const int size, int list[]) {
     if (size < 1) {
         return;
     }
 
     // srand(time(NULL));
-    for (int64_t i = 0; i < size; i++) {
+    for (int i = 0; i < size; i++) {
         list[i] = rand() % size;
     };
 };
@@ -52,9 +52,9 @@ void fillArray(const int64_t seed, const int64_t size, int64_t list[]) {
  * @param size The size of the array
  * @param list The array of type int64
  */
-void printArray(const int64_t size, int64_t list[], string msg) {
+void printArray(const int size, int list[], string msg) {
     cout << __func__ << " -- " << msg << " [";
-    for (int64_t i = 0; i < size; i++) {
+    for (int i = 0; i < size; i++) {
         cout << list[i] << ",";
     };
     cout << "]" << endl;
@@ -64,9 +64,9 @@ void printArray(const int64_t size, int64_t list[], string msg) {
 /**
  * Calculate the elapsed time of sort_function for the given runs.
  * @param runs Iteration times that a sort function runs.
- * @param size 
+ * @param size
  */
-int64_t timing(const int64_t runs, const int64_t size, int64_t (*func)(const int64_t, int64_t[])) {
+int timing(const int runs, const int size, void (*func)(int[], int)) {
     if (runs < 1) {
         cout << "The function iteration is less than 1. Do nothing" << endl;
         return 0;
@@ -81,7 +81,7 @@ int64_t timing(const int64_t runs, const int64_t size, int64_t (*func)(const int
     clock_t start, end;
     struct timeval startTv, endTv;
     double cpuTime, avgCpuTime, funcElapseTime;
-    int64_t *list = new int64_t[size];
+    int *list = new int[size];
 
     cpuTime = avgCpuTime = funcElapseTime = .0;
     // function elapse time clocking
@@ -89,13 +89,13 @@ int64_t timing(const int64_t runs, const int64_t size, int64_t (*func)(const int
     // cpu start clocking
     start = clock();
     // iterate sort runs
-    for (int64_t i = 0; i < runs; i++) {
+    for (int i = 0; i < runs; i++) {
         // create a new array in size of the given size.
         fillArray(time(NULL), size, list);
         // print out the original
         // printArray(size, list, "The shuffled: ");
         // do sorting
-        (*func)(size, list);
+        (*func)(list, size);
         // print out the sorted
         // printArray(size, list, "The sorted: ");
     };
@@ -120,4 +120,3 @@ int64_t timing(const int64_t runs, const int64_t size, int64_t (*func)(const int
 
     return 0;
 };
-

@@ -29,9 +29,11 @@ mergeSort.cpp                           // The implementation of merge sort
 sortMain.cpp                            // The program exection entrance
 timing.cpp                              // The implementation of performance profiling
 README.txt                              // This file
+build.sh                                // Build tool for Linux
+build.bat                               // Build tool for Windows (This tool requires GNU C/C++ toolchain installed)
 
 
-To Complile
+To Compile
 -----------
 This program is developed and runs only on Linux.
 
@@ -39,7 +41,8 @@ This program is developed and runs only on Linux.
 2. Launch a terminal environment, change current directory to ~\source.
 3. Run build.sh
     $ ./build.sh
-
+4. In case on Windows:
+    build.bat
 
 To Run
 ------
@@ -54,4 +57,3 @@ Merge sort commands:
 
 
 [EOF]
-
