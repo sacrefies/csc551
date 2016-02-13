@@ -18,7 +18,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include <stdint.h>
 #include <sys/time.h>
 // c++ includes
 #include <iostream>
