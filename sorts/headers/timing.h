@@ -14,7 +14,6 @@
 // ------------------------------------------------------------------------------------
 
 #pragma once
-#include <stdint.h>
 
 
 using namespace std;
@@ -24,5 +23,4 @@ using namespace std;
  * @param runs Iteration times that a sort function runs.
  * @param
  */
-int64_t timing(const int64_t runs, const int64_t size, int64_t (*func)(int64_t, int64_t[]));
-
+int timing(const int runs, const int size, void (*func)(int[], int));

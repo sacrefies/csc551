@@ -16,8 +16,10 @@
 
 // c includes
 // c++ includes
-#include <stdint.h>
 #include <iostream>
+// custom headers
+#include "headers/sorts.h"
+
 
 using namespace std;
 
@@ -32,14 +34,13 @@ using namespace std;
  * @param   rStart  The starting index of the right sub-array
  * @param   rEnd    The ending index of the right sub-array
  * @param   list    The array which conatins the left and right sub arrays to be merged
- *
  */
-int64_t mergeInnerSwap(const int64_t lStart, const int64_t lEnd, const int64_t rStart, const int64_t rEnd, int64_t list[]) {
+static int mergeInnerSwap(const int lStart, const int lEnd, const int rStart, const int rEnd, int list[]) {
     // a tmp array as the merged result
-    int64_t *merged = new int64_t[rEnd - lStart + 1];
-    int64_t leftHead = lStart;
-    int64_t rightHead = rStart;
-    int64_t mergedIndex = 0;
+    int *merged = new int[rEnd - lStart + 1];
+    int leftHead = lStart;
+    int rightHead = rStart;
+    int mergedIndex = 0;
 
     while (leftHead <= lEnd && rightHead <= rEnd) {
         if (list[leftHead] < list[rightHead])
@@ -52,16 +53,16 @@ int64_t mergeInnerSwap(const int64_t lStart, const int64_t lEnd, const int64_t r
     // and then put the remaining into the merged
     if (leftHead <= lEnd) {
         // left has remaining
-        for (int64_t i = leftHead; i <= lEnd; ++i)
+        for (int i = leftHead; i <= lEnd; ++i)
             merged[mergedIndex++] = list[i];
     } else if (rightHead <= rEnd) {
         // right has remaining
-        for (int64_t i = rightHead; i <= rEnd; ++i)
+        for (int i = rightHead; i <= rEnd; ++i)
             merged[mergedIndex++] = list[i];
     }
 
     // copy the items from merged to list, from lStart to rEnd
-    for (int64_t i = lStart; i <= rEnd; ++i)
+    for (int i = lStart; i <= rEnd; ++i)
         list[i] = merged[i-lStart];
 
     // free the temp array
@@ -72,7 +73,6 @@ int64_t mergeInnerSwap(const int64_t lStart, const int64_t lEnd, const int64_t r
 
 
 /**
- * An alternative method for megerging 2 list.
  * This method uses a temp array which is passed from the caller
  * to store the merged result and copies the items in the temp
  * array back to the original array.
@@ -86,11 +86,11 @@ int64_t mergeInnerSwap(const int64_t lStart, const int64_t lEnd, const int64_t r
  * @return  Returns 0 if no error happens; return -1 if otherwise
  *
  */
-int64_t merge(const int64_t lStart, const int64_t lEnd, const int64_t rStart, const int64_t rEnd, int64_t list[], int64_t cache[]) {
+static int merge(const int lStart, const int lEnd, const int rStart, const int rEnd, int list[], int cache[]) {
 
-    int64_t leftHead = lStart;
-    int64_t rightHead = rStart;
-    int64_t mergedIndex = 0;
+    int leftHead = lStart;
+    int rightHead = rStart;
+    int mergedIndex = 0;
 
     while (leftHead <= lEnd && rightHead <= rEnd) {
         if (list[leftHead] < list[rightHead])
@@ -103,16 +103,16 @@ int64_t merge(const int64_t lStart, const int64_t lEnd, const int64_t rStart, co
     // and then put the remaining into the merged
     if (leftHead <= lEnd) {
         // left has remaining
-        for (int64_t i = leftHead; i <= lEnd; ++i)
+        for (int i = leftHead; i <= lEnd; ++i)
             cache[mergedIndex++] = list[i];
     } else if (rightHead <= rEnd) {
         // right has remaining
-        for (int64_t i = rightHead; i <= rEnd; ++i)
+        for (int i = rightHead; i <= rEnd; ++i)
             cache[mergedIndex++] = list[i];
     }
 
     // copy the items from merged to list, from lStart to rEnd
-    for (int64_t i = lStart; i <= rEnd; ++i)
+    for (int i = lStart; i <= rEnd; ++i)
         list[i] = cache[i-lStart];
 
     return 0;
@@ -132,8 +132,8 @@ int64_t merge(const int64_t lStart, const int64_t lEnd, const int64_t rStart, co
  *
  * @return Returns 0 if no error happens; returns -1 if otherwise.
  */
-int64_t mergeInplace(const int64_t lStart, const int64_t lEnd, const int64_t rStart, const int64_t rEnd, int64_t list[]) {
-    int64_t leftHead, rightHead, leftEnd, tmpRHItem;
+static int mergeInplace(const int lStart, const int lEnd, const int rStart, const int rEnd, int list[]) {
+    int leftHead, rightHead, leftEnd, tmpRHItem;
 
     leftHead = lStart;
     rightHead = rStart;
@@ -153,7 +153,7 @@ int64_t mergeInplace(const int64_t lStart, const int64_t lEnd, const int64_t rSt
             tmpRHItem = list[rightHead];
             // move every elements of left subarray 1 position to right,
             // starting from leftHead
-            for (int64_t i = leftEnd; i >= leftHead; --i)
+            for (int i = leftEnd; i >= leftHead; --i)
                 list[i+1] = list[i];
             // insert old rightHead value to leftHead position
             list[leftHead] = tmpRHItem;
@@ -181,13 +181,13 @@ int64_t mergeInplace(const int64_t lStart, const int64_t lEnd, const int64_t rSt
  * @return  Returns the median number of the number section
  *          if no error happened; returns -1 if otherwise.
  */
-int64_t getMedian(int64_t lowEnd, int64_t highEnd) {
+static int getMedian(int lowEnd, int highEnd) {
     if (lowEnd > highEnd)
         return -1;
     if (lowEnd == highEnd)
         return 0;
 
-    int64_t sub = (highEnd + lowEnd);
+    int sub = (highEnd + lowEnd);
     // ensure len(left) <= len(right)
     return ((sub & 1) == 1) ? sub >> 1: (sub - 1) >> 1;
 }
@@ -204,7 +204,7 @@ int64_t getMedian(int64_t lowEnd, int64_t highEnd) {
  *
  * @return Returns 0 if no error happens; returns -1 if otherwise.
  */
-int64_t innerSortInplace(const int64_t startIndex, const int64_t endIndex, int64_t list[]) {
+static int innerSortInplace(const int startIndex, const int endIndex, int list[]) {
     // return condition
     // -- only one item in the array, it is sorted.
     if (endIndex == startIndex) {
@@ -212,7 +212,7 @@ int64_t innerSortInplace(const int64_t startIndex, const int64_t endIndex, int64
     }
 
     // get the median in left-leaning fashion
-    int64_t median = getMedian(startIndex, endIndex);
+    int median = getMedian(startIndex, endIndex);
     if (median < 0) {
         cout << __func__ << " -- Error happened: Wrong median." << endl;
         return -1;
@@ -255,7 +255,7 @@ int64_t innerSortInplace(const int64_t startIndex, const int64_t endIndex, int64
  *
  * @return Returns 0 if no error happens; returns -1 if otherwise.
  */
-int64_t innerSortWithInnerSwap(const int64_t startIndex, const int64_t endIndex, int64_t list[]) {
+static int innerSortWithInnerSwap(const int startIndex, const int endIndex, int list[]) {
     // return condition
     // -- only one item in the array, it is sorted.
     if (endIndex == startIndex) {
@@ -263,7 +263,7 @@ int64_t innerSortWithInnerSwap(const int64_t startIndex, const int64_t endIndex,
     }
 
     // get the median in left-leaning fashion
-    int64_t median = getMedian(startIndex, endIndex);
+    int median = getMedian(startIndex, endIndex);
     if (median < 0) {
         cout << __func__ << " -- Error happened: Wrong median." << endl;
         return -1;
@@ -306,7 +306,7 @@ int64_t innerSortWithInnerSwap(const int64_t startIndex, const int64_t endIndex,
  *
  * @return Returns 0 if no error happens; returns -1 if otherwise.
  */
-int64_t innerSort(const int64_t startIndex, const int64_t endIndex, int64_t list[], int64_t cache[]) {
+static int innerSort(const int startIndex, const int endIndex, int list[], int cache[]) {
     // return condition
     // -- only one item in the array, it is sorted.
     if (endIndex == startIndex) {
@@ -314,7 +314,7 @@ int64_t innerSort(const int64_t startIndex, const int64_t endIndex, int64_t list
     }
 
     // get the median in left-leaning fashion
-    int64_t median = getMedian(startIndex, endIndex);
+    int median = getMedian(startIndex, endIndex);
     if (median < 0) {
         cout << __func__ << " -- Error happened: Wrong median." << endl;
         return -1;
@@ -353,22 +353,21 @@ int64_t innerSort(const int64_t startIndex, const int64_t endIndex, int64_t list
  *
  * @return Returns 0 if no error happens; returns -1 if otherwise.
  */
-int64_t mergeSortInplace(const int64_t size, int64_t list[]) {
+void mergeSortInplace(int list[], int size) {
     // some boundary checks
     if (size < 2) {
         cout << __func__ << " -- size == " << size << ", no sorting" << endl;
-        return 0;
+        return;
     }
 
-    int64_t med = getMedian(0, size - 1);
+    int med = getMedian(0, size - 1);
     if (med < 0) {
         cout << __func__ << " -- Error happened: Wrong median." << endl;
-        return -1;
+        return;
     }
 
-    innerSortInplace(0, size - 1, list);
-    // end of program
-    return 0;
+    if (innerSortInplace(0, size - 1, list) != 0)
+        cout << __func__ << " -- Unexpected error happened." << endl;
 }
 
 
@@ -380,22 +379,21 @@ int64_t mergeSortInplace(const int64_t size, int64_t list[]) {
  *
  * @return Returns 0 if no error happens; returns -1 if otherwise.
  */
-int64_t mergeSortInnerSwap(const int64_t size, int64_t list[]) {
+void mergeSortInnerSwap(int list[], int size) {
     // some boundary checks
     if (size < 2) {
         cout << __func__ << " -- size == " << size << ", no sorting" << endl;
-        return 0;
+        return;
     }
 
-    int64_t med = getMedian(0, size - 1);
+    int med = getMedian(0, size - 1);
     if (med < 0) {
         cout << __func__ << " -- Error happened: Wrong median." << endl;
-        return -1;
+        return;
     }
 
-    innerSortWithInnerSwap(0, size - 1, list);
-    // end of program
-    return 0;
+    if (innerSortWithInnerSwap(0, size - 1, list) != 0)
+        cout << __func__ << " -- Unexpected error happened." << endl;
 }
 
 
@@ -407,26 +405,23 @@ int64_t mergeSortInnerSwap(const int64_t size, int64_t list[]) {
  *
  * @return Returns 0 if no error happens; returns -1 if otherwise.
  */
-int64_t mergeSort(const int64_t size, int64_t list[]) {
+void mergeSort(int list[], int size) {
     // some boundary checks
     if (size < 2) {
         cout << __func__ << " -- size == " << size << ", no sorting" << endl;
-        return 0;
+        return;
     }
 
-    int64_t med = getMedian(0, size - 1);
+    int med = getMedian(0, size - 1);
     if (med < 0) {
         cout << __func__ << " -- Error happened: Wrong median." << endl;
-        return -1;
+        return;
     }
 
-    int64_t *swap = new int64_t[size];
+    int *swap = new int[size];
 
-    innerSort(0, size - 1, list, swap);
+    if (innerSort(0, size - 1, list, swap) != 0)
+        cout << __func__ << " -- Unexpected error happened." << endl;
 
     delete[] swap;
-
-    // end of program
-    return 0;
 }
-

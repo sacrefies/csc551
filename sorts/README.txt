@@ -11,10 +11,10 @@ This program invokes functions which implement sort algorithms and profile the f
 This program is written in C++, with C11 standard.
 
 There are 3 merge sort implementation included in mergeSort.cpp:
-  1. mergeSort              In-place array item swap which beats mergeSortInnerSwap when size <= 200,
-                            and which is defeated by mergeSortOuterSwap in any case.
+  1. mergeSort              [FASTEST] At merge step, a temp array which is passed from the caller is used.
   2. mergeSortInnerSwap     At merge step, an inner temp array is maintained.
-  3. mergeSortOuterSwap     [FASTEST] At merge step, a temp array which is passed from the caller is used.
+  3. mergeSortInplace       In-place array item swap which beats mergeSortInnerSwap when size <= 200,
+                            and which is defeated by mergeSort in any case.
 The performance difference is significant!
 
 
@@ -29,9 +29,11 @@ mergeSort.cpp                           // The implementation of merge sort
 sortMain.cpp                            // The program exection entrance
 timing.cpp                              // The implementation of performance profiling
 README.txt                              // This file
+build.sh                                // Build tool for Linux
+build.bat                               // Build tool for Windows (This tool requires GNU C/C++ toolchain installed)
 
 
-To Complile
+To Compile
 -----------
 This program is developed and runs only on Linux.
 
@@ -39,7 +41,8 @@ This program is developed and runs only on Linux.
 2. Launch a terminal environment, change current directory to ~\source.
 3. Run build.sh
     $ ./build.sh
-
+4. In case on Windows:
+    build.bat
 
 To Run
 ------
@@ -54,4 +57,3 @@ Merge sort commands:
 
 
 [EOF]
-

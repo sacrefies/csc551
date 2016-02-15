@@ -22,6 +22,7 @@
 // c++ includes
 #include <iostream>
 #include <string>
+// custom headers
 #include "headers/sorts.h"
 #include "headers/timing.h"
 
@@ -35,12 +36,12 @@ using namespace std;
  */
 struct options_t {
     // count of iterations
-    int64_t runs;
+    int runs;
     // sort algorithm to apply
     // insertion=0; selection=1; merge=2, mergeInplace=3, mergeInner=4
-    int64_t sort;
+    int sort;
     // array size
-    int64_t size;
+    int size;
 };
 
 
@@ -50,7 +51,7 @@ struct options_t {
  * @param options A struct which holds the option data fields.
  * @return returns 0 if the options are valid; returns -1 if otherwise.
  */
-int64_t validateOptions(struct options_t options) {
+int validateOptions(struct options_t options) {
     if (options.size < 2) {
         cout << "Input array size is less than 2." << endl;
         return -1;
@@ -80,7 +81,7 @@ options_t readOptions(const int argc, const char *argv[]) {
         20,
     };
 
-    for (int64_t i = 0; i < argc; i ++) {
+    for (int i = 0; i < argc; i ++) {
         if (strcmp("-r", argv[i]) == 0 || strcmp("--runs", argv[i]) == 0) {
             try {
                 options.runs = strtoll(argv[i+1], NULL, 10);
@@ -125,7 +126,7 @@ options_t readOptions(const int argc, const char *argv[]) {
 
 /**
  *         Name:  main
- *  Description:  
+ *  Description:
  */
 int main(const int argc, const char *argv[]) {
     string help = "sortMain.out [OPTIONS]\n";
@@ -188,4 +189,3 @@ int main(const int argc, const char *argv[]) {
     return 0;
 
 }
-
