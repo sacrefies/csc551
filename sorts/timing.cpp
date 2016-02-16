@@ -41,8 +41,8 @@ void fillArray(const int seed, const int size, int list[]) {
     // srand(time(NULL));
     for (int i = 0; i < size; i++) {
         list[i] = rand() % size;
-    };
-};
+    }
+}
 
 
 /**
@@ -55,9 +55,9 @@ void printArray(const int size, int list[], string msg) {
     cout << __func__ << " -- " << msg << " [";
     for (int i = 0; i < size; i++) {
         cout << list[i] << ",";
-    };
+    }
     cout << "]" << endl;
-};
+}
 
 
 /**
