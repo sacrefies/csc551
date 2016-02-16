@@ -14,8 +14,6 @@
 #include <sys/time.h>
 // C++ includes
 #include <iostream>
-// Custom headers
-#include "headers/arrayUtils.h"
 
 
 using std::cout;
