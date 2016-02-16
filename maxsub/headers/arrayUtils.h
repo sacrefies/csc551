@@ -31,4 +31,13 @@ void fillArray(const int seed, const int size, int list[]);
  */
 void printArray(const int size, int list[], string msg);
 
+
+/**
+ * Print the given array to the stdout
+ *
+ * @param size The size of the array
+ * @param list The array of type int64
+ */
+void printArray(const int startIndex, const int endIndex, int list[], string msg);
+
 #endif /* end of include guard:  */
