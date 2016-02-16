@@ -64,7 +64,7 @@ void printArray(const int startIndex, const int endIndex, int list[], string msg
         cout << __func__ << " -- Error: One or both of
                             the indices are less than 0." << endl;
         cout << __func__ << " -- startIndex=" << startIndex
-        << " endIndex=" << endIndex;
+        << " endIndex=" << endIndex << ", quit.";
         return;
     }
 
