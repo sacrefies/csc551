@@ -37,7 +37,7 @@ using namespace std;
  */
 static int mergeInnerSwap(const int lStart, const int lEnd, const int rStart, const int rEnd, int list[]) {
     // a tmp array as the merged result
-    int *merged = new int[rEnd - lStart + 1];
+    int * merged = new int[rEnd - lStart + 1];
     int leftHead = lStart;
     int rightHead = rStart;
     int mergedIndex = 0;
@@ -53,23 +53,26 @@ static int mergeInnerSwap(const int lStart, const int lEnd, const int rStart, co
     // and then put the remaining into the merged
     if (leftHead <= lEnd) {
         // left has remaining
-        for (int i = leftHead; i <= lEnd; ++i)
+        for (int i = leftHead; i <= lEnd; ++i) {
             merged[mergedIndex++] = list[i];
+        }
     } else if (rightHead <= rEnd) {
         // right has remaining
-        for (int i = rightHead; i <= rEnd; ++i)
+        for (int i = rightHead; i <= rEnd; ++i) {
             merged[mergedIndex++] = list[i];
+        }
     }
 
     // copy the items from merged to list, from lStart to rEnd
-    for (int i = lStart; i <= rEnd; ++i)
-        list[i] = merged[i-lStart];
+    for (int i = lStart; i <= rEnd; ++i) {
+        list[i] = merged[i - lStart];
+    }
 
     // free the temp array
     delete[] merged;
 
     return 0;
-}
+} // mergeInnerSwap
 
 
 /**
@@ -103,20 +106,23 @@ static int merge(const int lStart, const int lEnd, const int rStart, const int r
     // and then put the remaining into the merged
     if (leftHead <= lEnd) {
         // left has remaining
-        for (int i = leftHead; i <= lEnd; ++i)
+        for (int i = leftHead; i <= lEnd; ++i) {
             cache[mergedIndex++] = list[i];
+        }
     } else if (rightHead <= rEnd) {
         // right has remaining
-        for (int i = rightHead; i <= rEnd; ++i)
+        for (int i = rightHead; i <= rEnd; ++i) {
             cache[mergedIndex++] = list[i];
+        }
     }
 
     // copy the items from merged to list, from lStart to rEnd
-    for (int i = lStart; i <= rEnd; ++i)
-        list[i] = cache[i-lStart];
+    for (int i = lStart; i <= rEnd; ++i) {
+        list[i] = cache[i - lStart];
+    }
 
     return 0;
-}
+} // merge
 
 
 /**
@@ -153,19 +159,20 @@ static int mergeInplace(const int lStart, const int lEnd, const int rStart, cons
             tmpRHItem = list[rightHead];
             // move every elements of left subarray 1 position to right,
             // starting from leftHead
-            for (int i = leftEnd; i >= leftHead; --i)
-                list[i+1] = list[i];
+            for (int i = leftEnd; i >= leftHead; --i) {
+                list[i + 1] = list[i];
+            }
             // insert old rightHead value to leftHead position
             list[leftHead] = tmpRHItem;
             // set the end of left subarray to the rightHead
-            leftEnd = rightHead ++;
+            leftEnd = rightHead++;
         }
         // increase leftHead
-        leftHead ++;
+        leftHead++;
     }
 
     return 0;
-}
+} // mergeInplace
 
 
 /**
@@ -189,7 +196,7 @@ static int getMedian(int lowEnd, int highEnd) {
 
     int sub = (highEnd + lowEnd);
     // ensure len(left) <= len(right)
-    return ((sub & 1) == 1) ? sub >> 1: (sub - 1) >> 1;
+    return ((sub & 1) == 1) ? sub >> 1 : (sub - 1) >> 1;
 }
 
 
@@ -234,14 +241,14 @@ static int innerSortInplace(const int startIndex, const int endIndex, int list[]
 
     // merge
     if (mergeInplace(startIndex, median, median + 1, endIndex, list) != 0) {
-    // if (alterMerge(startIndex, median + startIndex, median + startIndex + 1, endIndex, list) != 0) {
+        // if (alterMerge(startIndex, median + startIndex, median + startIndex + 1, endIndex, list) != 0) {
         cout << __func__ << " -- ";
         cout << "Error happened: Merging failed." << endl;
         return -1;
     }
 
     return 0;
-}
+} // innerSortInplace
 
 
 /**
@@ -291,7 +298,7 @@ static int innerSortWithInnerSwap(const int startIndex, const int endIndex, int 
     }
 
     return 0;
-}
+} // innerSortWithInnerSwap
 
 
 /**
@@ -342,7 +349,7 @@ static int innerSort(const int startIndex, const int endIndex, int list[], int c
     }
 
     return 0;
-}
+} // innerSort
 
 
 /**
@@ -412,13 +419,11 @@ void mergeSort(int list[], int size) {
         return;
     }
 
-    int med = getMedian(0, size - 1);
-    if (med < 0) {
-        cout << __func__ << " -- Error happened: Wrong median." << endl;
-        return;
-    }
-
-    int *swap = new int[size];
+    int * swap;
+    if (size <= 100000)
+        swap = new int[100000];
+    else
+        swap = new int[size];
 
     if (innerSort(0, size - 1, list, swap) != 0)
         cout << __func__ << " -- Unexpected error happened." << endl;
