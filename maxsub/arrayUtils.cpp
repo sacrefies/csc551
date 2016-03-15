@@ -1,24 +1,27 @@
-// ------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 //       Filename: arrayUtils.cpp
 //       Revision: $Id$
-//    Description: This file includes a few helper or utility function for array handling.
+//    Description: This file includes a few helper or utility function for array
+//                 handling.
 //        Created: 02/15/2016 01:20:29 PM
 //       Compiler: G++
 //         Author: Jason Meng (jm), jm652564@sju.edu
 //
 // Copyright (c) 2016 by Jason Meng
-// ------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 
-// C includes
-#include <sys/time.h>
 // C++ includes
+#include <cstdlib>
 #include <iostream>
-#include <string>
+#include <sstream>
+#include <limits>
+#include "headers/logging.h"
 
 
 using std::cout;
 using std::endl;
+using std::stringstream;
 
 
 /**
@@ -29,13 +32,15 @@ using std::endl;
  */
 void fillArray(const int seed, const int size, int list[]) {
     if (size < 1) {
-        cout << __func__ << " -- size=" << size
-        << ", quit." << endl;
+        stringstream msg;
+        msg << "size=" << size;
+        error(__func__, msg.str());
         return;
     }
-    // srand(time(NULL));
-    for (int i = 0; i < size; i++)
+    srand(seed);
+    for (int i = 0; i < size; i++) {
         list[i] = rand() % size;
+    }
 }
 
 
@@ -46,11 +51,18 @@ void fillArray(const int seed, const int size, int list[]) {
  * @param list The array of type int64
  */
 void printArray(const int size, int list[], string msg) {
-    cout << __func__ << " -- " << msg << " [";
-    for (int i = 0; i < size; ++i) {
-        cout << list[i] << ",";
+    if (list == NULL) {
+        error(__func__,  "The given array is NULL");
+        return;
     }
-    cout << "]" << endl;
+    stringstream message;
+    message << msg << "[";
+    for (int i = 0; i < size; ++i) {
+        message << list[i] << ",";
+    }
+    message << "]";
+    info(__func__, message.str());
+    debug(__func__, message.str());
 }
 
 /**
@@ -59,18 +71,52 @@ void printArray(const int size, int list[], string msg) {
  * @param size The size of the array
  * @param list The array of type int64
  */
-void printArray(const int startIndex, const int endIndex, int list[], string msg) {
+void printArray(const int startIndex, const int endIndex, int list[],
+                string msg) {
+    stringstream message;
+
     if (startIndex < 0 || endIndex < 0) {
-        cout << __func__ << " -- Error: One or both of
-                            the indices are less than 0." << endl;
-        cout << __func__ << " -- startIndex=" << startIndex
-        << " endIndex=" << endIndex << ", quit.";
+        error(__func__, "One or both of the indices are less than 0.");
+        message << "startIndex=" << startIndex;
+        message << ", endIndex=" << endIndex;
+        error(__func__, message.str());
         return;
     }
-
-    cout << __func__ << " -- " << msg << " [";
+    message << msg << "[";
     for (int i = startIndex; i <= endIndex; ++i) {
         cout << list[i] << ",";
     }
-    cout << "]" << endl;
+    message << "]";
+    info(__func__, message.str());
+    debug(__func__, message.str());
+}
+
+
+/**
+ * Calculate the summation of a specified int subarray.
+ *
+ * @param startIndex    The index where the subarray starts.
+ * @param endIndex      The index where the subarray ends.
+ * @param list          An array of int which contains the subarray.
+ * @return  The summation result of the specified subarray.
+ */
+int elementSum(const int startIndex, const int endIndex, int list[]) {
+    stringstream message;
+    int sum = 0;
+
+    if (startIndex < 0 || endIndex < 0) {
+        error(__func__, "One or both of the indices are less than 0.");
+        message << "startIndex=" << startIndex;
+        message << ", endIndex=" << endIndex;
+        error(__func__, message.str());
+        return INT_MIN;
+    }
+
+    for (int i = startIndex; i <= endIndex; ++i) {
+        sum += list[i];
+    }
+    message << "startIndex=" << startIndex << " endIndex=" << endIndex;
+    message << " sum=" << sum;
+    debug(__func__, message.str());
+    return sum;
 }

@@ -10,9 +10,15 @@
 // Copyright (c) 2016 by Jason Meng
 // ------------------------------------------------------------------------------------
 
-/* include guard:  */
+#include <string>
+
+
+/** include guard:  */
 #ifndef ARRAYUTILS_H
 #define ARRAYUTILS_H
+
+using std::string;
+
 
 /**
  * Fill up a given array by using random int64 numbers
@@ -40,4 +46,15 @@ void printArray(const int size, int list[], string msg);
  */
 void printArray(const int startIndex, const int endIndex, int list[], string msg);
 
-#endif /* end of include guard:  */
+
+/**
+ * Calculate the summation of a specified int subarray.
+ *
+ * @param startIndex    The index where the subarray starts.
+ * @param endIndex      The index where the subarray ends.
+ * @param list          An array of int which contains the subarray.
+ * @return  The summation result of the specified subarray.
+ */
+int elementSum(const int startIndex, const int endIndex, int list[]);
+
+#endif /** end of include guard:  */
