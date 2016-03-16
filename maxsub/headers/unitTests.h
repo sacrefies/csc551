@@ -14,6 +14,34 @@
 #ifndef TESTS_H
 #define TESTS_H
 
+
+/**
+ * Test an algorithm with an array whose max sum subarray is the largest
+ * negative element (all elements are negative).
+ *
+ * @param func  A function which implements an algorithm to find the max-sum
+ *              subarray. This function must satify the signature:
+ *              void func_name(int[] array, int size, int& bestStart,
+ *                             int& bestEnd, int& bestSum)
+ *
+ * @return Returns -1 if test failed; returns 0 if otherwise.
+ */
+int array_all_negative_test(void (* func)(int[], int, int&, int&, int&));
+
+
+/**
+ * Test an algorithm with an array which has 2 negative integers.
+ *
+ * @param func  A function which implements an algorithm to find the max-sum
+ *              subarray. This function must satify the signature:
+ *              void func_name(int[] array, int size, int& bestStart,
+ *                             int& bestEnd, int& bestSum)
+ *
+ * @return Returns -1 if test failed; returns 0 if otherwise.
+ */
+int array_size_2_all_negative_test(void (* func)(int[], int, int&, int&, int&));
+
+
 /**
  * Test an algorithm with a null pointer.
  *

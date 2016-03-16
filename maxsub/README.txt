@@ -38,7 +38,7 @@ README.txt                              // This file
 build.sh                                // Build tool for Linux
 build.bat                               // Build tool for Windows (This tool requires GNU C/C++ toolchain installed)
 build_test.sh                           // unit test runner builder for Linux
-build_test.bestStart                    // unit test runner builder for Windows (This tool requires GNU C/C++ toolchain installed)
+build_test.bat                          // unit test runner builder for Windows (This tool requires GNU C/C++ toolchain installed)
 
 
 To Compile
@@ -55,8 +55,14 @@ This program is developed and runs only on Linux.
 To Run
 ------
 The command is as below:
+[Main program runner]
     ./main -n <num_of_arrays> -m <max_sub_func_name>
 E.g.: ./main -n 10 -m kadane
+
+[The unit test runner]
+    ./testRunner -l debug
+    ./testRunner -l info
+    ./testRunner
 
 
 [EOF]

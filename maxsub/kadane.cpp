@@ -86,15 +86,15 @@ void kadane(int list[], int size, int& bestStart, int& bestEnd, int& bestSum) {
     // print the input array
     printArray(size, list, "Array input:");
     for (int i = 1; i < size; ++i) {
-        if (list[i] > currSum + list[i]) {
+        // continue adding up
+        currSum += list[i];
+        if (list[i] > currSum) {
             // when this case happens, the max-sub actually is reset to list[i],
-            // therefore bestStart is reset to i
+            // therefore bestStart has a new index to record ==> i
             currSum = list[i];
             localStart = i;
-        } else {
-            // continue adding up
-            currSum += list[i];
         }
+
         if (bestSum < currSum) {
             bestStart = localStart;
             bestEnd = i;

@@ -207,6 +207,67 @@ int array_size_2_all_positive_test(void (* func)(int[], int, int&, int&, int&)) 
 
 
 /**
+ * Test an algorithm with an array which has 2 negative integers.
+ *
+ * @param func  A function which implements an algorithm to find the max-sum
+ *              subarray. This function must satify the signature:
+ *              void func_name(int[] array, int size, int& bestStart,
+ *                             int& bestEnd, int& bestSum)
+ *
+ * @return Returns -1 if test failed; returns 0 if otherwise.
+ */
+int array_size_2_all_negative_test(void (* func)(int[], int, int&, int&, int&)) {
+    stringstream msg;
+    const string testName = "Array Size 2: All Positive Test";
+    int testFlag = -1;
+    int bestStart, bestEnd, bestSum, sum, size;
+    int array[2] = { -10, -1 };
+
+    size = 2;
+
+    msg << "Test Name: " << testName;
+    info("", msg.str());
+    msg.clear();
+    msg.str("");
+
+    sum = elementSum(1, 1, array);
+
+    // test starts
+    try {
+        (*func)(array, size, bestStart, bestEnd, bestSum);
+        // assert the return values
+        if (bestStart == 1 && bestEnd == 1 && bestSum == sum)
+            testFlag = 0;
+    } catch (exception& e) {
+        error(__func__, e.what());
+    }
+
+    // test log
+    msg << "Expected: bestStart = 0, ";
+    msg << "Actual: bestStart = " << bestStart;
+    info("", msg.str());
+    msg.clear();
+    msg.str("");
+    msg << "Expected: bestEnd = 1, ";
+    msg << "Actual: bestEnd = " << bestEnd;
+    info("", msg.str());
+    msg.clear();
+    msg.str("");
+    msg << "Expected: bestSum = " << sum << ", ";
+    msg << "Actual: bestSum = " << bestSum;
+    info("", msg.str());
+    msg.clear();
+    msg.str("");
+    msg << "Test Finished: ";
+    if (testFlag != 0) msg << "Failed";
+    else msg << "Passed";
+    info("", msg.str());
+
+    return testFlag;
+} // array_size_2_all_negative_test
+
+
+/**
  * Test an algorithm with an array which has 1 positive and 1 negative integers.
  *
  * @param func  A function which implements an algorithm to find the max-sum
@@ -327,7 +388,8 @@ int array_size_2_1_neg_1_pos_test(void (* func)(int[], int, int&, int&, int&)) {
 
 
 /**
- * Test an algorithm with an array whose max sum subarray is itself.
+ * Test an algorithm with an array whose max sum subarray is itself
+ * (all elements are positive).
  *
  * @param func  A function which implements an algorithm to find the max-sum
  *              subarray. This function must satify the signature:
@@ -384,6 +446,67 @@ int array_self_max_test(void (* func)(int[], int, int&, int&, int&)) {
 
     return testFlag;
 } // array_self_max_test
+
+
+/**
+ * Test an algorithm with an array whose max sum subarray is the largest
+ * negative element (all elements are negative).
+ *
+ * @param func  A function which implements an algorithm to find the max-sum
+ *              subarray. This function must satify the signature:
+ *              void func_name(int[] array, int size, int& bestStart,
+ *                             int& bestEnd, int& bestSum)
+ *
+ * @return Returns -1 if test failed; returns 0 if otherwise.
+ */
+int array_all_negative_test(void (* func)(int[], int, int&, int&, int&)) {
+    stringstream msg;
+    const string testName = "Array All Negative Test";
+    int testFlag = -1;
+    int bestStart, bestEnd, bestSum, sum;
+    int array[10] = { -9, -3, -4, -5, -2, -4, -8, -10, -8, -3 };
+    int size = 10;
+
+    msg << "Test Name: " << testName;
+    info("", msg.str());
+    msg.clear();
+    msg.str("");
+
+    sum = elementSum(4, 4, array);
+
+    // test starts
+    try {
+        (*func)(array, size, bestStart, bestEnd, bestSum);
+        // assert the return values
+        if (bestStart == 4 && bestEnd == 4 && bestSum == sum)
+            testFlag = 0;
+    } catch (exception& e) {
+        error(__func__, e.what());
+    }
+
+    // test log
+    msg << "Expected: bestStart = 0, ";
+    msg << "Actual: bestStart = " << bestStart;
+    info("", msg.str());
+    msg.clear();
+    msg.str("");
+    msg << "Expected: bestEnd = 9, ";
+    msg << "Actual: bestEnd = " << bestEnd;
+    info("", msg.str());
+    msg.clear();
+    msg.str("");
+    msg << "Expected: bestSum = " << sum << ", ";
+    msg << "Actual: bestSum = " << bestSum;
+    info("", msg.str());
+    msg.clear();
+    msg.str("");
+    msg << "Test Finished: ";
+    if (testFlag != 0) msg << "Failed";
+    else msg << "Passed";
+    info("", msg.str());
+
+    return testFlag;
+} // array_all_negative_test
 
 
 /**

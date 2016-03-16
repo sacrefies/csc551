@@ -10,9 +10,11 @@
 // -----------------------------------------------------------------------------
 
 
+#include <cstdlib>
 #include <string>
 #include <sstream>
 #include <iomanip>
+#include <iostream>
 #include "headers/unitTests.h"
 #include "headers/logging.h"
 #include "headers/maxSumSubarray.h"
@@ -22,9 +24,63 @@ using std::string;
 using std::stringstream;
 using std::setprecision;
 using std::fixed;
+using std::cout;
+using std::endl;
+using std::exit;
+
+
+static void printUsage(const char * prog) {
+    cout << "Usage: " << prog << " [OPTIONS]" << endl;
+    cout << "Run all unit test cases for max-sub searching algorithms";
+    cout << " with random integers filled." << endl;
+    cout << endl;
+    cout << "Options:" << endl;
+    cout << "  -l           Set the screen log ouput level. The levels are:";
+    cout << endl;
+    cout << "                   debug, warn, error, info" << endl;
+    cout << "               The default is warn if this argument is not specified.";
+    cout << endl;
+    cout << "  -h/--help    Print this usage information." << endl;
+    cout << "E.g.:" << endl;
+    cout << "  " << prog << " -l debug" << endl;
+    cout << "  " << prog << endl;
+    cout << endl;
+}
 
 
 int main(const int argc, const char * argv[]) {
+    string arg;
+
+    switch (argc) {
+        case 0:
+            setLoggingLevel(WARNING);
+            break;
+        case 3:
+            arg = string(argv[1]);
+            if (0 == arg.compare("-l")) {
+                string lvl = string(argv[2]);
+                if (0 == lvl.compare("debug"))
+                    setLoggingLevel(DEBUG);
+                else if (0 == lvl.compare("warn"))
+                    setLoggingLevel(WARNING);
+                else if (0 == lvl.compare("error"))
+                    setLoggingLevel(ERROR);
+                else if (0 == lvl.compare("info"))
+                    setLoggingLevel(INFO);
+                else {
+                    printUsage(argv[0]);
+                    exit(-1);
+                }
+            }
+            if (0 == arg.compare("-h") || 0 == arg.compare("--help")) {
+                printUsage(argv[0]);
+                exit(-1);
+            }
+            break;
+        default:
+            printUsage(argv[0]);
+            exit(-1);
+    } // switch
 
     const string testSuite = "Test Suite: Max Subarray Search";
     stringstream msg;
@@ -33,8 +89,6 @@ int main(const int argc, const char * argv[]) {
     double passRatio;
 
     passed = failed = total = 0;
-
-    setLoggingLevel(WARNING);
 
     info("", "************* " + testSuite + " *************");
 
@@ -51,6 +105,16 @@ int main(const int argc, const char * argv[]) {
     total++;
 
     rc = array_size_2_all_positive_test(bruteForce_n2);
+    passed += (rc == 0) ? 1 : 0;
+    failed += (rc == -1) ? 1 : 0;
+    total++;
+
+    rc = array_size_2_all_negative_test(bruteForce_n2);
+    passed += (rc == 0) ? 1 : 0;
+    failed += (rc == -1) ? 1 : 0;
+    total++;
+
+    rc = array_all_negative_test(bruteForce_n2);
     passed += (rc == 0) ? 1 : 0;
     failed += (rc == -1) ? 1 : 0;
     total++;
@@ -113,6 +177,16 @@ int main(const int argc, const char * argv[]) {
     failed += (rc == -1) ? 1 : 0;
     total++;
 
+    rc = array_size_2_all_negative_test(bruteForce_n3);
+    passed += (rc == 0) ? 1 : 0;
+    failed += (rc == -1) ? 1 : 0;
+    total++;
+
+    rc = array_all_negative_test(bruteForce_n3);
+    passed += (rc == 0) ? 1 : 0;
+    failed += (rc == -1) ? 1 : 0;
+    total++;
+
     rc = array_size_2_1_pos_1_neg_test(bruteForce_n3);
     passed += (rc == 0) ? 1 : 0;
     failed += (rc == -1) ? 1 : 0;
@@ -166,6 +240,16 @@ int main(const int argc, const char * argv[]) {
     total++;
 
     rc = array_size_2_all_positive_test(find_maximum_subarray);
+    passed += (rc == 0) ? 1 : 0;
+    failed += (rc == -1) ? 1 : 0;
+    total++;
+
+    rc = array_size_2_all_negative_test(find_maximum_subarray);
+    passed += (rc == 0) ? 1 : 0;
+    failed += (rc == -1) ? 1 : 0;
+    total++;
+
+    rc = array_all_negative_test(find_maximum_subarray);
     passed += (rc == 0) ? 1 : 0;
     failed += (rc == -1) ? 1 : 0;
     total++;
@@ -227,6 +311,16 @@ int main(const int argc, const char * argv[]) {
     failed += (rc == -1) ? 1 : 0;
     total++;
 
+    rc = array_size_2_all_negative_test(kadane);
+    passed += (rc == 0) ? 1 : 0;
+    failed += (rc == -1) ? 1 : 0;
+    total++;
+
+    rc = array_all_negative_test(kadane);
+    passed += (rc == 0) ? 1 : 0;
+    failed += (rc == -1) ? 1 : 0;
+    total++;
+
     rc = array_size_2_1_pos_1_neg_test(kadane);
     passed += (rc == 0) ? 1 : 0;
     failed += (rc == -1) ? 1 : 0;
@@ -269,10 +363,11 @@ int main(const int argc, const char * argv[]) {
 
     // statistic data output
     passRatio = (double)passed / total * 100;
-    msg << " TOTAL CASES: " << total << ", ";
+    info("", "");
+    msg << "TOTAL CASES: " << total << ", ";
     msg << "PASSED: " << passed << ", ";
     msg << "FAILED: " << failed;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
 
