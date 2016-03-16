@@ -218,7 +218,7 @@ int array_size_2_all_positive_test(void (* func)(int[], int, int&, int&, int&)) 
  */
 int array_size_2_all_negative_test(void (* func)(int[], int, int&, int&, int&)) {
     stringstream msg;
-    const string testName = "Array Size 2: All Positive Test";
+    const string testName = "Array Size 2: All Negative Test";
     int testFlag = -1;
     int bestStart, bestEnd, bestSum, sum, size;
     int array[2] = { -10, -1 };
