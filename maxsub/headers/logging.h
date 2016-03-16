@@ -30,15 +30,6 @@ enum loglevel_t {
 
 
 /**
- * Copy and convert every char in a string to their upper case form.
- *
- * @param buffer A string whose characters need to be converted to upper case form.
- * @return A string which is a copy of the src with every character capitalized.
- */
-string toUpperCase(string src);
-
-
-/**
  * Set current logging level
  */
 void setLoggingLevel(loglevel_t logLevel);

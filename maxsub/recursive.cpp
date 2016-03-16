@@ -10,7 +10,9 @@
 // Copyright (c) 2016 by Jason Meng, no rights reserved.
 // -----------------------------------------------------------------------------
 
+#include <climits>
 #include <iostream>
+#include <sstream>
 #include "headers/arrayUtils.h"
 #include "headers/logging.h"
 
@@ -51,13 +53,13 @@ static void find_maximum_subarray_crossover(int list[], int low, int mid,
     int sum = 0;
 
     // get max subarray of mid-left part, the ending i is the bestStart.
-    for (int i = mid, i >= low; --i) {
+    for (int i = mid; i >= low; --i) {
         sum += list[i];
         if (sum > lMax) {
-            lmax = sum;
+            lMax = sum;
             bestStart = i;
             /** debugging                */
-            msg << "lmax=" << lmax << ", bs=i=" << i;
+            msg << "lmax=" << lMax << ", bs=" << i;
             debug(__func__, msg.str());
             msg.clear();
             msg.str("");
@@ -67,13 +69,13 @@ static void find_maximum_subarray_crossover(int list[], int low, int mid,
     // clear up sum
     sum = 0;
     // get max subarray of mid-right part, the ending i is the bestEnd
-    for (int i = mid + 1, i <= high, ++i) {
+    for (int i = mid + 1; i <= high; ++i) {
         sum += list[i];
         if (sum > rMax) {
             rMax = sum;
             bestEnd = i;
             /** debugging                */
-            msg << "rmax=" << lmax << ", be=i=" << i;
+            msg << "rmax=" << lMax << ", be=" << i;
             debug(__func__, msg.str());
             msg.clear();
             msg.str("");
@@ -136,7 +138,7 @@ static void find_maximum_subarray(int list[], int low, int high, int& bestStart,
     int mid = (high + low) >> 1;
 
     msg << "low=" << low << " mid=" << mid << " high=" << high;
-    debug(__func__, msg);
+    debug(__func__, msg.str());
     msg.clear();
     msg.str("");
 
@@ -198,17 +200,8 @@ void find_maximum_subarray(int list[], int size, int& bestStart, int& bestEnd,
                            int& bestSum) {
     stringstream msg;
 
-    if (size < 1) {
-        msg << "The specified size is less than 1.";
-        msg << " bestStart, bestEnd as set as -1,";
-        msg << " bestSum is set as INT_MIN.";
-        error(__func__, msg.str());
-        msg.clear();
-        msg.str("");
-        msg << "size=" << size;
-        debug(__func__, msg.str());
-        return;
-    }
+    bestStart = bestEnd = -1;
+    bestSum = INT_MIN;
 
     if (list == NULL) {
         msg << "The specified array is NULL.";
@@ -221,6 +214,21 @@ void find_maximum_subarray(int list[], int size, int& bestStart, int& bestEnd,
         debug(__func__, msg.str());
         return;
     }
+
+    if (size < 1) {
+        msg << "The specified size is less than 1.";
+        msg << " bestStart, bestEnd as set as -1,";
+        msg << " bestSum is set as INT_MIN.";
+        error(__func__, msg.str());
+        msg.clear();
+        msg.str("");
+        msg << "size=" << size;
+        debug(__func__, msg.str());
+        return;
+    }
+
+    bestSum = list[0];
+    bestStart = bestEnd = 0;
 
     if (size == 1) {
         msg << "The given size = 1.";
@@ -236,7 +244,7 @@ void find_maximum_subarray(int list[], int size, int& bestStart, int& bestEnd,
     // print the input array
     printArray(size, list, "Array input:");
     // recursive approach
-    find_maximum_subarray(int list[], 0, size - 1, bestStart, bestEnd, bestSum);
+    find_maximum_subarray(list, 0, size - 1, bestStart, bestEnd, bestSum);
     // debugging
     msg.clear();
     msg.str("");

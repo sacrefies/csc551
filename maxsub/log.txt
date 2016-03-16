@@ -1,0 +1,609 @@
+2016-03-16 06:21:58.139 -  INFO - ************* Test Suite: Max Subarray Search *************
+2016-03-16 06:21:58.140 -  INFO - ::::::::: Tests on bruteForce_n2 :::::::::
+2016-03-16 06:21:58.140 -  INFO - Test Name: NULL Array Test
+2016-03-16 06:21:58.140 - ERROR - bruteForce_n2 - The specified array is NULL. bestStart, bestEnd as set as -1, bestSum is set as INT_MIN.
+2016-03-16 06:21:58.140 -  INFO - Expected: bestStart = -1, Actual: bestStart = -1
+2016-03-16 06:21:58.140 -  INFO - Expected: bestEnd = -1, Actual: bestEnd = -1
+2016-03-16 06:21:58.140 -  INFO - Expected: bestSum = -2147483648, Actual: bestSum = -2147483648
+2016-03-16 06:21:58.140 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.140 -  INFO - Test Name: Array In Size 1 Test
+2016-03-16 06:21:58.140 -  INFO - Expected: bestStart = 0, Actual: bestStart = 0
+2016-03-16 06:21:58.140 -  INFO - Expected: bestEnd = 0, Actual: bestEnd = 0
+2016-03-16 06:21:58.140 -  INFO - Expected: bestSum = 10, Actual: bestSum = 10
+2016-03-16 06:21:58.140 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.140 -  INFO - Test Name: Array Size 2: All Positive Test
+2016-03-16 06:21:58.140 -  INFO - printArray - Array input:[10,11,]
+2016-03-16 06:21:58.140 -  INFO - printArray - The max subarray:[10,11,]
+2016-03-16 06:21:58.140 -  INFO - Expected: bestStart = 0, Actual: bestStart = 0
+2016-03-16 06:21:58.140 -  INFO - Expected: bestEnd = 1, Actual: bestEnd = 1
+2016-03-16 06:21:58.140 -  INFO - Expected: bestSum = 21, Actual: bestSum = 21
+2016-03-16 06:21:58.140 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.140 -  INFO - Test Name: Array Size 2: First Positive Second Negative Test
+2016-03-16 06:21:58.140 -  INFO - printArray - Array input:[10,-11,]
+2016-03-16 06:21:58.140 -  INFO - printArray - The max subarray:[10,]
+2016-03-16 06:21:58.140 -  INFO - Expected: bestStart = 0, Actual: bestStart = 0
+2016-03-16 06:21:58.140 -  INFO - Expected: bestEnd = 0, Actual: bestEnd = 0
+2016-03-16 06:21:58.140 -  INFO - Expected: bestSum = 10, Actual: bestSum = 10
+2016-03-16 06:21:58.140 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.140 -  INFO - Test Name: Array Size 2: First Negative Second Positive Test
+2016-03-16 06:21:58.140 -  INFO - printArray - Array input:[-10,11,]
+2016-03-16 06:21:58.140 -  INFO - printArray - The max subarray:[11,]
+2016-03-16 06:21:58.140 -  INFO - Expected: bestStart = 1, Actual: bestStart = 1
+2016-03-16 06:21:58.140 -  INFO - Expected: bestEnd = 1, Actual: bestEnd = 1
+2016-03-16 06:21:58.140 -  INFO - Expected: bestSum = 11, Actual: bestSum = 11
+2016-03-16 06:21:58.140 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.140 -  INFO - Test Name: Array Self Max Test
+2016-03-16 06:21:58.140 -  INFO - printArray - Array input:[1,3,4,5,2,4,8,10,8,3,]
+2016-03-16 06:21:58.140 -  INFO - printArray - The max subarray:[1,3,4,5,2,4,8,10,8,3,]
+2016-03-16 06:21:58.140 -  INFO - Expected: bestStart = 0, Actual: bestStart = 0
+2016-03-16 06:21:58.140 -  INFO - Expected: bestEnd = 9, Actual: bestEnd = 9
+2016-03-16 06:21:58.140 -  INFO - Expected: bestSum = 48, Actual: bestSum = 48
+2016-03-16 06:21:58.140 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.140 -  INFO - Test Name: Array Max in 1st Half Test
+2016-03-16 06:21:58.140 -  INFO - printArray - Array input:[1,3,4,5,0,-2,-1,3,0,-8,]
+2016-03-16 06:21:58.140 -  INFO - printArray - The max subarray:[1,3,4,5,]
+2016-03-16 06:21:58.140 -  INFO - Expected: bestStart = 0, Actual: bestStart = 0
+2016-03-16 06:21:58.140 -  INFO - Expected: bestEnd = 3, Actual: bestEnd = 3
+2016-03-16 06:21:58.141 -  INFO - Expected: bestSum = 13, Actual: bestSum = 13
+2016-03-16 06:21:58.141 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.141 -  INFO - Test Name: Array Max in 2nd Half Test
+2016-03-16 06:21:58.141 -  INFO - printArray - Array input:[-1,3,-2,-5,1,2,-1,3,7,8,]
+2016-03-16 06:21:58.141 -  INFO - printArray - The max subarray:[1,2,-1,3,7,8,]
+2016-03-16 06:21:58.141 -  INFO - Expected: bestStart = 4, Actual: bestStart = 4
+2016-03-16 06:21:58.141 -  INFO - Expected: bestEnd = 9, Actual: bestEnd = 9
+2016-03-16 06:21:58.141 -  INFO - Expected: bestSum = 20, Actual: bestSum = 20
+2016-03-16 06:21:58.141 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.141 -  INFO - Test Name: Array Max in middle Test
+2016-03-16 06:21:58.141 -  INFO - printArray - Array input:[-1,3,-4,5,0,2,-1,3,0,-8,]
+2016-03-16 06:21:58.141 -  INFO - printArray - The max subarray:[5,0,2,-1,3,]
+2016-03-16 06:21:58.141 -  INFO - Expected: bestStart = 3, Actual: bestStart = 3
+2016-03-16 06:21:58.141 -  INFO - Expected: bestEnd = 7, Actual: bestEnd = 7
+2016-03-16 06:21:58.141 -  INFO - Expected: bestSum = 9, Actual: bestSum = 9
+2016-03-16 06:21:58.141 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.141 -  INFO - Test Name: Array Max In 1st Half and across Middle Test
+2016-03-16 06:21:58.141 -  INFO - printArray - Array input:[-1,3,4,5,0,2,1,-3,0,-8,]
+2016-03-16 06:21:58.141 -  INFO - printArray - The max subarray:[3,4,5,0,2,1,]
+2016-03-16 06:21:58.141 -  INFO - Expected: bestStart = 1, Actual: bestStart = 1
+2016-03-16 06:21:58.141 -  INFO - Expected: bestEnd = 6, Actual: bestEnd = 6
+2016-03-16 06:21:58.141 -  INFO - Expected: bestSum = 15, Actual: bestSum = 15
+2016-03-16 06:21:58.141 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.141 -  INFO - Test Name: Array Max In 2st Half and across Middle Test
+2016-03-16 06:21:58.141 -  INFO - printArray - Array input:[-1,-3,-2,5,0,2,1,7,4,-8,]
+2016-03-16 06:21:58.141 -  INFO - printArray - The max subarray:[5,0,2,1,7,4,]
+2016-03-16 06:21:58.141 -  INFO - Expected: bestStart = 3, Actual: bestStart = 3
+2016-03-16 06:21:58.141 -  INFO - Expected: bestEnd = 8, Actual: bestEnd = 8
+2016-03-16 06:21:58.141 -  INFO - Expected: bestSum = 19, Actual: bestSum = 19
+2016-03-16 06:21:58.141 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.141 -  INFO - ::::::::: Tests on bruteForce_n3 :::::::::
+2016-03-16 06:21:58.141 -  INFO - Test Name: NULL Array Test
+2016-03-16 06:21:58.141 - ERROR - bruteForce_n3 - The specified array is NULL. bestStart, bestEnd as set as -1, bestSum is set as INT_MIN.
+2016-03-16 06:21:58.141 -  INFO - Expected: bestStart = -1, Actual: bestStart = -1
+2016-03-16 06:21:58.141 -  INFO - Expected: bestEnd = -1, Actual: bestEnd = -1
+2016-03-16 06:21:58.141 -  INFO - Expected: bestSum = -2147483648, Actual: bestSum = -2147483648
+2016-03-16 06:21:58.141 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.141 -  INFO - Test Name: Array In Size 1 Test
+2016-03-16 06:21:58.141 -  INFO - Expected: bestStart = 0, Actual: bestStart = 0
+2016-03-16 06:21:58.141 -  INFO - Expected: bestEnd = 0, Actual: bestEnd = 0
+2016-03-16 06:21:58.141 -  INFO - Expected: bestSum = 10, Actual: bestSum = 10
+2016-03-16 06:21:58.141 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.141 -  INFO - Test Name: Array Size 2: All Positive Test
+2016-03-16 06:21:58.141 -  INFO - printArray - Array input:[10,11,]
+2016-03-16 06:21:58.141 -  INFO - printArray - The max subarray:[10,11,]
+2016-03-16 06:21:58.141 -  INFO - Expected: bestStart = 0, Actual: bestStart = 0
+2016-03-16 06:21:58.141 -  INFO - Expected: bestEnd = 1, Actual: bestEnd = 1
+2016-03-16 06:21:58.141 -  INFO - Expected: bestSum = 21, Actual: bestSum = 21
+2016-03-16 06:21:58.141 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.141 -  INFO - Test Name: Array Size 2: First Positive Second Negative Test
+2016-03-16 06:21:58.141 -  INFO - printArray - Array input:[10,-11,]
+2016-03-16 06:21:58.141 -  INFO - printArray - The max subarray:[10,]
+2016-03-16 06:21:58.141 -  INFO - Expected: bestStart = 0, Actual: bestStart = 0
+2016-03-16 06:21:58.141 -  INFO - Expected: bestEnd = 0, Actual: bestEnd = 0
+2016-03-16 06:21:58.141 -  INFO - Expected: bestSum = 10, Actual: bestSum = 10
+2016-03-16 06:21:58.141 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.141 -  INFO - Test Name: Array Size 2: First Negative Second Positive Test
+2016-03-16 06:21:58.141 -  INFO - printArray - Array input:[-10,11,]
+2016-03-16 06:21:58.141 -  INFO - printArray - The max subarray:[11,]
+2016-03-16 06:21:58.141 -  INFO - Expected: bestStart = 1, Actual: bestStart = 1
+2016-03-16 06:21:58.141 -  INFO - Expected: bestEnd = 1, Actual: bestEnd = 1
+2016-03-16 06:21:58.141 -  INFO - Expected: bestSum = 11, Actual: bestSum = 11
+2016-03-16 06:21:58.141 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.141 -  INFO - Test Name: Array Self Max Test
+2016-03-16 06:21:58.141 -  INFO - printArray - Array input:[1,3,4,5,2,4,8,10,8,3,]
+2016-03-16 06:21:58.141 -  INFO - printArray - The max subarray:[1,3,4,5,2,4,8,10,8,3,]
+2016-03-16 06:21:58.141 -  INFO - Expected: bestStart = 0, Actual: bestStart = 0
+2016-03-16 06:21:58.141 -  INFO - Expected: bestEnd = 9, Actual: bestEnd = 9
+2016-03-16 06:21:58.141 -  INFO - Expected: bestSum = 48, Actual: bestSum = 48
+2016-03-16 06:21:58.141 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.141 -  INFO - Test Name: Array Max in 1st Half Test
+2016-03-16 06:21:58.141 -  INFO - printArray - Array input:[1,3,4,5,0,-2,-1,3,0,-8,]
+2016-03-16 06:21:58.141 -  INFO - printArray - The max subarray:[1,3,4,5,]
+2016-03-16 06:21:58.141 -  INFO - Expected: bestStart = 0, Actual: bestStart = 0
+2016-03-16 06:21:58.141 -  INFO - Expected: bestEnd = 3, Actual: bestEnd = 3
+2016-03-16 06:21:58.141 -  INFO - Expected: bestSum = 13, Actual: bestSum = 13
+2016-03-16 06:21:58.141 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.141 -  INFO - Test Name: Array Max in 2nd Half Test
+2016-03-16 06:21:58.141 -  INFO - printArray - Array input:[-1,3,-2,-5,1,2,-1,3,7,8,]
+2016-03-16 06:21:58.141 -  INFO - printArray - The max subarray:[1,2,-1,3,7,8,]
+2016-03-16 06:21:58.141 -  INFO - Expected: bestStart = 4, Actual: bestStart = 4
+2016-03-16 06:21:58.141 -  INFO - Expected: bestEnd = 9, Actual: bestEnd = 9
+2016-03-16 06:21:58.141 -  INFO - Expected: bestSum = 20, Actual: bestSum = 20
+2016-03-16 06:21:58.141 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.141 -  INFO - Test Name: Array Max in middle Test
+2016-03-16 06:21:58.141 -  INFO - printArray - Array input:[-1,3,-4,5,0,2,-1,3,0,-8,]
+2016-03-16 06:21:58.141 -  INFO - printArray - The max subarray:[5,0,2,-1,3,]
+2016-03-16 06:21:58.141 -  INFO - Expected: bestStart = 3, Actual: bestStart = 3
+2016-03-16 06:21:58.141 -  INFO - Expected: bestEnd = 7, Actual: bestEnd = 7
+2016-03-16 06:21:58.141 -  INFO - Expected: bestSum = 9, Actual: bestSum = 9
+2016-03-16 06:21:58.141 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.141 -  INFO - Test Name: Array Max In 1st Half and across Middle Test
+2016-03-16 06:21:58.141 -  INFO - printArray - Array input:[-1,3,4,5,0,2,1,-3,0,-8,]
+2016-03-16 06:21:58.141 -  INFO - printArray - The max subarray:[3,4,5,0,2,1,]
+2016-03-16 06:21:58.142 -  INFO - Expected: bestStart = 1, Actual: bestStart = 1
+2016-03-16 06:21:58.142 -  INFO - Expected: bestEnd = 6, Actual: bestEnd = 6
+2016-03-16 06:21:58.142 -  INFO - Expected: bestSum = 15, Actual: bestSum = 15
+2016-03-16 06:21:58.142 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.142 -  INFO - Test Name: Array Max In 2st Half and across Middle Test
+2016-03-16 06:21:58.142 -  INFO - printArray - Array input:[-1,-3,-2,5,0,2,1,7,4,-8,]
+2016-03-16 06:21:58.142 -  INFO - printArray - The max subarray:[5,0,2,1,7,4,]
+2016-03-16 06:21:58.142 -  INFO - Expected: bestStart = 3, Actual: bestStart = 3
+2016-03-16 06:21:58.142 -  INFO - Expected: bestEnd = 8, Actual: bestEnd = 8
+2016-03-16 06:21:58.142 -  INFO - Expected: bestSum = 19, Actual: bestSum = 19
+2016-03-16 06:21:58.142 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.142 -  INFO - ::::::::: Tests on recursive :::::::::
+2016-03-16 06:21:58.142 -  INFO - Test Name: NULL Array Test
+2016-03-16 06:21:58.142 - ERROR - find_maximum_subarray - The specified array is NULL. bestStart, bestEnd as set as -1, bestSum is set as INT_MIN.
+2016-03-16 06:21:58.142 -  INFO - Expected: bestStart = -1, Actual: bestStart = -1
+2016-03-16 06:21:58.142 -  INFO - Expected: bestEnd = -1, Actual: bestEnd = -1
+2016-03-16 06:21:58.142 -  INFO - Expected: bestSum = -2147483648, Actual: bestSum = -2147483648
+2016-03-16 06:21:58.142 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.142 -  INFO - Test Name: Array In Size 1 Test
+2016-03-16 06:21:58.142 -  INFO - find_maximum_subarray - The given size = 1. The max sub array is the specified array itself.
+2016-03-16 06:21:58.142 -  INFO - Expected: bestStart = 0, Actual: bestStart = 0
+2016-03-16 06:21:58.142 -  INFO - Expected: bestEnd = 0, Actual: bestEnd = 0
+2016-03-16 06:21:58.142 -  INFO - Expected: bestSum = 10, Actual: bestSum = 10
+2016-03-16 06:21:58.142 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.142 -  INFO - Test Name: Array Size 2: All Positive Test
+2016-03-16 06:21:58.142 -  INFO - printArray - Array input:[10,11,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[10,11,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[10,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Found subarray:[10,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[11,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Found subarray:[11,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Crossover:[10,11,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Found subarray:[10,11,]
+2016-03-16 06:21:58.142 -  INFO - printArray - The max subarray:[10,11,]
+2016-03-16 06:21:58.142 -  INFO - Expected: bestStart = 0, Actual: bestStart = 0
+2016-03-16 06:21:58.142 -  INFO - Expected: bestEnd = 1, Actual: bestEnd = 1
+2016-03-16 06:21:58.142 -  INFO - Expected: bestSum = 21, Actual: bestSum = 21
+2016-03-16 06:21:58.142 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.142 -  INFO - Test Name: Array Size 2: First Positive Second Negative Test
+2016-03-16 06:21:58.142 -  INFO - printArray - Array input:[10,-11,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[10,-11,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[10,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Found subarray:[10,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[-11,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Found subarray:[-11,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Crossover:[10,-11,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Found subarray:[10,]
+2016-03-16 06:21:58.142 -  INFO - printArray - The max subarray:[10,]
+2016-03-16 06:21:58.142 -  INFO - Expected: bestStart = 0, Actual: bestStart = 0
+2016-03-16 06:21:58.142 -  INFO - Expected: bestEnd = 0, Actual: bestEnd = 0
+2016-03-16 06:21:58.142 -  INFO - Expected: bestSum = 10, Actual: bestSum = 10
+2016-03-16 06:21:58.142 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.142 -  INFO - Test Name: Array Size 2: First Negative Second Positive Test
+2016-03-16 06:21:58.142 -  INFO - printArray - Array input:[-10,11,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[-10,11,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[-10,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Found subarray:[-10,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[11,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Found subarray:[11,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Crossover:[-10,11,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Found subarray:[11,]
+2016-03-16 06:21:58.142 -  INFO - printArray - The max subarray:[11,]
+2016-03-16 06:21:58.142 -  INFO - Expected: bestStart = 1, Actual: bestStart = 1
+2016-03-16 06:21:58.142 -  INFO - Expected: bestEnd = 1, Actual: bestEnd = 1
+2016-03-16 06:21:58.142 -  INFO - Expected: bestSum = 11, Actual: bestSum = 11
+2016-03-16 06:21:58.142 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.142 -  INFO - Test Name: Array Self Max Test
+2016-03-16 06:21:58.142 -  INFO - printArray - Array input:[1,3,4,5,2,4,8,10,8,3,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[1,3,4,5,2,4,8,10,8,3,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[1,3,4,5,2,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[1,3,4,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[1,3,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[1,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Found subarray:[1,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[3,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Found subarray:[3,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Crossover:[1,3,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Found subarray:[1,3,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[4,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Found subarray:[4,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Crossover:[1,3,4,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Found subarray:[1,3,4,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[5,2,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[5,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Found subarray:[5,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[2,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Found subarray:[2,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Crossover:[5,2,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Found subarray:[5,2,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Crossover:[1,3,4,5,2,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Found subarray:[1,3,4,5,2,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[4,8,10,8,3,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[4,8,10,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[4,8,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[4,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Found subarray:[4,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[8,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Found subarray:[8,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Crossover:[4,8,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Found subarray:[4,8,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Looking into:[10,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Found subarray:[10,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Crossover:[4,8,10,]
+2016-03-16 06:21:58.142 -  INFO - printArray - Found subarray:[4,8,10,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[8,3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[8,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[8,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Crossover:[8,3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[8,3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Crossover:[4,8,10,8,3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[4,8,10,8,3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Crossover:[1,3,4,5,2,4,8,10,8,3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[1,3,4,5,2,4,8,10,8,3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - The max subarray:[1,3,4,5,2,4,8,10,8,3,]
+2016-03-16 06:21:58.143 -  INFO - Expected: bestStart = 0, Actual: bestStart = 0
+2016-03-16 06:21:58.143 -  INFO - Expected: bestEnd = 9, Actual: bestEnd = 9
+2016-03-16 06:21:58.143 -  INFO - Expected: bestSum = 48, Actual: bestSum = 48
+2016-03-16 06:21:58.143 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.143 -  INFO - Test Name: Array Max in 1st Half Test
+2016-03-16 06:21:58.143 -  INFO - printArray - Array input:[1,3,4,5,0,-2,-1,3,0,-8,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[1,3,4,5,0,-2,-1,3,0,-8,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[1,3,4,5,0,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[1,3,4,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[1,3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[1,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[1,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Crossover:[1,3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[1,3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[4,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[4,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Crossover:[1,3,4,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[1,3,4,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[5,0,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[5,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[5,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[0,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[0,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Crossover:[5,0,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[5,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Crossover:[1,3,4,5,0,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[1,3,4,5,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[-2,-1,3,0,-8,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[-2,-1,3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[-2,-1,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[-2,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[-2,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[-1,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[-1,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Crossover:[-2,-1,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[-1,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Crossover:[-2,-1,3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[0,-8,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[0,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[0,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[-8,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[-8,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Crossover:[0,-8,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[0,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Crossover:[-2,-1,3,0,-8,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Crossover:[1,3,4,5,0,-2,-1,3,0,-8,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[1,3,4,5,]
+2016-03-16 06:21:58.143 -  INFO - printArray - The max subarray:[1,3,4,5,]
+2016-03-16 06:21:58.143 -  INFO - Expected: bestStart = 0, Actual: bestStart = 0
+2016-03-16 06:21:58.143 -  INFO - Expected: bestEnd = 3, Actual: bestEnd = 3
+2016-03-16 06:21:58.143 -  INFO - Expected: bestSum = 13, Actual: bestSum = 13
+2016-03-16 06:21:58.143 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.143 -  INFO - Test Name: Array Max in 2nd Half Test
+2016-03-16 06:21:58.143 -  INFO - printArray - Array input:[-1,3,-2,-5,1,2,-1,3,7,8,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[-1,3,-2,-5,1,2,-1,3,7,8,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[-1,3,-2,-5,1,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[-1,3,-2,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[-1,3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[-1,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[-1,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Crossover:[-1,3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[-2,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[-2,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Crossover:[-1,3,-2,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[-5,1,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[-5,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[-5,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[1,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[1,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Crossover:[-5,1,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[1,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Crossover:[-1,3,-2,-5,1,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Found subarray:[3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[2,-1,3,7,8,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[2,-1,3,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[2,-1,]
+2016-03-16 06:21:58.143 -  INFO - printArray - Looking into:[2,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[2,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[-1,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[-1,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Crossover:[2,-1,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[2,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[3,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[3,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Crossover:[2,-1,3,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[2,-1,3,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[7,8,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[7,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[7,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[8,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[8,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Crossover:[7,8,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[7,8,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Crossover:[2,-1,3,7,8,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[2,-1,3,7,8,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Crossover:[-1,3,-2,-5,1,2,-1,3,7,8,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[1,2,-1,3,7,8,]
+2016-03-16 06:21:58.144 -  INFO - printArray - The max subarray:[1,2,-1,3,7,8,]
+2016-03-16 06:21:58.144 -  INFO - Expected: bestStart = 4, Actual: bestStart = 4
+2016-03-16 06:21:58.144 -  INFO - Expected: bestEnd = 9, Actual: bestEnd = 9
+2016-03-16 06:21:58.144 -  INFO - Expected: bestSum = 20, Actual: bestSum = 20
+2016-03-16 06:21:58.144 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.144 -  INFO - Test Name: Array Max in middle Test
+2016-03-16 06:21:58.144 -  INFO - printArray - Array input:[-1,3,-4,5,0,2,-1,3,0,-8,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[-1,3,-4,5,0,2,-1,3,0,-8,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[-1,3,-4,5,0,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[-1,3,-4,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[-1,3,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[-1,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[-1,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[3,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[3,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Crossover:[-1,3,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[3,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[-4,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[-4,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Crossover:[-1,3,-4,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[3,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[5,0,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[5,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[5,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[0,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[0,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Crossover:[5,0,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[5,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Crossover:[-1,3,-4,5,0,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[5,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[2,-1,3,0,-8,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[2,-1,3,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[2,-1,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[2,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[2,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[-1,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[-1,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Crossover:[2,-1,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[2,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[3,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[3,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Crossover:[2,-1,3,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[2,-1,3,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[0,-8,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[0,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[0,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[-8,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[-8,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Crossover:[0,-8,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[0,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Crossover:[2,-1,3,0,-8,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[2,-1,3,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Crossover:[-1,3,-4,5,0,2,-1,3,0,-8,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[5,0,2,-1,3,]
+2016-03-16 06:21:58.144 -  INFO - printArray - The max subarray:[5,0,2,-1,3,]
+2016-03-16 06:21:58.144 -  INFO - Expected: bestStart = 3, Actual: bestStart = 3
+2016-03-16 06:21:58.144 -  INFO - Expected: bestEnd = 7, Actual: bestEnd = 7
+2016-03-16 06:21:58.144 -  INFO - Expected: bestSum = 9, Actual: bestSum = 9
+2016-03-16 06:21:58.144 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.144 -  INFO - Test Name: Array Max In 1st Half and across Middle Test
+2016-03-16 06:21:58.144 -  INFO - printArray - Array input:[-1,3,4,5,0,2,1,-3,0,-8,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[-1,3,4,5,0,2,1,-3,0,-8,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[-1,3,4,5,0,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[-1,3,4,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[-1,3,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[-1,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[-1,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[3,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[3,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Crossover:[-1,3,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[3,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[4,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[4,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Crossover:[-1,3,4,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[3,4,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[5,0,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[5,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[5,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Looking into:[0,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Found subarray:[0,]
+2016-03-16 06:21:58.144 -  INFO - printArray - Crossover:[5,0,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[5,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Crossover:[-1,3,4,5,0,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[3,4,5,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[2,1,-3,0,-8,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[2,1,-3,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[2,1,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[2,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[2,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[1,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[1,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Crossover:[2,1,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[2,1,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[-3,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[-3,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Crossover:[2,1,-3,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[2,1,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[0,-8,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[0,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[0,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[-8,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[-8,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Crossover:[0,-8,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[0,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Crossover:[2,1,-3,0,-8,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[2,1,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Crossover:[-1,3,4,5,0,2,1,-3,0,-8,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[3,4,5,0,2,1,]
+2016-03-16 06:21:58.145 -  INFO - printArray - The max subarray:[3,4,5,0,2,1,]
+2016-03-16 06:21:58.145 -  INFO - Expected: bestStart = 1, Actual: bestStart = 1
+2016-03-16 06:21:58.145 -  INFO - Expected: bestEnd = 6, Actual: bestEnd = 6
+2016-03-16 06:21:58.145 -  INFO - Expected: bestSum = 15, Actual: bestSum = 15
+2016-03-16 06:21:58.145 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.145 -  INFO - Test Name: Array Max In 2st Half and across Middle Test
+2016-03-16 06:21:58.145 -  INFO - printArray - Array input:[-1,-3,-2,5,0,2,1,7,4,-8,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[-1,-3,-2,5,0,2,1,7,4,-8,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[-1,-3,-2,5,0,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[-1,-3,-2,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[-1,-3,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[-1,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[-1,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[-3,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[-3,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Crossover:[-1,-3,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[-1,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[-2,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[-2,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Crossover:[-1,-3,-2,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[-1,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[5,0,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[5,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[5,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[0,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[0,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Crossover:[5,0,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[5,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Crossover:[-1,-3,-2,5,0,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[5,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[2,1,7,4,-8,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[2,1,7,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[2,1,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[2,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[2,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[1,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[1,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Crossover:[2,1,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[2,1,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[7,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[7,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Crossover:[2,1,7,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[2,1,7,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[4,-8,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[4,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[4,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Looking into:[-8,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[-8,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Crossover:[4,-8,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[4,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Crossover:[2,1,7,4,-8,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[2,1,7,4,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Crossover:[-1,-3,-2,5,0,2,1,7,4,-8,]
+2016-03-16 06:21:58.145 -  INFO - printArray - Found subarray:[5,0,2,1,7,4,]
+2016-03-16 06:21:58.145 -  INFO - printArray - The max subarray:[5,0,2,1,7,4,]
+2016-03-16 06:21:58.145 -  INFO - Expected: bestStart = 3, Actual: bestStart = 3
+2016-03-16 06:21:58.145 -  INFO - Expected: bestEnd = 8, Actual: bestEnd = 8
+2016-03-16 06:21:58.145 -  INFO - Expected: bestSum = 19, Actual: bestSum = 19
+2016-03-16 06:21:58.145 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.145 -  INFO - ::::::::: Tests on Kadane :::::::::
+2016-03-16 06:21:58.145 -  INFO - Test Name: NULL Array Test
+2016-03-16 06:21:58.145 - ERROR - kadane - The specified array is NULL. bestStart, bestEnd as set as -1, bestSum is set as INT_MIN.
+2016-03-16 06:21:58.145 -  INFO - Expected: bestStart = -1, Actual: bestStart = -1
+2016-03-16 06:21:58.145 -  INFO - Expected: bestEnd = -1, Actual: bestEnd = -1
+2016-03-16 06:21:58.145 -  INFO - Expected: bestSum = -2147483648, Actual: bestSum = -2147483648
+2016-03-16 06:21:58.145 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.145 -  INFO - Test Name: Array In Size 1 Test
+2016-03-16 06:21:58.145 -  INFO - kadane - The given size = 1. The max sub array is the specified array itself.
+2016-03-16 06:21:58.145 -  INFO - Expected: bestStart = 0, Actual: bestStart = 0
+2016-03-16 06:21:58.145 -  INFO - Expected: bestEnd = 0, Actual: bestEnd = 0
+2016-03-16 06:21:58.146 -  INFO - Expected: bestSum = 10, Actual: bestSum = 10
+2016-03-16 06:21:58.146 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.146 -  INFO - Test Name: Array Size 2: All Positive Test
+2016-03-16 06:21:58.146 -  INFO - printArray - Array input:[10,11,]
+2016-03-16 06:21:58.146 -  INFO - printArray - The max subarray:[10,11,]
+2016-03-16 06:21:58.146 -  INFO - Expected: bestStart = 0, Actual: bestStart = 0
+2016-03-16 06:21:58.146 -  INFO - Expected: bestEnd = 1, Actual: bestEnd = 1
+2016-03-16 06:21:58.146 -  INFO - Expected: bestSum = 21, Actual: bestSum = 21
+2016-03-16 06:21:58.146 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.146 -  INFO - Test Name: Array Size 2: First Positive Second Negative Test
+2016-03-16 06:21:58.146 -  INFO - printArray - Array input:[10,-11,]
+2016-03-16 06:21:58.146 -  INFO - printArray - The max subarray:[10,]
+2016-03-16 06:21:58.146 -  INFO - Expected: bestStart = 0, Actual: bestStart = 0
+2016-03-16 06:21:58.146 -  INFO - Expected: bestEnd = 0, Actual: bestEnd = 0
+2016-03-16 06:21:58.146 -  INFO - Expected: bestSum = 10, Actual: bestSum = 10
+2016-03-16 06:21:58.146 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.146 -  INFO - Test Name: Array Size 2: First Negative Second Positive Test
+2016-03-16 06:21:58.146 -  INFO - printArray - Array input:[-10,11,]
+2016-03-16 06:21:58.146 -  INFO - printArray - The max subarray:[11,]
+2016-03-16 06:21:58.146 -  INFO - Expected: bestStart = 1, Actual: bestStart = 1
+2016-03-16 06:21:58.146 -  INFO - Expected: bestEnd = 1, Actual: bestEnd = 1
+2016-03-16 06:21:58.146 -  INFO - Expected: bestSum = 11, Actual: bestSum = 11
+2016-03-16 06:21:58.146 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.146 -  INFO - Test Name: Array Self Max Test
+2016-03-16 06:21:58.146 -  INFO - printArray - Array input:[1,3,4,5,2,4,8,10,8,3,]
+2016-03-16 06:21:58.146 -  INFO - printArray - The max subarray:[1,3,4,5,2,4,8,10,8,3,]
+2016-03-16 06:21:58.146 -  INFO - Expected: bestStart = 0, Actual: bestStart = 0
+2016-03-16 06:21:58.146 -  INFO - Expected: bestEnd = 9, Actual: bestEnd = 9
+2016-03-16 06:21:58.146 -  INFO - Expected: bestSum = 48, Actual: bestSum = 48
+2016-03-16 06:21:58.146 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.146 -  INFO - Test Name: Array Max in 1st Half Test
+2016-03-16 06:21:58.146 -  INFO - printArray - Array input:[1,3,4,5,0,-2,-1,3,0,-8,]
+2016-03-16 06:21:58.146 -  INFO - printArray - The max subarray:[1,3,4,5,]
+2016-03-16 06:21:58.146 -  INFO - Expected: bestStart = 0, Actual: bestStart = 0
+2016-03-16 06:21:58.146 -  INFO - Expected: bestEnd = 3, Actual: bestEnd = 3
+2016-03-16 06:21:58.146 -  INFO - Expected: bestSum = 13, Actual: bestSum = 13
+2016-03-16 06:21:58.146 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.146 -  INFO - Test Name: Array Max in 2nd Half Test
+2016-03-16 06:21:58.146 -  INFO - printArray - Array input:[-1,3,-2,-5,1,2,-1,3,7,8,]
+2016-03-16 06:21:58.146 -  INFO - printArray - The max subarray:[1,2,-1,3,7,8,]
+2016-03-16 06:21:58.146 -  INFO - Expected: bestStart = 4, Actual: bestStart = 4
+2016-03-16 06:21:58.146 -  INFO - Expected: bestEnd = 9, Actual: bestEnd = 9
+2016-03-16 06:21:58.146 -  INFO - Expected: bestSum = 20, Actual: bestSum = 20
+2016-03-16 06:21:58.146 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.146 -  INFO - Test Name: Array Max in middle Test
+2016-03-16 06:21:58.146 -  INFO - printArray - Array input:[-1,3,-4,5,0,2,-1,3,0,-8,]
+2016-03-16 06:21:58.146 -  INFO - printArray - The max subarray:[5,0,2,-1,3,]
+2016-03-16 06:21:58.146 -  INFO - Expected: bestStart = 3, Actual: bestStart = 3
+2016-03-16 06:21:58.146 -  INFO - Expected: bestEnd = 7, Actual: bestEnd = 7
+2016-03-16 06:21:58.146 -  INFO - Expected: bestSum = 9, Actual: bestSum = 9
+2016-03-16 06:21:58.146 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.146 -  INFO - Test Name: Array Max In 1st Half and across Middle Test
+2016-03-16 06:21:58.146 -  INFO - printArray - Array input:[-1,3,4,5,0,2,1,-3,0,-8,]
+2016-03-16 06:21:58.146 -  INFO - printArray - The max subarray:[3,4,5,0,2,1,]
+2016-03-16 06:21:58.146 -  INFO - Expected: bestStart = 1, Actual: bestStart = 1
+2016-03-16 06:21:58.146 -  INFO - Expected: bestEnd = 6, Actual: bestEnd = 6
+2016-03-16 06:21:58.146 -  INFO - Expected: bestSum = 15, Actual: bestSum = 15
+2016-03-16 06:21:58.146 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.146 -  INFO - Test Name: Array Max In 2st Half and across Middle Test
+2016-03-16 06:21:58.146 -  INFO - printArray - Array input:[-1,-3,-2,5,0,2,1,7,4,-8,]
+2016-03-16 06:21:58.146 -  INFO - printArray - The max subarray:[5,0,2,1,7,4,]
+2016-03-16 06:21:58.146 -  INFO - Expected: bestStart = 3, Actual: bestStart = 3
+2016-03-16 06:21:58.146 -  INFO - Expected: bestEnd = 8, Actual: bestEnd = 8
+2016-03-16 06:21:58.146 -  INFO - Expected: bestSum = 19, Actual: bestSum = 19
+2016-03-16 06:21:58.146 -  INFO - Test Finished: Passed
+2016-03-16 06:21:58.146 -  INFO - main -  TOTAL CASES: 44, PASSED: 44, FAILED: 0
+2016-03-16 06:21:58.146 -  INFO - PASS RATIO: 100.00%PASS RATIO: 100.00%
+2016-03-16 06:21:58.146 -  INFO - **************************************

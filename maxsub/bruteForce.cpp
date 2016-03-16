@@ -12,7 +12,7 @@
 
 
 // C++ includes
-#include <limits>
+#include <climits>
 #include <iostream>
 #include <sstream>
 // custom includes
@@ -90,16 +90,16 @@ void bruteForce_n2(int list[], int size, int& bestStart, int& bestEnd,
     int sum;
     // Starting from index 0, search the possible maximum sub array to size - 1.
     for (int startIndex = 0; startIndex < size; ++startIndex) {         // T(n)
-        sum = 0;                                                        // O(1)
+        sum = 0;                                                        // C1
         for (int endIndex = startIndex; endIndex < size; ++endIndex) {  // T(n)
             // get the current sum from [bestStart..Index]
-            sum += list[endIndex];                                      // O(1)
+            sum += list[endIndex];                                      // C2
             // if the current sum is larger than the current bestSum,
             // record this current maximum
-            if (bestSum < sum) {                                        // O(1)
-                bestSum = sum;                                          // O(1)
-                bestEnd = endIndex;                                     // O(1)
-                bestStart = startIndex;                                 // O(1)
+            if (bestSum < sum) {                                        // C3
+                bestSum = sum;                                          // C4
+                bestEnd = endIndex;                                     // C5
+                bestStart = startIndex;                                 // C6
             }
         }
     }
@@ -173,23 +173,22 @@ void bruteForce_n3(int list[], int size, int& bestStart, int& bestEnd,
     // print the input array
     printArray(size, list, "Array input:");
 
-    int max_sum = INT_MIN;
-    int local_max_sum = 0;
-    for (int i = 0; i < size; ++i) {
-        for (int j = i; j < size; ++j) {
+    int local_max_sum;
+    for (int start = 0; start < size; ++start) {                    // T(n)
+        for (int end = start; end < size; ++end) {                  // T(n)
             // get the local sum
-            for (int k = i; k <= j; ++k)
-                local_max_sum += list[k];
-            if (local_max_sum > max_sum) {
-                max_sum = local_max_sum;
-                if (max_sum > bestSum) {
-                    bestStart = i;
-                    bestEnd = j;
-                    bestSum = max_sum;
-                }
+            local_max_sum = 0;                                      // C1
+            for (int index = start; index <= end; ++index) {        // T(n)
+                local_max_sum += list[index];                       // C2
+            }
+            if (local_max_sum > bestSum) {                          // C3
+                bestStart = start;                                  // C4
+                bestEnd = end;                                      // C5
+                bestSum = local_max_sum;                            // C6
             }
         }
     }
+
     msg << "bestSum=" << bestSum;
     msg << " bestStart=" << bestStart;
     msg << " bestEnd=" << bestEnd;

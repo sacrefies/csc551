@@ -12,10 +12,10 @@
 
 
 // C++ includes
+#include <climits>
 #include <cstdlib>
 #include <iostream>
 #include <sstream>
-#include <limits>
 #include "headers/logging.h"
 
 
@@ -39,7 +39,7 @@ void fillArray(const int seed, const int size, int list[]) {
     }
     srand(seed);
     for (int i = 0; i < size; i++) {
-        list[i] = rand() % size;
+        list[i] = (rand() % size) - (size >> 1);
     }
 }
 
@@ -62,7 +62,6 @@ void printArray(const int size, int list[], const string msg) {
     }
     message << "]";
     info(__func__, message.str());
-    debug(__func__, message.str());
 }
 
 /**
@@ -84,11 +83,10 @@ void printArray(const int startIndex, const int endIndex, int list[],
     }
     message << msg << "[";
     for (int i = startIndex; i <= endIndex; ++i) {
-        cout << list[i] << ",";
+        message << list[i] << ",";
     }
     message << "]";
     info(__func__, message.str());
-    debug(__func__, message.str());
 }
 
 

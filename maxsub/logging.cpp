@@ -55,22 +55,6 @@ static string getFormattedTime() {
 
 
 /**
- * Copy and convert every char in a string to their upper case form.
- *
- * @param buffer A string whose characters need to be converted to upper case form.
- * @return A string which is a copy of the src with every character capitalized.
- */
-string toUpperCase(string src) {
-    stringstream dst;
-
-    for (int i = 0; i < src.length(); ++i) {
-        dst << toupper(src.at(i));
-    }
-    return dst.str();
-}
-
-
-/**
  * Set current logging level
  */
 void setLoggingLevel(loglevel_t logLevel) {
@@ -87,8 +71,9 @@ void setLoggingLevel(loglevel_t logLevel) {
 void debug(string func, string msg) {
     if (level <= DEBUG) {
         cout << getFormattedTime() << " - ";
-        cout << setw(5) << toUpperCase("debug") << " - ";
-        cout << func << " - ";
+        cout << setw(5) << "DEBUG" << " - ";
+        if (!func.empty())
+            cout << func << " - ";
         cout << msg << endl;
     }
 }
@@ -103,8 +88,9 @@ void debug(string func, string msg) {
 void info(string func, string msg) {
     if (level <= INFO) {
         cout << getFormattedTime() << " - ";
-        cout << setw(5) << toUpperCase("info") << " - ";
-        cout << func << " - ";
+        cout << setw(5) << "INFO" << " - ";
+        if (!func.empty())
+            cout << func << " - ";
         cout << msg << endl;
     }
 }
@@ -119,8 +105,9 @@ void info(string func, string msg) {
 void warning(string func, string msg) {
     if (level <= WARNING) {
         cout << getFormattedTime() << " - ";
-        cout << setw(5) << toUpperCase("warn") << " - ";
-        cout << func << " - ";
+        cout << setw(5) << "WARN" << " - ";
+        if (!func.empty())
+            cout << func << " - ";
         cout << msg << endl;
     }
 }
@@ -135,8 +122,9 @@ void warning(string func, string msg) {
 void error(string func, string msg) {
     if (level <= ERROR) {
         cout << getFormattedTime() << " - ";
-        cout << setw(5) << toUpperCase("error") << " - ";
-        cout << func << " - ";
+        cout << setw(5) << "ERROR" << " - ";
+        if (!func.empty())
+            cout << func << " - ";
         cout << msg << endl;
     }
 }

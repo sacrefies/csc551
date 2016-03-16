@@ -19,9 +19,14 @@
 #include <exception>
 #include <string>
 #include <stdexcept>
+#include <unistd.h>
 // custom includess
 #include "headers/maxSumSubarray.h"
 #include "headers/logging.h"
+#include "headers/arrayUtils.h"
+
+
+#define SLEEP_TIME 1
 
 
 using std::stringstream;
@@ -31,6 +36,9 @@ using std::strlen;
 using std::atoi;
 using std::exit;
 using std::runtime_error;
+using std::cout;
+using std::endl;
+
 
 /**
  * A runner function to run the algorithms. This function generates numOfArrays
@@ -52,32 +60,34 @@ static void max_sub_random_runner(int numOfArrays, string funcName,
     int sizeSeed;
     // to store the generated arrays
     int ** array = new int *[numOfArrays];
-    int sizes[] = new int[numOfArrays];
+    int * sizes = new int[numOfArrays];
 
     stringstream msg;
 
-    msg << "----------- MAX-SUB Runner: " << numOfArrays;
-    msg << " Arrays to Run -----------";
+    msg << "******************* MAX-SUB Runner: " << numOfArrays;
+    msg << " Arrays to Run *******************";
     info(__func__, msg.str());
     msg.clear();
     msg.str("");
-    msg << "Function: " << funcName;
+    msg << ":::::::: Function: " << funcName;
     info(__func__, msg.str());
     msg.clear();
     msg.str("");
 
     // set the sizes for the arrays to feed to the maxsub functions
     debug(__func__, "Generating array sizes");
+    debug(__func__, "Program sleeps 1 sec for each seed generation.");
     for (int i = 0; i < numOfArrays; ++i) {
         // gen random sizes
         sizeSeed = time(NULL);
+        sleep(SLEEP_TIME);
         msg << "seed: " << sizeSeed;
         debug(__func__, msg.str());
         msg.clear();
         msg.str("");
         srand(sizeSeed);
-        // only gen size < 20
-        sizes[i] = rand() % 20;
+        // only gen size <= 20
+        sizes[i] = rand() % 20 + 1;
         msg << "Size of array[" << i << "]: " << sizes[i];
         debug(__func__, msg.str());
         msg.clear();
@@ -88,7 +98,7 @@ static void max_sub_random_runner(int numOfArrays, string funcName,
     debug(__func__, "Generating arrays with random integers");
     for (int i = 0; i < numOfArrays; ++i) {
         array[i] = new int[sizes[i]];
-        fillArray(time(NULL), sizess[i], array[i]);
+        fillArray(time(NULL), sizes[i], (int *)array[i]);
     }
 
     // iterate each array. do max-sub searching
@@ -98,14 +108,15 @@ static void max_sub_random_runner(int numOfArrays, string funcName,
         info(__func__, msg.str());
         msg.clear();
         msg.str("");
-        printArray(sizes[i], array[i], "Searching on");
         try {
-            (*func)(array[i], sizes[i], bestStart, bestEnd, bestSum);
+            (*func)((int *)array[i], sizes[i], bestStart, bestEnd, bestSum);
             msg << "bestStart = " << bestStart;
             msg << " bestEnd = " << bestEnd;
             msg << " bestSum = " << bestSum;
             info(__func__, msg.str());
-            printArray(bestStart, bestEnd, array[i], "The max-sub");
+            msg.clear();
+            msg.str("");
+            printArray(bestStart, bestEnd, array[i], "The max-sub:");
         } catch (exception& e) {
             error(__func__, e.what());
         }
@@ -115,7 +126,7 @@ static void max_sub_random_runner(int numOfArrays, string funcName,
     debug(__func__, "Disposing arrays");
     for (int i = 0; i < numOfArrays; ++i) {
         delete [] array[i];
-        msg << "Disposing A[" << i << "] in size " << size[i];
+        msg << "Disposing A[" << i << "] in size " << sizes[i];
         debug(__func__, msg.str());
         msg.clear();
         msg.str("");
@@ -199,7 +210,7 @@ int main(int argc, char * argv[]) {
         for (int i = 1; i < argc; ++i) {
             // -n argument
             if (strncmp(argv[i], "-n", 2) == 0) {
-                if (i != 1 || i != 3)
+                if (i != 1 && i != 3)
                     throw runtime_error("Argument is not at correct position.");
                 if (isNumber(argv[i + 1]) != 0)
                     throw runtime_error("Not a valid number");
@@ -210,7 +221,7 @@ int main(int argc, char * argv[]) {
             }
             // -m argument
             if (strncmp(argv[i], "-m", 2) == 0) {
-                if (i != 1 || i != 3)
+                if (i != 1 && i != 3)
                     throw runtime_error("Argument is not at correct position.");
                 method = string(argv[i + 1]);
             }
@@ -224,8 +235,8 @@ int main(int argc, char * argv[]) {
     // enclose function execution in a try block
     try {
         // set logging logLevel
-        setLoggingLevel(DEBUG);
-        // setLoggingLevel(INFO);
+        // setLoggingLevel(DEBUG);
+        setLoggingLevel(INFO);
 
         // do the searching
         cout << method.empty();

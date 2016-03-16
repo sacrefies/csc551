@@ -10,16 +10,17 @@
 // Copyright (c) 2016 by Jason Meng, no rights reserved.
 // -----------------------------------------------------------------------------
 
+#include <climits>
 #include <iostream>
 #include <sstream>
 #include "headers/arrayUtils.h"
 #include "headers/logging.h"
 
 
-using std: cout;
-using std: endl;
-using std: stringstream;
-using std: string;
+using std::cout;
+using std::endl;
+using std::stringstream;
+using std::string;
 
 
 /**
@@ -37,9 +38,12 @@ using std: string;
  *                  one of the 3 return values.
  */
 void kadane(int list[], int size, int& bestStart, int& bestEnd, int& bestSum) {
-    int currSum;
+    int currSum, localStart;
     /** only for debugging   */
     stringstream msg;
+
+    bestSum = INT_MIN;
+    bestStart = bestEnd = -1;
 
     if (list == NULL) {
         msg << "The specified array is NULL.";
@@ -65,7 +69,7 @@ void kadane(int list[], int size, int& bestStart, int& bestEnd, int& bestSum) {
         return;
     }
 
-    bestStart = bestEnd = 0;
+    bestStart = bestEnd = localStart = 0;
     bestSum = currSum = list[0];
 
     if (size == 1) {
@@ -82,9 +86,17 @@ void kadane(int list[], int size, int& bestStart, int& bestEnd, int& bestSum) {
     // print the input array
     printArray(size, list, "Array input:");
     for (int i = 1; i < size; ++i) {
-        currSum = (list[i] > currSum + list[i]) ? bestStart = list[i] :
-                currSum + list[i];
+        if (list[i] > currSum + list[i]) {
+            // when this case happens, the max-sub actually is reset to list[i],
+            // therefore bestStart is reset to i
+            currSum = list[i];
+            localStart = i;
+        } else {
+            // continue adding up
+            currSum += list[i];
+        }
         if (bestSum < currSum) {
+            bestStart = localStart;
             bestEnd = i;
             bestSum = currSum;
         }

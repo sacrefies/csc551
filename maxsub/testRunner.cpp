@@ -21,7 +21,7 @@
 using std::string;
 using std::stringstream;
 using std::setprecision;
-using std::abs;
+using std::fixed;
 
 
 int main(const int argc, const char * argv[]) {
@@ -32,25 +32,25 @@ int main(const int argc, const char * argv[]) {
     int passed, failed, total, rc;
     double passRatio;
 
-    passed = failed == total = 0;
+    passed = failed = total = 0;
 
-    setLoggingLevel(DEBUG);
+    setLoggingLevel(WARNING);
 
-    info(__func__, "************* " + testSuite + " *************");
+    info("", "************* " + testSuite + " *************");
 
     // tests against bruteForce_n2
-    info(__func__, "--------- Tests on bruteForce_n2 ---------");
+    info("", "::::::::: Tests on bruteForce_n2 :::::::::");
     rc = array_null_test(bruteForce_n2);
     passed += (rc == 0) ? 1 : 0;
     failed += (rc == -1) ? 1 : 0;
     total++;
 
-    rc == array_size_1_test(bruteForce_n2);
+    rc = array_size_1_test(bruteForce_n2);
     passed += (rc == 0) ? 1 : 0;
     failed += (rc == -1) ? 1 : 0;
     total++;
 
-    rc == array_size_2_all_positive_test(bruteForce_n2);
+    rc = array_size_2_all_positive_test(bruteForce_n2);
     passed += (rc == 0) ? 1 : 0;
     failed += (rc == -1) ? 1 : 0;
     total++;
@@ -97,7 +97,7 @@ int main(const int argc, const char * argv[]) {
 
 
     // tests against bruteForce_n2
-    info(__func__, "--------- Tests on bruteForce_n3 ---------");
+    info("", "::::::::: Tests on bruteForce_n3 :::::::::");
     rc = array_null_test(bruteForce_n3);
     passed += (rc == 0) ? 1 : 0;
     failed += (rc == -1) ? 1 : 0;
@@ -154,7 +154,7 @@ int main(const int argc, const char * argv[]) {
     total++;
 
     // tests against bruteForce_n2
-    info(__func__, "--------- Tests on recursive ---------");
+    info("", "::::::::: Tests on recursive :::::::::");
     rc = array_null_test(find_maximum_subarray);
     passed += (rc == 0) ? 1 : 0;
     failed += (rc == -1) ? 1 : 0;
@@ -211,7 +211,7 @@ int main(const int argc, const char * argv[]) {
     total++;
 
     // tests against bruteForce_n2
-    info(__func__, "--------- Tests on recursive ---------");
+    info("", "::::::::: Tests on Kadane :::::::::");
     rc = array_null_test(kadane);
     passed += (rc == 0) ? 1 : 0;
     failed += (rc == -1) ? 1 : 0;
@@ -268,15 +268,15 @@ int main(const int argc, const char * argv[]) {
     total++;
 
     // statistic data output
-    passRatio = (double)passed / total;
-    msg << " TOTAL CASES: " << total;
-    msg << "PASSED: " << passed;
-    msg << " FAILED: " << failed;
+    passRatio = (double)passed / total * 100;
+    msg << " TOTAL CASES: " << total << ", ";
+    msg << "PASSED: " << passed << ", ";
+    msg << "FAILED: " << failed;
     info(__func__, msg.str());
     msg.clear();
     msg.str("");
 
-    msg << "PASS RATIO: " << setprecision(2) << passRatio;
-    info(__func__, msg.str());
-    info(__func__, "**************************************");
+    msg << "PASS RATIO: " << setprecision(2) << fixed << passRatio << "%";
+    info("", msg.str());
+    info("", "**************************************");
 } // main

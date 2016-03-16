@@ -12,11 +12,11 @@
 
 
 // C++ includes
+#include <climits>
 #include <iostream>
 #include <exception>
 #include <sstream>
 #include <string>
-#include <limits>
 // custom includes
 #include "headers/arrayUtils.h"
 #include "headers/logging.h"
@@ -24,6 +24,7 @@
 
 using std::exception;
 using std::stringstream;
+using std::endl;
 
 
 /**
@@ -40,11 +41,13 @@ int array_null_test(void (* func)(int[], int, int&, int&, int&)) {
     stringstream msg;
     const string testName = "NULL Array Test";
     int testFlag = -1;
-    int bestStart, bestEnd, bestSum;
+    int bestStart, bestEnd, bestSum, size;
     int * array = NULL;
 
-    msg << "----------- Test Name: " << testName << " -----------";
-    info(__func__, msg.str());
+    size = 1;
+
+    msg << "Test Name: " << testName;
+    info("", msg.str());
     msg.clear();
     msg.str("");
 
@@ -61,23 +64,23 @@ int array_null_test(void (* func)(int[], int, int&, int&, int&)) {
     // test log
     msg << "Expected: bestStart = -1, ";
     msg << "Actual: bestStart = " << bestStart;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Expected: bestEnd = -1, ";
-    msg << "Actual: bestEnd = " << bestEnd
-    info(__func__, msg.str());
+    msg << "Actual: bestEnd = " << bestEnd;
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Expected: bestSum = " << INT_MIN << ", ";
-    msg << "Actual: bestSum = " << bestSum
-    info(__func__, msg.str());
+    msg << "Actual: bestSum = " << bestSum;
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Test Finished: ";
     if (testFlag != 0) msg << "Failed";
     else msg << "Passed";
-    info(__func__, msg.str());
+    info("", msg.str());
 
     return testFlag;
 } // array_null_test
@@ -97,11 +100,13 @@ int array_size_1_test(void (* func)(int[], int, int&, int&, int&)) {
     stringstream msg;
     const string testName = "Array In Size 1 Test";
     int testFlag = -1;
-    int bestStart, bestEnd, bestSum;
+    int bestStart, bestEnd, bestSum, size;
     int array[1] = { 10 };
 
-    msg << "----------- Test Name: " << testName << " -----------";
-    info(__func__, msg.str());
+    size = 1;
+
+    msg << "Test Name: " << testName;
+    info("", msg.str());
     msg.clear();
     msg.str("");
 
@@ -118,23 +123,23 @@ int array_size_1_test(void (* func)(int[], int, int&, int&, int&)) {
     // test log
     msg << "Expected: bestStart = 0, ";
     msg << "Actual: bestStart = " << bestStart;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Expected: bestEnd = 0, ";
     msg << "Actual: bestEnd = " << bestEnd;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Expected: bestSum = " << array[0] << ", ";
     msg << "Actual: bestSum = " << bestSum;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Test Finished: ";
     if (testFlag != 0) msg << "Failed";
     else msg << "Passed";
-    info(__func__, msg.str());
+    info("", msg.str());
 
     return testFlag;
 } // array_size_1_test
@@ -154,11 +159,13 @@ int array_size_2_all_positive_test(void (* func)(int[], int, int&, int&, int&)) 
     stringstream msg;
     const string testName = "Array Size 2: All Positive Test";
     int testFlag = -1;
-    int bestStart, bestEnd, bestSum, sum;
+    int bestStart, bestEnd, bestSum, sum, size;
     int array[2] = { 10, 11 };
 
-    msg << "----------- Test Name: " << testName << " -----------";
-    info(__func__, msg.str());
+    size = 2;
+
+    msg << "Test Name: " << testName;
+    info("", msg.str());
     msg.clear();
     msg.str("");
 
@@ -177,20 +184,23 @@ int array_size_2_all_positive_test(void (* func)(int[], int, int&, int&, int&)) 
     // test log
     msg << "Expected: bestStart = 0, ";
     msg << "Actual: bestStart = " << bestStart;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Expected: bestEnd = 1, ";
     msg << "Actual: bestEnd = " << bestEnd;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Expected: bestSum = " << sum << ", ";
-    msg << "Actual: bestSum = " << bestSum << endl;
+    msg << "Actual: bestSum = " << bestSum;
+    info("", msg.str());
+    msg.clear();
+    msg.str("");
     msg << "Test Finished: ";
     if (testFlag != 0) msg << "Failed";
     else msg << "Passed";
-    info(__func__, msg.str());
+    info("", msg.str());
 
     return testFlag;
 } // array_size_2_all_positive_test
@@ -212,9 +222,10 @@ int array_size_2_1_pos_1_neg_test(void (* func)(int[], int, int&, int&, int&)) {
     int testFlag = -1;
     int bestStart, bestEnd, bestSum, sum;
     int array[2] = { 10, -11 };
+    int size = 2;
 
-    msg << "----------- Test Name: " << testName << " -----------";
-    info(__func__, msg.str());
+    msg << "Test Name: " << testName;
+    info("", msg.str());
     msg.clear();
     msg.str("");
 
@@ -233,23 +244,23 @@ int array_size_2_1_pos_1_neg_test(void (* func)(int[], int, int&, int&, int&)) {
     // test log
     msg << "Expected: bestStart = 0, ";
     msg << "Actual: bestStart = " << bestStart;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Expected: bestEnd = 0, ";
     msg << "Actual: bestEnd = " << bestEnd;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Expected: bestSum = " << sum << ", ";
     msg << "Actual: bestSum = " << bestSum;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Test Finished: ";
     if (testFlag != 0) msg << "Failed";
     else msg << "Passed";
-    info(__func__, msg.str());
+    info("", msg.str());
 
     return testFlag;
 } // array_size_2_1_pos_1_neg_test
@@ -271,9 +282,10 @@ int array_size_2_1_neg_1_pos_test(void (* func)(int[], int, int&, int&, int&)) {
     int testFlag = -1;
     int bestStart, bestEnd, bestSum, sum;
     int array[2] = { -10, 11 };
+    int size = 2;
 
-    msg << "----------- Test Name: " << testName << " -----------";
-    info(__func__, msg.str());
+    msg << "Test Name: " << testName;
+    info("", msg.str());
     msg.clear();
     msg.str("");
 
@@ -292,23 +304,23 @@ int array_size_2_1_neg_1_pos_test(void (* func)(int[], int, int&, int&, int&)) {
     // test log
     msg << "Expected: bestStart = 1, ";
     msg << "Actual: bestStart = " << bestStart;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Expected: bestEnd = 1, ";
     msg << "Actual: bestEnd = " << bestEnd;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Expected: bestSum = " << sum << ", ";
     msg << "Actual: bestSum = " << bestSum;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Test Finished: ";
     if (testFlag != 0) msg << "Failed";
     else msg << "Passed";
-    info(__func__, msg.str());
+    info("", msg.str());
 
     return testFlag;
 } // array_size_2_1_neg_1_pos_test
@@ -330,9 +342,10 @@ int array_self_max_test(void (* func)(int[], int, int&, int&, int&)) {
     int testFlag = -1;
     int bestStart, bestEnd, bestSum, sum;
     int array[10] = { 1, 3, 4, 5, 2, 4, 8, 10, 8, 3 };
+    int size = 10;
 
-    msg << "----------- Test Name: " << testName << " -----------";
-    info(__func__, msg.str());
+    msg << "Test Name: " << testName;
+    info("", msg.str());
     msg.clear();
     msg.str("");
 
@@ -351,23 +364,23 @@ int array_self_max_test(void (* func)(int[], int, int&, int&, int&)) {
     // test log
     msg << "Expected: bestStart = 0, ";
     msg << "Actual: bestStart = " << bestStart;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Expected: bestEnd = 9, ";
     msg << "Actual: bestEnd = " << bestEnd;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Expected: bestSum = " << sum << ", ";
     msg << "Actual: bestSum = " << bestSum;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Test Finished: ";
     if (testFlag != 0) msg << "Failed";
     else msg << "Passed";
-    info(__func__, msg.str());
+    info("", msg.str());
 
     return testFlag;
 } // array_self_max_test
@@ -389,9 +402,10 @@ int array_max_1st_half_test(void (* func)(int[], int, int&, int&, int&)) {
     int testFlag = -1;
     int bestStart, bestEnd, bestSum, sum;
     int array[10] = { 1, 3, 4, 5, 0, -2, -1, 3, 0, -8 };
+    int size = 10;
 
-    msg << "----------- Test Name: " << testName << " -----------";
-    info(__func__, msg.str());
+    msg << "Test Name: " << testName;
+    info("", msg.str());
     msg.clear();
     msg.str("");
 
@@ -410,23 +424,23 @@ int array_max_1st_half_test(void (* func)(int[], int, int&, int&, int&)) {
     // test log
     msg << "Expected: bestStart = 0, ";
     msg << "Actual: bestStart = " << bestStart;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Expected: bestEnd = 3, ";
     msg << "Actual: bestEnd = " << bestEnd;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Expected: bestSum = " << sum << ", ";
     msg << "Actual: bestSum = " << bestSum;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Test Finished: ";
     if (testFlag != 0) msg << "Failed";
     else msg << "Passed";
-    info(__func__, msg.str());
+    info("", msg.str());
 
     return testFlag;
 } // array_max_1st_half_test
@@ -447,10 +461,11 @@ int array_max_2nd_half_test(void (* func)(int[], int, int&, int&, int&)) {
     const string testName = "Array Max in 2nd Half Test";
     int testFlag = -1;
     int bestStart, bestEnd, bestSum, sum;
-    int array[10] = { -1, 3, 4, -5, 0, 2, -1, 3, 0, 8 };
+    int array[10] = { -1, 3, -2, -5, 1, 2, -1, 3, 7, 8 };
+    int size = 10;
 
-    msg << "----------- Test Name: " << testName << " -----------";
-    info(__func__, msg.str());
+    msg << "Test Name: " << testName;
+    info("", msg.str());
     msg.clear();
     msg.str("");
 
@@ -469,23 +484,23 @@ int array_max_2nd_half_test(void (* func)(int[], int, int&, int&, int&)) {
     // test log
     msg << "Expected: bestStart = 4, ";
     msg << "Actual: bestStart = " << bestStart;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Expected: bestEnd = 9, ";
     msg << "Actual: bestEnd = " << bestEnd;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Expected: bestSum = " << sum << ", ";
     msg << "Actual: bestSum = " << bestSum;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Test Finished: ";
     if (testFlag != 0) msg << "Failed";
     else msg << "Passed";
-    info(__func__, msg.str());
+    info("", msg.str());
 
     return testFlag;
 } // array_max_2nd_half_test
@@ -507,9 +522,10 @@ int array_max_mid_test(void (* func)(int[], int, int&, int&, int&)) {
     int testFlag = -1;
     int bestStart, bestEnd, bestSum, sum;
     int array[10] = { -1, 3, -4, 5, 0, 2, -1, 3, 0, -8 };
+    int size = 10;
 
-    msg << "----------- Test Name: " << testName << " -----------";
-    info(__func__, msg.str());
+    msg << "Test Name: " << testName;
+    info("", msg.str());
     msg.clear();
     msg.str("");
 
@@ -528,26 +544,26 @@ int array_max_mid_test(void (* func)(int[], int, int&, int&, int&)) {
     // test log
     msg << "Expected: bestStart = 3, ";
     msg << "Actual: bestStart = " << bestStart;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Expected: bestEnd = 7, ";
     msg << "Actual: bestEnd = " << bestEnd;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Expected: bestSum = " << sum << ", ";
     msg << "Actual: bestSum = " << bestSum;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Test Finished: ";
     if (testFlag != 0) msg << "Failed";
     else msg << "Passed";
-    info(__func__, msg.str());
+    info("", msg.str());
 
     return testFlag;
-}
+} // array_max_mid_test
 
 
 /**
@@ -567,9 +583,10 @@ int array_max_mid_left_leaning_test(void (* func)(int[], int, int&, int&, int&))
     int testFlag = -1;
     int bestStart, bestEnd, bestSum, sum;
     int array[10] = { -1, 3, 4, 5, 0, 2, 1, -3, 0, -8 };
+    int size = 10;
 
-    msg << "----------- Test Name: " << testName << " -----------";
-    info(__func__, msg.str());
+    msg << "Test Name: " << testName;
+    info("", msg.str());
     msg.clear();
     msg.str("");
 
@@ -588,26 +605,26 @@ int array_max_mid_left_leaning_test(void (* func)(int[], int, int&, int&, int&))
     // test log
     msg << "Expected: bestStart = 1, ";
     msg << "Actual: bestStart = " << bestStart;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Expected: bestEnd = 6, ";
     msg << "Actual: bestEnd = " << bestEnd;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Expected: bestSum = " << sum << ", ";
     msg << "Actual: bestSum = " << bestSum;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Test Finished: ";
     if (testFlag != 0) msg << "Failed";
     else msg << "Passed";
-    info(__func__, msg.str());
+    info("", msg.str());
 
     return testFlag;
-}
+} // array_max_mid_left_leaning_test
 
 
 /**
@@ -627,9 +644,10 @@ int array_max_mid_right_leaning_test(void (* func)(int[], int, int&, int&, int&)
     int testFlag = -1;
     int bestStart, bestEnd, bestSum, sum;
     int array[10] = { -1, -3, -2, 5, 0, 2, 1, 7, 4, -8 };
+    int size = 10;
 
-    msg << "----------- Test Name: " << testName << " -----------";
-    info(__func__, msg.str());
+    msg << "Test Name: " << testName;
+    info("", msg.str());
     msg.clear();
     msg.str("");
 
@@ -648,23 +666,23 @@ int array_max_mid_right_leaning_test(void (* func)(int[], int, int&, int&, int&)
     // test log
     msg << "Expected: bestStart = 3, ";
     msg << "Actual: bestStart = " << bestStart;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Expected: bestEnd = 8, ";
     msg << "Actual: bestEnd = " << bestEnd;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Expected: bestSum = " << sum << ", ";
     msg << "Actual: bestSum = " << bestSum;
-    info(__func__, msg.str());
+    info("", msg.str());
     msg.clear();
     msg.str("");
     msg << "Test Finished: ";
     if (testFlag != 0) msg << "Failed";
     else msg << "Passed";
-    info(__func__, msg.str());
+    info("", msg.str());
 
     return testFlag;
-}
+} // array_max_mid_right_leaning_test
