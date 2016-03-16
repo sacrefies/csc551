@@ -85,7 +85,7 @@ void setLoggingLevel(loglevel_t logLevel) {
  * @param msg  log message
  */
 void debug(string func, string msg) {
-    if (level >= DEBUG) {
+    if (level <= DEBUG) {
         cout << getFormattedTime() << " - ";
         cout << setw(5) << toUpperCase("debug") << " - ";
         cout << func << " - ";
@@ -101,7 +101,7 @@ void debug(string func, string msg) {
  * @param msg  log message
  */
 void info(string func, string msg) {
-    if (level >= INFO) {
+    if (level <= INFO) {
         cout << getFormattedTime() << " - ";
         cout << setw(5) << toUpperCase("info") << " - ";
         cout << func << " - ";
@@ -117,7 +117,7 @@ void info(string func, string msg) {
  * @param msg  log message
  */
 void warning(string func, string msg) {
-    if (level >= WARNING) {
+    if (level <= WARNING) {
         cout << getFormattedTime() << " - ";
         cout << setw(5) << toUpperCase("warn") << " - ";
         cout << func << " - ";
@@ -133,7 +133,7 @@ void warning(string func, string msg) {
  * @param msg  log message
  */
 void error(string func, string msg) {
-    if (level == ERROR) {
+    if (level <= ERROR) {
         cout << getFormattedTime() << " - ";
         cout << setw(5) << toUpperCase("error") << " - ";
         cout << func << " - ";

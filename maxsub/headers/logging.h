@@ -21,12 +21,11 @@ using std::string;
 /**
  * An Enum to define possible Log levels
  */
-enum loglevel_t
-{
-   DEBUG = 0,
-   WARNING,
-   ERROR,
-   INFO
+enum loglevel_t {
+    DEBUG = 0,
+    WARNING,
+    ERROR,
+    INFO
 };
 
 

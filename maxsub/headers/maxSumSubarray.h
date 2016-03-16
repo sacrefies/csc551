@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-//       Filename: kadane.cpp
+//       Filename: maxSumSubarray.h
 //       Revision: $Id$
 //    Description: This file includes the definitions of the functions
 //                 that implement maximum summation subarray search algorithm.

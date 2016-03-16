@@ -35,7 +35,7 @@ void fillArray(const int seed, const int size, int list[]);
  * @param size The size of the array
  * @param list The array of type int64
  */
-void printArray(const int size, int list[], string msg);
+void printArray(const int size, int list[], const string msg);
 
 
 /**
@@ -44,7 +44,8 @@ void printArray(const int size, int list[], string msg);
  * @param size The size of the array
  * @param list The array of type int64
  */
-void printArray(const int startIndex, const int endIndex, int list[], string msg);
+void printArray(const int startIndex, const int endIndex, int list[],
+                const string msg);
 
 
 /**

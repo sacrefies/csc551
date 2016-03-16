@@ -50,7 +50,7 @@ void fillArray(const int seed, const int size, int list[]) {
  * @param size The size of the array
  * @param list The array of type int64
  */
-void printArray(const int size, int list[], string msg) {
+void printArray(const int size, int list[], const string msg) {
     if (list == NULL) {
         error(__func__,  "The given array is NULL");
         return;
@@ -72,7 +72,7 @@ void printArray(const int size, int list[], string msg) {
  * @param list The array of type int64
  */
 void printArray(const int startIndex, const int endIndex, int list[],
-                string msg) {
+                const string msg) {
     stringstream message;
 
     if (startIndex < 0 || endIndex < 0) {

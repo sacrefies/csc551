@@ -76,7 +76,7 @@ void bruteForce_n2(int list[], int size, int& bestStart, int& bestEnd,
     if (size == 1) {
         msg << "The given size = 1.";
         msg << " The max sub array is the specified array itself.";
-        info(__func__, msg.str());
+        debug(__func__, msg.str());
         msg.clear();
         msg.str("");
         msg << "size=" << size;
@@ -162,7 +162,7 @@ void bruteForce_n3(int list[], int size, int& bestStart, int& bestEnd,
     if (size == 1) {
         msg << "The given size = 1.";
         msg << " The max sub array is the specified array itself.";
-        info(__func__, msg.str());
+        debug(__func__, msg.str());
         msg.clear();
         msg.str("");
         msg << "size=" << size;
