@@ -36,6 +36,8 @@ using std::string;
 using std::to_string;
 using std::setprecision;
 using std::fixed;
+using std::setw;
+using std::flush;
 
 namespace bucketsort {
     /**
@@ -96,14 +98,14 @@ namespace bucketsort {
         /**
          * Returns this bucket list's size;
          */
-        int size() {
+        int size(void) const {
             return mSize;
         }
 
         /**
          * Returns the number of Buckets in this bucket list.
          */
-        int length() {
+        int length(void) const {
             return mLen;
         }
 
@@ -111,14 +113,23 @@ namespace bucketsort {
         /**
          * Return the number of buckets in a particular bucket list.
          */
-        int getCount(int which) {
+        int getCount(int which) const {
             if (which < 0 || which >= mSize)
                 throw out_of_range("No such chain: which=" + to_string(which));
 
             return mCounter[which];
         }
 
-        #endif
+        /**
+         * this function calculates and returns the load factor (LF).  the LF is
+         * the average chain length (# of data values added / total # of bucket
+         * // lists).
+         */
+        double getLoadFactor(void) const {
+            return (double)mLen / (double)mSize;
+        }
+
+        #endif // ifdef GRAD
 
         /**
          * bucket sort ctor. default size is 10.
@@ -324,23 +335,28 @@ namespace bucketsort {
         // allow one to pretty print the contents of the bucket list to an output stream.
         friend ostream& operator << (ostream& os, const BucketSort& bs) {
             os << "  mSize=" << bs.mSize;
+            os << "  mloadFactor=" << setprecision(3) << bs.getLoadFactor();
             os << "  mBucketList=0x" << hex << (unsigned long) (bs.mBucketList);
             os << dec << endl;
+            string tmp;
             for (int i = 0; i < bs.mSize; ++i) {
-                os << "BucketSort[" << i << "]: ";
+                tmp = "BucketSort[" + to_string(i) + "]:";
+                os << setw(16)<< tmp;
                 #ifdef GRAD
-                os << "count(" << bs.mCounter[i] << "): ";
+                tmp = "count=" + to_string(bs.mCounter[i]) + ":";
+                os << setw(10) << tmp << flush;
                 #endif
                 if (bs.mBucketList[i] == nullptr) {
                     os << " -> null";
                 } else {
+                    os << " -> ";
                     os << fixed << setprecision(6);
                     os << *bs.mBucketList[i];
                 }
                 if (i < bs.mSize - 1)
                     os << endl;
             }
-
+            os << flush;
             return (os);
         }
     };

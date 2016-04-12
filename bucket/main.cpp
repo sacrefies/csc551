@@ -35,22 +35,6 @@ static BucketSort * random_buckets(const int list_size, const int max_buckets) {
 
 
 int main(int argc, char * argv[]) {
-    // \TODO "exercise your coder here.  for example:
-    /*
-     * BucketSort*  bs = new BucketSort();  //dtor never called (must call explicitly below)
-     *
-     * cout << *bs << endl;
-     * bs->add( 0.65 );
-     * bs->add( 0.60 );
-     * bs->add( 0.25 );
-     * bs->add( 0.98 );
-     * cout << *bs << endl;
-     * cout << "search yields " << bs->get( 2 ) << endl;
-     *
-     * delete bs;
-     * bs = nullptr;
-     */
-
     int bucket_size = 5;
     int max_buckets = 20;
 
@@ -58,7 +42,7 @@ int main(int argc, char * argv[]) {
     cout << ", length=" << max_buckets;
     cout << endl;
     BucketSort * bs = random_buckets(bucket_size, max_buckets);
-    cout << *bs;
+    cout << *bs << endl;
     cout << "***** Add 10 random doubles" << endl;
     for (int i = 0; i < 10; ++i) {
         double data = random_double(0, 1);
@@ -98,6 +82,12 @@ int main(int argc, char * argv[]) {
     #endif // if defined(GRAD) && defined(EXTRA_CREDIT)
 
     cout << "***** Print out BucketSort" << endl;
+    #ifdef GRAD
+    cout << "BucketSort size: " << bs->size() << endl;
+    cout << "Total # of Buckets: " << bs->length() << endl;
+    cout << "Load Factor: " << setprecision(3) << bs->getLoadFactor();
+    cout << endl;
+    #endif
     cout << *bs;
 
     cout << endl;
