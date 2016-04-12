@@ -144,7 +144,7 @@ namespace bucketsort {
             debug(__func__, "in BucketSort() ctor");
             mSize     = size;
             mLen      = 0;
-            mInterval = 1.0 / (double) size;
+            mInterval = (1.0 * mAmplifier) / (((double) size) * mAmplifier);
             // create the bucket list array of the appropriate size.
             mBucketList = new Bucket * [size];
             if (mBucketList == nullptr)
@@ -207,7 +207,7 @@ namespace bucketsort {
             }
 
             // which bucket?
-            int index  = (int) (value / mInterval);
+            int index  = (int) ((value * mAmplifier) / (mInterval * mAmplifier));
             Bucket * b = new Bucket();
             b->mData = value;
             Bucket * cursor = mBucketList[index];
