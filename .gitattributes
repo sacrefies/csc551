@@ -69,4 +69,6 @@
 *.cpp   ident
 *.h     ident
 *.txt   ident
-*.hpp   indet
+*.hpp   ident
+*.java  ident
+*.py    ident
