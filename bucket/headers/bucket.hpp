@@ -30,10 +30,10 @@ namespace bucketsort {
      * Class Bucket defines a singly linked list node data structure.
      */
     class Bucket {
-   public:
+    public:
 
-        double mData   = -1.0;    // data value for bucket
-        Bucket * mNext = nullptr; // ptr to next bucket
+        double mData = -1.0;    // data value for bucket
+        Bucket *mNext = nullptr; // ptr to next bucket
 
         /**
          * bucket dtor.
@@ -53,7 +53,7 @@ namespace bucketsort {
          * note that this cascades printing to the next element in the list.
          * that way, the entire list is printed automagically.
          */
-        friend ostream& operator << (ostream& os, const Bucket& b) {
+        friend ostream& operator<< (ostream& os, const Bucket& b) {
             if (b.mNext != nullptr)
                 os << b.mData << " -> " << *b.mNext;
             else

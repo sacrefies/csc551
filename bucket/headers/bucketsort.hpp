@@ -44,7 +44,7 @@ namespace bucketsort {
      * A class that holds an array of pointers of Bucket objects.
      */
     class BucketSort {
-   private:
+    private:
 
         // # of buckets
         int mSize = 0;
@@ -53,13 +53,13 @@ namespace bucketsort {
         // list[i] should hold values from [i*interval, (i+1)*interval)
         double mInterval = 0.00;
         // buckets = list (array) of pointers to entries in a particular bucket
-        Bucket ** mBucketList = nullptr;
+        Bucket **mBucketList = nullptr;
         // threshold value for comparison on 2 doubles.
         // static const double comp_threshold = 0.00001;
         static const int mAmplifier = 100000000;
         #ifdef GRAD
         // an array to store the lengths of each mBucketList[i]
-        int * mCounter = nullptr;
+        int *mCounter = nullptr;
         #endif
         // Bucket length, the number of Bucket existing in this list
         int mLen = 0;
@@ -72,10 +72,9 @@ namespace bucketsort {
          * This method also returns posAtBucket as the suggested Bucket
          * index in the bucket list at mBucketList[getBucketListIndex]
          */
-        int getBucketListIndex(const int bucketPos, int& posAtBucket) {
+        int getBucketListIndex(const int bucketPos, int&posAtBucket) {
             if (bucketPos < 0) {
                 posAtBucket = -1;
-
                 return -1;
             }
 
@@ -88,12 +87,12 @@ namespace bucketsort {
             }
             posAtBucket = bucketPos - last_bucket_count;
 
-            return (bucket_count > bucketPos) ? index : -1;
+            return (bucket_count > bucketPos)? index: -1;
         }
 
         #endif // ifdef GRAD
 
-   public:
+    public:
 
         /**
          * Returns this bucket list's size;
@@ -144,11 +143,18 @@ namespace bucketsort {
             debug(__func__, "in BucketSort() ctor");
             mSize     = size;
             mLen      = 0;
-            mInterval = (1.0 * mAmplifier) / (((double) size) * mAmplifier);
+            mInterval = (1.0 * mAmplifier) / (((double)size) * mAmplifier);
             // create the bucket list array of the appropriate size.
-            mBucketList = new Bucket * [size];
+            mBucketList = new Bucket *[size];
             if (mBucketList == nullptr)
                 throw runtime_error("Failed to allocate memory for bucket list");
+
+
+
+
+
+
+
 
             // each entry in the list (array) is a pointer to a bucket.
             // init each to null.
@@ -175,12 +181,11 @@ namespace bucketsort {
                 return;
 
             // delete each bucket in the bucket list.
-            for (int i = 0; i < mSize; i++) {
-                if (mBucketList [i] != nullptr) {
-                    delete mBucketList [i];
-                    mBucketList [i] = nullptr;
+            for (int i = 0; i < mSize; i++)
+                if (mBucketList[i] != nullptr) {
+                    delete mBucketList[i];
+                    mBucketList[i] = nullptr;
                 }
-            }
             // finally, delete the bucket list itself
             delete[] mBucketList;
             mBucketList = nullptr;
@@ -207,11 +212,11 @@ namespace bucketsort {
             }
 
             // which bucket?
-            int index  = (int) ((value * mAmplifier) / (mInterval * mAmplifier));
-            Bucket * b = new Bucket();
+            int index  = (int)((value * mAmplifier) / (mInterval * mAmplifier));
+            Bucket *b = new Bucket();
             b->mData = value;
-            Bucket * cursor = mBucketList[index];
-            Bucket * last   = mBucketList[index];
+            Bucket *cursor = mBucketList[index];
+            Bucket *last   = mBucketList[index];
 
             for (; cursor != nullptr; cursor = cursor->mNext) {
                 // looking for one bucket which holds a mData > value
@@ -233,10 +238,10 @@ namespace bucketsort {
                 return;
             }
 
-            if (cursor == nullptr) {
+            if (cursor == nullptr)
                 // not found a bigger one
                 cursor = last;
-            } else {
+            else {
                 // found one item > value
                 // b should insert in front of item
                 // so swap the each other's data
@@ -259,7 +264,7 @@ namespace bucketsort {
         double get(const int i) {
             int index = -1;
 
-            Bucket * cursor = nullptr;
+            Bucket *cursor = nullptr;
 
             // BucketSort[0]: 0.024207 -> 0.148600 -> null
             // BucketSort[1]: 0.521781 -> 0.700223 -> 0.813572 -> null
@@ -318,8 +323,9 @@ namespace bucketsort {
             // since i is not checked here, so pos can be greater than
             // the offset of the last Bucket in mBucketList[index]
             if (index >= 0) {
-                Bucket * cursor = mBucketList[index];
-                for (int offset = 0; (offset < pos && cursor != nullptr); ++offset)
+                Bucket *cursor = mBucketList[index];
+                for (int offset = 0; (offset < pos && cursor != nullptr);
+                     ++offset)
                     cursor = cursor->mNext;
                 // make 100% sure no error
                 if (cursor != nullptr)
@@ -333,22 +339,22 @@ namespace bucketsort {
 
         // -----------------------------------------------------------------------
         // allow one to pretty print the contents of the bucket list to an output stream.
-        friend ostream& operator << (ostream& os, const BucketSort& bs) {
+        friend ostream& operator<< (ostream& os, const BucketSort& bs) {
             os << "  mSize=" << bs.mSize;
             os << "  mloadFactor=" << setprecision(3) << bs.getLoadFactor();
-            os << "  mBucketList=0x" << hex << (unsigned long) (bs.mBucketList);
+            os << "  mBucketList=0x" << hex << (unsigned long)(bs.mBucketList);
             os << dec << endl;
             string tmp;
             for (int i = 0; i < bs.mSize; ++i) {
                 tmp = "BucketSort[" + to_string(i) + "]:";
-                os << setw(16)<< tmp;
+                os << setw(16) << tmp;
                 #ifdef GRAD
                 tmp = "count=" + to_string(bs.mCounter[i]) + ":";
                 os << setw(10) << tmp << flush;
                 #endif
-                if (bs.mBucketList[i] == nullptr) {
+                if (bs.mBucketList[i] == nullptr)
                     os << " -> null";
-                } else {
+                else {
                     os << " -> ";
                     os << fixed << setprecision(6);
                     os << *bs.mBucketList[i];
