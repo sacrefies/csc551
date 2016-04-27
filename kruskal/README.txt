@@ -22,14 +22,21 @@ The header files are named with .hpp other than .h extension
 only because my Atom editor identify .h files as C headers.
 
 headers                                 // headers
-  |-
+  |- args.hpp
+  |- Edge.h                             // Edge class
+  |- Kruskal.h                          // Kruskal class
+  |- logging.hpp                        // logging facility
+test_data
+  |- 1000EWG.txt
+  |- 10000EWG.txt
+  |- largeEWG.txt
+  |- mediumEWG.txt
+  |- tinyEWG.txt
+arguments.cpp                           // command line argument handler
 logging.cpp                             // logging func implementation
 main.cpp                                // main program execution entry point
-README.txt                              // This file
-unittests.cpp                           // unit test cases
-unittestsuite.cpp                       // unit test case execution entry point
 build.sh                                // Build tool for Linux
-build.bat                               // Build tool for Windows (This tool requires GNU C/C++ toolchain installed)
+README.txt                              // This file
 
 
 To Compile
@@ -40,28 +47,20 @@ This program is developed and runs only on Linux.
 2. Launch a terminal environment, change current directory to ~/source.
 3. Run build.sh
     # . ./build.sh
-4. For test executable
-    # . ./build_tests.sh
-5. Or run g++ directly:
-    # g++ -std=c++11 -DGRAD -DEXTRA_CREDIT -Wall -o unittests.exe unittests.cpp logging.cpp utilities.cpp unittestsuite.cpp
-    # g++ -O2 -std=c++11 -Wall -DGRAD -DEXTRA_CREDIT -o bucketsort utilities.cpp main.cpp logging.cpp
+4. Or run g++ directly:
+    # g++ -O2 -std=c++11 -Wall -o kruskal main.cpp logging.cpp arguments.cpp
 
 
 To Run
 ------
 The command is as below:
     # ./kruskal
-
-The command for unit test runner (default log level is warning):
-    # ./unittests
-    # ./unittests -l debug
-    # ./unittests -l info
-    # ./unittests -h
-    # ./unittests --help
+Also, run command below to get more argument description:
+    # ./kruskal -h
 
 
 WINDOWS
-------
+-------
 To compile and run on Window successfully, some third-party POSIX porting
 environment are required. The recommended is CYGWIN.
 This program has been tested with a CYGWIN environment too.

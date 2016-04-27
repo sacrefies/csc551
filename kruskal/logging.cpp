@@ -14,7 +14,8 @@
 // C includes
 #include <cctype>
 #include <cstdio>
-#include <ctime>
+#include <sys/time.h>
+//#include <ctime>
 // CPP includes
 #include <iomanip>
 #include <iostream>
@@ -73,7 +74,7 @@ void debug(string tag, string msg) {
     if (level <= DEBUG) {
         cout << getFormattedTime() << " - ";
         cout << setw(5) << "DEBUG" << " - ";
-        if (!func.empty())
+        if (!tag.empty())
             cout << tag << " - ";
         cout << msg << endl;
     }
@@ -90,7 +91,7 @@ void info(string tag, string msg) {
     if (level <= INFO) {
         cout << getFormattedTime() << " - ";
         cout << setw(5) << "INFO" << " - ";
-        if (!func.empty())
+        if (!tag.empty())
             cout << tag << " - ";
         cout << msg << endl;
     }
@@ -107,7 +108,7 @@ void warning(string tag, string msg) {
     if (level <= WARNING) {
         cout << getFormattedTime() << " - ";
         cout << setw(5) << "WARN" << " - ";
-        if (!func.empty())
+        if (!tag.empty())
             cout << tag << " - ";
         cout << msg << endl;
     }
@@ -124,7 +125,7 @@ void error(string tag, string msg) {
     if (level <= ERROR) {
         cout << getFormattedTime() << " - ";
         cout << setw(5) << "ERROR" << " - ";
-        if (!func.empty())
+        if (!tag.empty())
             cout << tag << " - ";
         cout << msg << endl;
     }

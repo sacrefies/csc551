@@ -24,64 +24,155 @@
 //
 // 8
 // 16
-// 4 5 0.35
-// 4 7 0.37
-// 5 7 0.28
-// 0 7 0.16
-// 1 5 0.32
-// 0 4 0.38
-// 2 3 0.17
-// 1 7 0.19
-// 0 2 0.26
-// 1 2 0.36
-// 1 3 0.29
-// 2 7 0.34
-// 6 2 0.40
-// 3 6 0.52
-// 6 0 0.58
-// 6 4 0.93
+// 4 5 0.35 q
+// 4 7 0.37 q
+// 5 7 0.28 q
+// 0 7 0.16 q
+// 1 5 0.32 q
+// 0 4 0.38 q
+// 2 3 0.17 q
+// 1 7 0.19 q
+// 0 2 0.26 q
+// 1 2 0.36 q
+// 1 3 0.29 q
+// 2 7 0.34 q
+// 6 2 0.40 q
+// 3 6 0.52 q
+// 6 0 0.58 q
+// 6 4 0.93 q
 // -----------------------------------------------------------------------------
 
+
 // cpp includes
-#include <iostream> // for cout, endl
+#include <sstream> // for stringstream
+#include <iostream> // for endl;
+#include <string>
 // homemade headers
-#include  "headers/kruskal.hpp"
+#include "headers/Kruskal.h"
+#include "headers/logging.hpp"
+#include "headers/args.hpp"
 
 
-using std::cout;
+using std::stringstream;
 using std::endl;
+using std::string;
 
 
-//---------------------------------------------------------------------------
-int main ( int argc, char* argv[] ) {
-    //one test
-    Kruskal  k1( 10 );
-    k1.addEdge( 4, 5, 0.35 );
-    k1.addEdge( 4, 7, 0.37 );
-    k1.addEdge( 5, 7, 0.28 );
-    k1.addEdge( 0, 7, 0.16 );
-    k1.addEdge( 1, 5, 0.32 );
-    k1.addEdge( 0, 4, 0.38 );
-    k1.addEdge( 2, 3, 0.17 );
-    k1.addEdge( 1, 7, 0.19 );
-    k1.addEdge( 0, 2, 0.26 );
-    k1.addEdge( 1, 2, 0.36 );
-    k1.addEdge( 1, 3, 0.29 );
-    k1.addEdge( 2, 7, 0.34 );
-    k1.addEdge( 6, 2, 0.40 );
-    k1.addEdge( 3, 6, 0.52 );
-    k1.addEdge( 6, 0, 0.58 );
-    k1.addEdge( 6, 4, 0.93 );
+static void run_manually_setup() {
+    stringstream msg;
+    msg << "=================== Test Graph Manual Set-up ===================";
+    msg << endl;
+    info("", msg.str());
+    msg.clear();
+    msg.str("");
+
+    Kruskal k1(8);
+
+    msg << "Graph initialized:" << k1;
+    info("", msg.str());
+    msg.clear();
+    msg.str("");
+
+    // normal adding
+    k1.addEdge(4, 5, 0.35);
+    k1.addEdge(4, 7, 0.37);
+    k1.addEdge(5, 7, 0.28);
+    k1.addEdge(0, 7, 0.16);
+    k1.addEdge(1, 5, 0.32);
+    k1.addEdge(0, 4, 0.38);
+    k1.addEdge(2, 3, 0.17);
+    k1.addEdge(1, 7, 0.19);
+    k1.addEdge(0, 2, 0.26);
+    // try adding some duplicates
+    k1.addEdge(0, 4, 0.78);
+    k1.addEdge(1, 7, 0.39);
+    // normal adding
+    k1.addEdge(1, 2, 0.36);
+    k1.addEdge(1, 3, 0.29);
+    k1.addEdge(2, 7, 0.34);
+    k1.addEdge(6, 2, 0.40);
+    // try adding some duplicates
+    k1.addEdge(0, 7, 0.26);
+    k1.addEdge(1, 3, 0.19);
+    k1.addEdge(4, 7, 0.97);
+    // normal adding
+    k1.addEdge(3, 6, 0.52);
+    k1.addEdge(6, 0, 0.58);
+    k1.addEdge(6, 4, 0.93);
+    // try adding some duplicates
+    k1.addEdge(0, 7, 0.26);
+    k1.addEdge(6, 0, 0.58);
+    k1.addEdge(6, 4, 0.93);
+
     k1.process();
-    cout << "after: " << k1;
-    cout << "cost = " << k1.getMSTCost() << endl;
 
-    //another test
-    Kruskal  k2( "tinyEWG.txt" );
-    cout << "before: " << k2;
-    k2.process();
-    cout << "after: " << k2;
-    cout << "cost = " << k2.getMSTCost() << endl;
+    msg << k1;
+    info("", msg.str());
+    msg.clear();
+    msg.str("");
 
-    return 0;
+    msg << "Cost = " << k1.getMSTCost() << endl;
+    info("", msg.str());
+    msg.clear();
+    msg.str("");
+}
+
+
+static void run_file_setup(string fileName) {
+    // another test
+    stringstream msg;
+    msg << "============== Test Graph File Set-up: ";
+    msg << fileName << " ===============" << endl;
+    info("", msg.str());
+    msg.clear();
+    msg.str("");
+
+    Kruskal k1(fileName);
+
+    msg << "Graph initialized:" << k1;
+    info("", msg.str());
+    msg.clear();
+    msg.str("");
+
+    k1.process();
+
+    msg << k1;
+    info("", msg.str());
+    msg.clear();
+    msg.str("");
+
+    msg << "Cost = " << k1.getMSTCost() << endl;
+    info("", msg.str());
+    msg.clear();
+    msg.str("");
+}
+
+
+// ---------------------------------------------------------------------------
+int main(const int argc, const char * argv[]) {
+    if (false == checkArgsSanity(argc, argv)) {
+        printUsages(argv[0]);
+        exit(1);
+    }
+
+    options_t op = parseArgs(argc, argv);
+    setLoggingLevel(op.logLevel);
+    if (true == op.file) {
+        run_file_setup(op.filePath);
+        exit(0);
+    }
+
+    if (true == op.manual) {
+        run_manually_setup();
+        exit(0);
+    }
+
+    if (true == op.all) {
+        run_file_setup("test_data/tinyEWG.txt");
+        run_file_setup("test_data/mediumEWG.txt");
+        run_file_setup("test_data/1000EWG.txt");
+        run_file_setup("test_data/10000EWG.txt");
+    }
+
+    exit(0);
 }

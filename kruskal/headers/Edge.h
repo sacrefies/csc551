@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Filename:    Kruskal.hpp
+// Filename:    Edge.h
 // Revision:    $Id$
 // Description: this file contains the definition of the Edge class. An edge
 //              consists of a u, a v, and a weight. No changes necessary.
@@ -14,7 +14,12 @@
 #include <iostream> // for ostream, cout, endl
 
 
+#ifndef EDGE_H
+#define EDGE_H
+
+
 using std::ostream;
+using std::endl;
 
 
 class Edge {
@@ -39,15 +44,15 @@ public:
 
     // -----------------------------------------------------------------------
     // getters:
-    double getW(void) {
+    double getW(void) const {
         return mWeight;
     }
 
-    int getFrom(void) {
+    int getFrom(void) const {
         return mFrom;
     }
 
-    int getTo(void) {
+    int getTo(void) const {
         return mTo;
     }
 
@@ -55,17 +60,18 @@ public:
     // allow one to pretty print the contents of the Kruskal object to an
     // output stream.
     friend ostream& operator<< (ostream& os, const Edge& e) {
-        os << "edge: f=" << e.mFrom << " t=" << e.mTo << " w=" << e.mWeight;
-        os << endl;
+        os << "edge: " << e.mFrom << " --" << e.mWeight << "-- " << e.mTo;
         return os;
     }
 
     // -----------------------------------------------------------------------
     // do not use (used for priority queue sorting):
     Edge(void) {}
+
     // -----------------------------------------------------------------------
     // do not use (used for priority queue sorting):
-    bool operator() (const Edge *e1, const Edge *e2) {
+    bool operator() (const Edge * e1, const Edge * e2) {
         return e2->mWeight < e1->mWeight;
     }
 };
+#endif /** end of include guard */
