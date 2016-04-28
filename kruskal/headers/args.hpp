@@ -10,12 +10,13 @@
 // Copyright (c) 2016 by Jason Meng, no rights reserved.
 // -----------------------------------------------------------------------------
 
+#ifndef ARGUMENTS_H
+#define ARGUMENTS_H
+
+
 #include <string>
 #include "logging.hpp"
 
-
-#ifndef ARGUMENTS_H
-#define ARGUMENTS_H
 
 using std::string;
 

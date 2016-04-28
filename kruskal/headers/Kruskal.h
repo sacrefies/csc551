@@ -74,6 +74,7 @@ using std::dec;
 using std::flush;
 using std::cout;
 using std::to_string;
+using std::ostream;
 
 
 class Kruskal {

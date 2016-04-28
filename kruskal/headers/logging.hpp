@@ -9,11 +9,12 @@
 // Copyright (c) 2016 by Jason Meng, no rights reserved.
 // ------------------------------------------------------------------------------------
 
-#include <string>
-
 /** include guard:  */
 #ifndef LOGGING_H
 #define LOGGING_H
+
+
+#include <string>
 
 using std::string;
 
