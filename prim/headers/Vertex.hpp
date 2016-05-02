@@ -22,6 +22,7 @@
 #include <sstream>          // stringstream
 #include <limits>           // numeric_limits
 #include <iostream>         // os
+#include <iomanip>
 // home made headers
 #include "logging.hpp"
 
@@ -32,6 +33,7 @@ using std::hex;
 using std::dec;
 using std::endl;
 using std::ostream;
+using std::setprecision;
 
 
 /**
@@ -75,7 +77,7 @@ public:
         // prints are useful to determine when dtors are actually called
         // (or not).
         stringstream msg;
-        msg << "disposing Vertex[" << this->mVert << "]@" << hex << this << dec;
+        msg << "disposing Vertex@" << hex << this << dec;
         debug(__func__, msg.str());
         msg.clear();
         msg.str("");
@@ -111,8 +113,11 @@ public:
      * stream.
      */
     friend ostream& operator<< (ostream& os, const Vertex& v) {
-        os << "vertex: (i=" << v.mVert << ", ";
-        os << "key=" << v.mKey << ", ";
+        os << "vertex: (i=" << v.mVert << ",";
+        if (v.mKey == v.DBL_MAX())
+            os << "MAX";
+        else
+            os << setprecision(2) << v.mKey << ",";
         os << "parent=" << v.mParent << ")" << endl;
         return os;
     }
@@ -129,4 +134,5 @@ public:
         return v2->mKey < v1->mKey;
     }
 };
+
 #endif /** end of include guard */

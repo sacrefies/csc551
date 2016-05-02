@@ -250,7 +250,7 @@ public:
         msg.clear();
         msg.str("");
 
-        msg << ":::: clear up mQueue" << hex << &mQueue << dec;
+        msg << ":::: clear up mQueue@" << hex << &mQueue << dec;
         debug(__func__, msg.str());
         msg.clear();
         msg.str("");
@@ -265,11 +265,11 @@ public:
                 msg.str("");
                 delete[] mWeights[r];
                 mWeights[r] = nullptr;
-                msg << ":::: mVertexCount[" << r << "] ==> NULL";
+                msg << ":::: mWeights[" << r << "] ==> NULL";
                 debug(__func__, msg.str());
             }
             mWeights = nullptr;
-            debug(__func__, ":::: mVertexCount ==> NULL");
+            debug(__func__, ":::: mWeights ==> NULL");
         }
         if (mIsInQ != nullptr) {
             delete[] mIsInQ;
@@ -330,7 +330,7 @@ public:
             msg.str("");
 
             if (false == mIsInQ[u]) {
-                msg << ":::: skip " << u << " because u is not in queue";
+                msg << ":::: skip " << u << " because it is not in queue";
                 debug(__func__, msg.str());
                 msg.clear();
                 msg.str("");
@@ -363,7 +363,7 @@ public:
                 msg.str("");
                 // skip if v is not in queue
                 if (false == mIsInQ[v]) {
-                    msg << ":::: skip " << v << " because v is not in queue";
+                    msg << ":::: skip " << v << " because it is not in queue";
                     debug(__func__, msg.str());
                     msg.clear();
                     msg.str("");
@@ -380,7 +380,7 @@ public:
                 msg.str("");
                 // skip if u and v are not connected
                 if (DBL_MAX() == w) {
-                    msg << ":::: skip " << v << " because v is not adjacent";
+                    msg << ":::: skip " << v << " because it is not adjacent";
                     debug(__func__, msg.str());
                     msg.clear();
                     msg.str("");
