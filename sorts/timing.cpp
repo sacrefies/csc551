@@ -92,11 +92,11 @@ int timing(const int runs, const int size, void (*func)(int[], int)) {
         // create a new array in size of the given size.
         fillArray(time(NULL), size, list);
         // print out the original
-        // printArray(size, list, "The shuffled: ");
+        printArray(size, list, "The shuffled: ");
         // do sorting
         (*func)(list, size);
         // print out the sorted
-        // printArray(size, list, "The sorted: ");
+        printArray(size, list, "The sorted: ");
     };
 
     // cpu time end

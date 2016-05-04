@@ -35,7 +35,11 @@ using namespace std;
  * @param   rEnd    The ending index of the right sub-array
  * @param   list    The array which conatins the left and right sub arrays to be merged
  */
-static int mergeInnerSwap(const int lStart, const int lEnd, const int rStart, const int rEnd, int list[]) {
+static int mergeInnerSwap(const int lStart,
+                          const int lEnd,
+                          const int rStart,
+                          const int rEnd,
+                          int list[]) {
     // a tmp array as the merged result
     int * merged = new int[rEnd - lStart + 1];
     int leftHead = lStart;
@@ -51,22 +55,18 @@ static int mergeInnerSwap(const int lStart, const int lEnd, const int rStart, co
 
     // Check whether left has remaining or right has remaining
     // and then put the remaining into the merged
-    if (leftHead <= lEnd) {
+    if (leftHead <= lEnd)
         // left has remaining
-        for (int i = leftHead; i <= lEnd; ++i) {
+        for (int i = leftHead; i <= lEnd; ++i)
             merged[mergedIndex++] = list[i];
-        }
-    } else if (rightHead <= rEnd) {
+    else if (rightHead <= rEnd)
         // right has remaining
-        for (int i = rightHead; i <= rEnd; ++i) {
+        for (int i = rightHead; i <= rEnd; ++i)
             merged[mergedIndex++] = list[i];
-        }
-    }
 
     // copy the items from merged to list, from lStart to rEnd
-    for (int i = lStart; i <= rEnd; ++i) {
+    for (int i = lStart; i <= rEnd; ++i)
         list[i] = merged[i - lStart];
-    }
 
     // free the temp array
     delete[] merged;
@@ -89,7 +89,12 @@ static int mergeInnerSwap(const int lStart, const int lEnd, const int rStart, co
  * @return  Returns 0 if no error happens; return -1 if otherwise
  *
  */
-static int merge(const int lStart, const int lEnd, const int rStart, const int rEnd, int list[], int cache[]) {
+static int merge(const int lStart,
+                 const int lEnd,
+                 const int rStart,
+                 const int rEnd,
+                 int list[],
+                 int cache[]) {
 
     int leftHead = lStart;
     int rightHead = rStart;
@@ -104,17 +109,14 @@ static int merge(const int lStart, const int lEnd, const int rStart, const int r
 
     // Check whether left has remaining or right has remaining
     // and then put the remaining into the merged
-    if (leftHead <= lEnd) {
+    if (leftHead <= lEnd)
         // left has remaining
-        for (int i = leftHead; i <= lEnd; ++i) {
+        for (int i = leftHead; i <= lEnd; ++i)
             cache[mergedIndex++] = list[i];
-        }
-    } else if (rightHead <= rEnd) {
+    else if (rightHead <= rEnd)
         // right has remaining
-        for (int i = rightHead; i <= rEnd; ++i) {
+        for (int i = rightHead; i <= rEnd; ++i)
             cache[mergedIndex++] = list[i];
-        }
-    }
 
     // copy the items from merged to list, from lStart to rEnd
     for (int i = lStart; i <= rEnd; ++i) {
@@ -138,7 +140,11 @@ static int merge(const int lStart, const int lEnd, const int rStart, const int r
  *
  * @return Returns 0 if no error happens; returns -1 if otherwise.
  */
-static int mergeInplace(const int lStart, const int lEnd, const int rStart, const int rEnd, int list[]) {
+static int mergeInplace(const int lStart,
+                        const int lEnd,
+                        const int rStart,
+                        const int rEnd,
+                        int list[]) {
     int leftHead, rightHead, leftEnd, tmpRHItem;
 
     leftHead = lStart;
@@ -159,9 +165,8 @@ static int mergeInplace(const int lStart, const int lEnd, const int rStart, cons
             tmpRHItem = list[rightHead];
             // move every elements of left subarray 1 position to right,
             // starting from leftHead
-            for (int i = leftEnd; i >= leftHead; --i) {
+            for (int i = leftEnd; i >= leftHead; --i)
                 list[i + 1] = list[i];
-            }
             // insert old rightHead value to leftHead position
             list[leftHead] = tmpRHItem;
             // set the end of left subarray to the rightHead
@@ -196,7 +201,7 @@ static int getMedian(int lowEnd, int highEnd) {
 
     int sub = (highEnd + lowEnd);
     // ensure len(left) <= len(right)
-    return ((sub & 1) == 1) ? sub >> 1 : (sub - 1) >> 1;
+    return ((sub & 1) == 1)? sub >> 1: (sub - 1) >> 1;
 }
 
 
@@ -211,12 +216,12 @@ static int getMedian(int lowEnd, int highEnd) {
  *
  * @return Returns 0 if no error happens; returns -1 if otherwise.
  */
-static int innerSortInplace(const int startIndex, const int endIndex, int list[]) {
+static int innerSortInplace(const int startIndex, const int endIndex,
+                            int list[]) {
     // return condition
     // -- only one item in the array, it is sorted.
-    if (endIndex == startIndex) {
+    if (endIndex == startIndex)
         return 0;
-    }
 
     // get the median in left-leaning fashion
     int median = getMedian(startIndex, endIndex);
@@ -262,12 +267,13 @@ static int innerSortInplace(const int startIndex, const int endIndex, int list[]
  *
  * @return Returns 0 if no error happens; returns -1 if otherwise.
  */
-static int innerSortWithInnerSwap(const int startIndex, const int endIndex, int list[]) {
+static int innerSortWithInnerSwap(const int startIndex,
+                                  const int endIndex,
+                                  int list[]) {
     // return condition
     // -- only one item in the array, it is sorted.
-    if (endIndex == startIndex) {
+    if (endIndex == startIndex)
         return 0;
-    }
 
     // get the median in left-leaning fashion
     int median = getMedian(startIndex, endIndex);
@@ -313,12 +319,14 @@ static int innerSortWithInnerSwap(const int startIndex, const int endIndex, int 
  *
  * @return Returns 0 if no error happens; returns -1 if otherwise.
  */
-static int innerSort(const int startIndex, const int endIndex, int list[], int cache[]) {
+static int innerSort(const int startIndex,
+                     const int endIndex,
+                     int list[],
+                     int cache[]) {
     // return condition
     // -- only one item in the array, it is sorted.
-    if (endIndex == startIndex) {
+    if (endIndex == startIndex)
         return 0;
-    }
 
     // get the median in left-leaning fashion
     int median = getMedian(startIndex, endIndex);
