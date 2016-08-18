@@ -53,13 +53,13 @@ namespace bucketsort {
         // list[i] should hold values from [i*interval, (i+1)*interval)
         double mInterval = 0.00;
         // buckets = list (array) of pointers to entries in a particular bucket
-        Bucket **mBucketList = nullptr;
+        Bucket ** mBucketList = nullptr;
         // threshold value for comparison on 2 doubles.
         // static const double comp_threshold = 0.00001;
         static const int mAmplifier = 100000000;
         #ifdef GRAD
         // an array to store the lengths of each mBucketList[i]
-        int *mCounter = nullptr;
+        int * mCounter = nullptr;
         #endif
         // Bucket length, the number of Bucket existing in this list
         int mLen = 0;
@@ -72,7 +72,7 @@ namespace bucketsort {
          * This method also returns posAtBucket as the suggested Bucket
          * index in the bucket list at mBucketList[getBucketListIndex]
          */
-        int getBucketListIndex(const int bucketPos, int&posAtBucket) {
+        int getBucketListIndex(const int bucketPos, int& posAtBucket) {
             if (bucketPos < 0) {
                 posAtBucket = -1;
                 return -1;
@@ -149,13 +149,6 @@ namespace bucketsort {
             if (mBucketList == nullptr)
                 throw runtime_error("Failed to allocate memory for bucket list");
 
-
-
-
-
-
-
-
             // each entry in the list (array) is a pointer to a bucket.
             // init each to null.
             for (int i = 0; i < size; ++i)
@@ -213,10 +206,10 @@ namespace bucketsort {
 
             // which bucket?
             int index  = (int)((value * mAmplifier) / (mInterval * mAmplifier));
-            Bucket *b = new Bucket();
+            Bucket * b = new Bucket();
             b->mData = value;
-            Bucket *cursor = mBucketList[index];
-            Bucket *last   = mBucketList[index];
+            Bucket * cursor = mBucketList[index];
+            Bucket * last   = mBucketList[index];
 
             for (; cursor != nullptr; cursor = cursor->mNext) {
                 // looking for one bucket which holds a mData > value
@@ -264,7 +257,7 @@ namespace bucketsort {
         double get(const int i) {
             int index = -1;
 
-            Bucket *cursor = nullptr;
+            Bucket * cursor = nullptr;
 
             // BucketSort[0]: 0.024207 -> 0.148600 -> null
             // BucketSort[1]: 0.521781 -> 0.700223 -> 0.813572 -> null
@@ -275,11 +268,6 @@ namespace bucketsort {
 
                 if (index++ == i)
                     break;
-
-                // while (cursor->mNext != nullptr && index < i) {
-                // cursor = cursor->mNext;
-                // index++;
-                // }
 
                 while (cursor != nullptr && index < i) {
                     cursor = cursor->mNext;
@@ -323,7 +311,7 @@ namespace bucketsort {
             // since i is not checked here, so pos can be greater than
             // the offset of the last Bucket in mBucketList[index]
             if (index >= 0) {
-                Bucket *cursor = mBucketList[index];
+                Bucket * cursor = mBucketList[index];
                 for (int offset = 0; (offset < pos && cursor != nullptr);
                      ++offset)
                     cursor = cursor->mNext;
