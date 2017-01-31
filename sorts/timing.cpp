@@ -85,6 +85,9 @@ int timing(const int runs, const int size, void (* func)(int[], int)) {
     // create a new array in size of the given size.
     fillArray(time(NULL), size, list);
 
+    // print out the original
+    printArray(size, list, "The shuffled: ");
+
     cpuTime = avgCpuTime = funcElapseTime = .0;
     // function elapse time clocking
     gettimeofday(&startTv, NULL);
@@ -96,8 +99,6 @@ int timing(const int runs, const int size, void (* func)(int[], int)) {
         // printArray(size, list, "The shuffled: ");
         // do sorting
         (*func)(list, size);
-        // print out the sorted
-        // printArray(size, list, "The sorted: ");
 
     // cpu time end
     end = clock();
@@ -110,6 +111,8 @@ int timing(const int runs, const int size, void (* func)(int[], int)) {
     funcElapseTime = (double)endTv.tv_sec - startTv.tv_sec +
                      ((double)endTv.tv_usec - startTv.tv_usec) / 1e6;
 
+    // print out the sorted
+    printArray(size, list, "The sorted: ");
     // free the array
     delete[] list;
     // outputs
