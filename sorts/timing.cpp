@@ -67,13 +67,11 @@ int timing(const int runs, const int size, void (* func)(int[], int)) {
         cout << "The function iteration is less than 1. Do nothing" << endl;
         return 0;
     }
-    ;
 
     if (size < 2) {
         cout << "The given size is less than 2. Do nothing" << endl;
         return 0;
     }
-    ;
 
     // cpu time start
     clock_t start, end;

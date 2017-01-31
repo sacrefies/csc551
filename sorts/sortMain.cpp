@@ -55,14 +55,14 @@ int validateOptions(struct options_t options) {
     if (options.size < 2) {
         cout << "Input array size is less than 2." << endl;
         return -1;
-    };
+    }
 
     if (options.runs < 1) {
         cout << "Input runs is less than 1." << endl;
         return -1;
-    };
+    }
     return 0;
-};
+}
 
 
 /**
@@ -73,7 +73,7 @@ int validateOptions(struct options_t options) {
  * @param argv An array of argument elements
  * @return A struct of options_t
  */
-options_t readOptions(const int argc, const char *argv[]) {
+options_t readOptions(const int argc, const char * argv[]) {
     // define and set the default values of the options.
     struct options_t options = {
         20,
@@ -81,54 +81,57 @@ options_t readOptions(const int argc, const char *argv[]) {
         20,
     };
 
-    for (int i = 0; i < argc; i ++) {
+    for (int i = 0; i < argc; i++) {
         if (strcmp("-r", argv[i]) == 0 || strcmp("--runs", argv[i]) == 0) {
             try {
-                options.runs = strtoll(argv[i+1], NULL, 10);
+                options.runs = strtoll(argv[i + 1], NULL, 10);
             } catch (...) {
-                cout << "Cannot parse the argument to runs. Input: " << argv[i+1] << endl;
+                cout << "Cannot parse the argument to runs. Input: " <<
+                argv[i + 1] << endl;
                 throw;
-            };
+            }
             continue;
-        };
+        }
 
         if (strcmp("-s", argv[i]) == 0 || strcmp("--sort", argv[i]) == 0) {
-            if (strcmp("insertionSort", argv[i+1]) == 0)
+            if (strcmp("insertionSort", argv[i + 1]) == 0)
                 options.sort = 0;
-            else if (strcmp("selectionSort", argv[i+1]) == 0)
+            else if (strcmp("selectionSort", argv[i + 1]) == 0)
                 options.sort = 1;
-            else if (strcmp("mergeSort", argv[i+1]) == 0)
+            else if (strcmp("mergeSort", argv[i + 1]) == 0)
                 options.sort = 2;
-            else if (strcmp("mergeSortInplace", argv[i+1]) == 0)
+            else if (strcmp("mergeSortInplace", argv[i + 1]) == 0)
                 options.sort = 3;
-            else if (strcmp("mergeSortInnerSwap", argv[i+1]) == 0)
+            else if (strcmp("mergeSortInnerSwap", argv[i + 1]) == 0)
                 options.sort = 4;
             else {
-                cout << "Sort " << argv[i+1] << " is not supported yet." << endl;
+                cout << "Sort " << argv[i + 1] << " is not supported yet." <<
+                endl;
                 cout << "The default insertion sort will be applied." << endl;
             }
             continue;
-        };
+        }
 
         if (strcmp("-n", argv[i]) == 0 || strcmp("--size", argv[i]) == 0) {
             try {
-                options.size = strtoll(argv[i+1], NULL, 10);
+                options.size = strtoll(argv[i + 1], NULL, 10);
             } catch (...) {
-                cout << "Cannot parse the argument to array size. Input: " << argv[i+1] << endl;
+                cout << "Cannot parse the argument to array size. Input: " <<
+                argv[i + 1] << endl;
                 throw;
-            };
+            }
             continue;
-        };
-    };
+        }
+    }
 
     return options;
-};
+}
 
 /**
  *         Name:  main
  *  Description:
  */
-int main(const int argc, const char *argv[]) {
+int main(const int argc, const char * argv[]) {
     string help = "sortMain.out [OPTIONS]\n";
     struct options_t options;
 
@@ -139,7 +142,8 @@ int main(const int argc, const char *argv[]) {
     help += "-s/--sort     The sort algorithm to be used\n\n";
     help += "EX:\n";
     help += "./sortMain.out -r 50 -s insertionSort -n 50\n";
-    help += "The command above triggers insertion sort apply for 50 times to an array which conatins 50 elements.\n";
+    help +=
+        "The command above triggers insertion sort apply for 50 times to an array which conatins 50 elements.\n";
     help += "\n";
 
 
@@ -147,22 +151,23 @@ int main(const int argc, const char *argv[]) {
         // print help;
         cout << help << endl;
         return 0;
-    };
+    }
 
     try {
         // cout << "parse options" << endl;
         options = readOptions(argc, argv);
-        cout << "size: " << options.size << " iter: " << options.runs << " sort: " << options.sort << endl;
-    } catch (...){
+        cout << "size: " << options.size << " iter: " << options.runs <<
+        " sort: " << options.sort << endl;
+    } catch (...) {
         cout << help << endl;
         return -1;
-    };
+    }
 
     if (validateOptions(options) != 0) {
         cout << "Wrong options" << endl;
         cout << help << endl;
         return -1;
-    };
+    }
 
     // exec sorts.
     switch (options.sort) {
@@ -187,5 +192,4 @@ int main(const int argc, const char *argv[]) {
     }
 
     return 0;
-
 }
