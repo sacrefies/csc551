@@ -34,14 +34,12 @@ using namespace std;
  * @param list The array to be filled
  */
 void fillArray(const int seed, const int size, int list[]) {
-    if (size < 1) {
+    if (size < 1)
         return;
-    }
 
     // srand(time(NULL));
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < size; i++)
         list[i] = rand() % size;
-    }
 }
 
 
@@ -53,9 +51,8 @@ void fillArray(const int seed, const int size, int list[]) {
  */
 void printArray(const int size, int list[], string msg) {
     cout << __func__ << " -- " << msg << " [";
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < size; i++)
         cout << list[i] << ",";
-    }
     cout << "]" << endl;
 }
 
@@ -65,22 +62,28 @@ void printArray(const int size, int list[], string msg) {
  * @param runs Iteration times that a sort function runs.
  * @param size
  */
-int timing(const int runs, const int size, void (*func)(int[], int)) {
+int timing(const int runs, const int size, void (* func)(int[], int)) {
     if (runs < 1) {
         cout << "The function iteration is less than 1. Do nothing" << endl;
         return 0;
-    };
+    }
+    ;
 
     if (size < 2) {
         cout << "The given size is less than 2. Do nothing" << endl;
         return 0;
-    };
+    }
+    ;
 
     // cpu time start
     clock_t start, end;
     struct timeval startTv, endTv;
     double cpuTime, avgCpuTime, funcElapseTime;
-    int *list = new int[size];
+    int * list = new int[size];
+
+
+    // create a new array in size of the given size.
+    fillArray(time(NULL), size, list);
 
     cpuTime = avgCpuTime = funcElapseTime = .0;
     // function elapse time clocking
@@ -88,16 +91,13 @@ int timing(const int runs, const int size, void (*func)(int[], int)) {
     // cpu start clocking
     start = clock();
     // iterate sort runs
-    for (int i = 0; i < runs; i++) {
-        // create a new array in size of the given size.
-        fillArray(time(NULL), size, list);
+    for (int i = 0; i < runs; i++)
         // print out the original
         // printArray(size, list, "The shuffled: ");
         // do sorting
         (*func)(list, size);
         // print out the sorted
         // printArray(size, list, "The sorted: ");
-    };
 
     // cpu time end
     end = clock();
@@ -107,7 +107,8 @@ int timing(const int runs, const int size, void (*func)(int[], int)) {
     cpuTime = ((double)end - start) / CLOCKS_PER_SEC;
     avgCpuTime = cpuTime / runs;
     // total elapse time
-    funcElapseTime = (double)endTv.tv_sec - startTv.tv_sec + ((double)endTv.tv_usec - startTv.tv_usec) / 1e6;
+    funcElapseTime = (double)endTv.tv_sec - startTv.tv_sec +
+                     ((double)endTv.tv_usec - startTv.tv_usec) / 1e6;
 
     // free the array
     delete[] list;
@@ -118,4 +119,4 @@ int timing(const int runs, const int size, void (*func)(int[], int)) {
     cout << endl;
 
     return 0;
-};
+}
