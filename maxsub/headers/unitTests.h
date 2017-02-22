@@ -28,6 +28,19 @@
  */
 int array_all_negative_test(void (* func)(int[], int, int&, int&, int&));
 
+/**
+ * Test an algorithm with a zero-length array
+ *
+ * @param func  A function which implements an algorithm to find the max-sum
+ *              subarray. This function must satify the signature:
+ *              void func_name(int[] array, int size, int& bestStart,
+ *                             int& bestEnd, int& bestSum)
+ *
+ * @return Returns -1 if test failed; returns 0 if otherwise.
+ */
+int array_zero_test(void (* func)(int[], int, int&, int&, int&));
+
+
 
 /**
  * Test an algorithm with an array which has 2 negative integers.

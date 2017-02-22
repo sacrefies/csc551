@@ -87,6 +87,67 @@ int array_null_test(void (* func)(int[], int, int&, int&, int&)) {
 
 
 /**
+ * Test an algorithm with a zero-length array
+ *
+ * @param func  A function which implements an algorithm to find the max-sum
+ *              subarray. This function must satify the signature:
+ *              void func_name(int[] array, int size, int& bestStart,
+ *                             int& bestEnd, int& bestSum)
+ *
+ * @return Returns -1 if test failed; returns 0 if otherwise.
+ */
+int array_zero_test(void (* func)(int[], int, int&, int&, int&)) {
+    stringstream msg;
+    const string testName = "Zero-length Array Test";
+    int testFlag = -1;
+    int bestStart, bestEnd, bestSum, size;
+    int * array = new int[0];
+
+    size = 0;
+
+    msg << "Test Name: " << testName;
+    info("", msg.str());
+    msg.clear();
+    msg.str("");
+
+    // test starts
+    try {
+        (*func)(array, size, bestStart, bestEnd, bestSum);
+        // assert the return values
+        if (bestStart == -1 && bestEnd == -1 && bestSum == INT_MIN)
+            testFlag = 0;
+    } catch (exception& e) {
+        error(__func__, e.what());
+    }
+
+    delete[] array;
+
+    // test log
+    msg << "Expected: bestStart = -1, ";
+    msg << "Actual: bestStart = " << bestStart;
+    info("", msg.str());
+    msg.clear();
+    msg.str("");
+    msg << "Expected: bestEnd = -1, ";
+    msg << "Actual: bestEnd = " << bestEnd;
+    info("", msg.str());
+    msg.clear();
+    msg.str("");
+    msg << "Expected: bestSum = " << INT_MIN << ", ";
+    msg << "Actual: bestSum = " << bestSum;
+    info("", msg.str());
+    msg.clear();
+    msg.str("");
+    msg << "Test Finished: ";
+    if (testFlag != 0) msg << "Failed";
+    else msg << "Passed";
+    info("", msg.str());
+
+    return testFlag;
+}
+
+
+/**
  * Test an algorithm with an array in size 1.
  *
  * @param func  A function which implements an algorithm to find the max-sum

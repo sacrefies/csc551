@@ -38,7 +38,8 @@ static void printUsage(const char * prog) {
     cout << "  -l           Set the screen log ouput level. The levels are:";
     cout << endl;
     cout << "                   debug, warn, error, info" << endl;
-    cout << "               The default is warn if this argument is not specified.";
+    cout <<
+        "               The default is warn if this argument is not specified.";
     cout << endl;
     cout << "  -h/--help    Print this usage information." << endl;
     cout << "E.g.:" << endl;
@@ -95,270 +96,290 @@ int main(const int argc, const char * argv[]) {
     // tests against bruteForce_n2
     info("", "::::::::: Tests on bruteForce_n2 :::::::::");
     rc = array_null_test(bruteForce_n2);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
+    total++;
+
+    rc = array_zero_test(bruteForce_n2);
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_size_1_test(bruteForce_n2);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_size_2_all_positive_test(bruteForce_n2);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_size_2_all_negative_test(bruteForce_n2);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_all_negative_test(bruteForce_n2);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_size_2_1_pos_1_neg_test(bruteForce_n2);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_size_2_1_neg_1_pos_test(bruteForce_n2);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_self_max_test(bruteForce_n2);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_max_1st_half_test(bruteForce_n2);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_max_2nd_half_test(bruteForce_n2);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_max_mid_test(bruteForce_n2);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_max_mid_left_leaning_test(bruteForce_n2);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_max_mid_right_leaning_test(bruteForce_n2);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
 
     // tests against bruteForce_n2
     info("", "::::::::: Tests on bruteForce_n3 :::::::::");
     rc = array_null_test(bruteForce_n3);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
+    total++;
+
+    rc = array_zero_test(bruteForce_n3);
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_size_1_test(bruteForce_n3);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_size_2_all_positive_test(bruteForce_n3);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_size_2_all_negative_test(bruteForce_n3);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_all_negative_test(bruteForce_n3);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_size_2_1_pos_1_neg_test(bruteForce_n3);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_size_2_1_neg_1_pos_test(bruteForce_n3);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_self_max_test(bruteForce_n3);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_max_1st_half_test(bruteForce_n3);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_max_2nd_half_test(bruteForce_n3);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_max_mid_test(bruteForce_n3);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_max_mid_left_leaning_test(bruteForce_n3);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_max_mid_right_leaning_test(bruteForce_n3);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     // tests against bruteForce_n2
     info("", "::::::::: Tests on recursive :::::::::");
     rc = array_null_test(find_maximum_subarray);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
+    total++;
+
+    rc = array_zero_test(find_maximum_subarray);
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_size_1_test(find_maximum_subarray);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_size_2_all_positive_test(find_maximum_subarray);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_size_2_all_negative_test(find_maximum_subarray);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_all_negative_test(find_maximum_subarray);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_size_2_1_pos_1_neg_test(find_maximum_subarray);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_size_2_1_neg_1_pos_test(find_maximum_subarray);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_self_max_test(find_maximum_subarray);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_max_1st_half_test(find_maximum_subarray);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_max_2nd_half_test(find_maximum_subarray);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_max_mid_test(find_maximum_subarray);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_max_mid_left_leaning_test(find_maximum_subarray);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_max_mid_right_leaning_test(find_maximum_subarray);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     // tests against bruteForce_n2
     info("", "::::::::: Tests on Kadane :::::::::");
     rc = array_null_test(kadane);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
+    total++;
+
+    rc = array_zero_test(kadane);
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_size_1_test(kadane);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_size_2_all_positive_test(kadane);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_size_2_all_negative_test(kadane);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_all_negative_test(kadane);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_size_2_1_pos_1_neg_test(kadane);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_size_2_1_neg_1_pos_test(kadane);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_self_max_test(kadane);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_max_1st_half_test(kadane);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_max_2nd_half_test(kadane);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_max_mid_test(kadane);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_max_mid_left_leaning_test(kadane);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     rc = array_max_mid_right_leaning_test(kadane);
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     // statistic data output
