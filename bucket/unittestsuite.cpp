@@ -137,7 +137,7 @@ static void testsuite1() {
     total++;
 
     info("", "");
-    rc      = get_1_not_in_size_4_test();
+    rc      = get_random_in_size_4_test();
     passed += (rc == 0) ? 1 : 0;
     failed += (rc == -1) ? 1 : 0;
     total++;
@@ -171,37 +171,37 @@ static void testsuite2() {
 
     info("", "************* " + testSuite + " *************");
     info("", "");
-    rc      = add_1_to_size_1_test();
+    rc      = add_1_to_size_1_test2();
     passed += (rc == 0) ? 1 : 0;
     failed += (rc == -1) ? 1 : 0;
     total++;
 
     info("", "");
-    rc      = add_same_5_to_size_1_test();
+    rc      = add_same_5_to_size_1_test2();
     passed += (rc == 0) ? 1 : 0;
     failed += (rc == -1) ? 1 : 0;
     total++;
 
     info("", "");
-    rc      = add_sorted_5_to_size_2_test();
+    rc      = add_sorted_5_to_size_2_test2();
     passed += (rc == 0) ? 1 : 0;
     failed += (rc == -1) ? 1 : 0;
     total++;
 
     info("", "");
-    rc      = add_5_to_size_3_test();
+    rc      = add_5_to_size_3_test2();
     passed += (rc == 0) ? 1 : 0;
     failed += (rc == -1) ? 1 : 0;
     total++;
 
     info("", "");
-    rc      = add_20_to_size_10_test();
+    rc      = add_20_to_size_10_test2();
     passed += (rc == 0) ? 1 : 0;
     failed += (rc == -1) ? 1 : 0;
     total++;
 
     info("", "");
-    rc      = get_1_not_in_size_4_test();
+    rc      = get_random_in_size_4_test2();
     passed += (rc == 0) ? 1 : 0;
     failed += (rc == -1) ? 1 : 0;
     total++;
