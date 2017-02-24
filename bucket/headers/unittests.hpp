@@ -35,7 +35,7 @@ int add_5_to_size_3_test();
 
 int add_20_to_size_10_test();
 
-int get_1_not_in_size_4_test();
+int get_random_in_size_4_test();
 
 // ===============================================================
 #if defined(GRAD) && defined(EXTRA_CREDIT)
@@ -54,7 +54,7 @@ int add_5_to_size_3_test2();
 int add_20_to_size_10_test2();
 
 
-int get_1_not_in_size_4_test2();
+int get_random_in_size_4_test2();
 
 
 #endif // if defined(GRAD) && defined(EXTRA_CREDIT)

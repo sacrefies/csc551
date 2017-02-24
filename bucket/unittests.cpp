@@ -476,7 +476,7 @@ int add_5_to_size_3_test() {
 
 int add_20_to_size_10_test() {
     stringstream msg;
-    const string testName = "Add 5 Bucket into Size 3 Bucket Sort";
+    const string testName = "Add 20 Bucket into Size 10 Bucket Sort";
     int testFlag = -1;
 
     msg << "******** Test Name: " << testName;
@@ -550,7 +550,7 @@ int add_20_to_size_10_test() {
 } // add_20_to_size_10_test
 
 
-int get_1_not_in_size_4_test() {
+int get_random_in_size_4_test() {
     stringstream msg;
     const string testName = "Get Data at Random Index from Size 4 BucketSort";
     int testFlag = -1;
@@ -959,7 +959,7 @@ int add_5_to_size_3_test2() {
 
 int add_20_to_size_10_test2() {
     stringstream msg;
-    const string testName = "Add 5 Bucket into Size 3 Bucket Sort";
+    const string testName = "Add 20 Bucket into Size 10 Bucket Sort";
     int testFlag = -1;
 
     msg << "******** Test Name: " << testName;
@@ -1033,7 +1033,7 @@ int add_20_to_size_10_test2() {
 } // add_20_to_size_10_test
 
 
-int get_1_not_in_size_4_test2() {
+int get_random_in_size_4_test2() {
     stringstream msg;
     const string testName = "Get Data at Random Index from Size 4 BucketSort";
     int testFlag = -1;

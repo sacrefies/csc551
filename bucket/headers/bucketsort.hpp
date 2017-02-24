@@ -277,10 +277,7 @@ namespace bucketsort {
                     index--;
             }
 
-            if (cursor != nullptr)
-                return cursor->mData;
-
-            return (NAN);
+            return (cursor != nullptr)? cursor->mData: NAN;
         } // get
 
         #if defined(GRAD) && defined(EXTRA_CREDIT)
