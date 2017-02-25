@@ -55,7 +55,7 @@ int array_null_test(void (* func)(int[], int, int&, int&, int&)) {
     try {
         (*func)(array, size, bestStart, bestEnd, bestSum);
         // assert the return values
-        if (bestStart == -1 && bestEnd == -1 && bestSum == INT_MIN)
+        if (bestStart < 0 && bestEnd < 0 && bestSum == INT_MIN)
             testFlag = 0;
     } catch (exception& e) {
         error(__func__, e.what());
@@ -114,7 +114,7 @@ int array_zero_test(void (* func)(int[], int, int&, int&, int&)) {
     try {
         (*func)(array, size, bestStart, bestEnd, bestSum);
         // assert the return values
-        if (bestStart == -1 && bestEnd == -1 && bestSum == INT_MIN)
+        if (bestStart < 0 && bestEnd < 0 && bestSum == INT_MIN)
             testFlag = 0;
     } catch (exception& e) {
         error(__func__, e.what());
