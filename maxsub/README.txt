@@ -30,13 +30,10 @@ arrayUtils.cpp
 bruteForce.cpp
 kadane.cpp
 logging.cpp
-main.cpp
 recursive.cpp
 testRunner.cpp
 unitTests.cpp
 README.txt                              // This file
-build.sh                                // Build tool for Linux
-build.bat                               // Build tool for Windows (This tool requires GNU C/C++ toolchain installed)
 build_test.sh                           // unit test runner builder for Linux
 build_test.bat                          // unit test runner builder for Windows (This tool requires GNU C/C++ toolchain installed)
 
