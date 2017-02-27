@@ -62,12 +62,12 @@ int array_null_test(void (* func)(int[], int, int&, int&, int&)) {
     }
 
     // test log
-    msg << "Expected: bestStart = -1, ";
+    msg << "Expected: bestStart < 0, ";
     msg << "Actual: bestStart = " << bestStart;
     info("", msg.str());
     msg.clear();
     msg.str("");
-    msg << "Expected: bestEnd = -1, ";
+    msg << "Expected: bestEnd < 0, ";
     msg << "Actual: bestEnd = " << bestEnd;
     info("", msg.str());
     msg.clear();
@@ -123,12 +123,12 @@ int array_zero_test(void (* func)(int[], int, int&, int&, int&)) {
     delete[] array;
 
     // test log
-    msg << "Expected: bestStart = -1, ";
+    msg << "Expected: bestStart < 0, ";
     msg << "Actual: bestStart = " << bestStart;
     info("", msg.str());
     msg.clear();
     msg.str("");
-    msg << "Expected: bestEnd = -1, ";
+    msg << "Expected: bestEnd < 0 ";
     msg << "Actual: bestEnd = " << bestEnd;
     info("", msg.str());
     msg.clear();
