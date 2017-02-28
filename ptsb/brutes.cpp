@@ -34,6 +34,9 @@ using std::string;
  * @param size      the length of array
  */
 void bruteForce1(double tour[][2], int size, long repeats) {
+    if (0 != check_array_sanity(tour, size))
+        return;
+
     if (repeats < 0L) {
         string s = "Param 'repeats' is given a negative number."
             " A default value 0 is assigned to repeats.";
@@ -221,6 +224,8 @@ static double recur_permute_cost(double tour[][2], int size, int start, int end,
  *     double  (*tmp)[2] = new double[n][2];  //tmp is a ptr to pairs of doubles
  */
 void bruteForce3(double tour[][2], int size) {
+    if (0 != check_array_sanity(tour, size))
+        return;
     // a temp array to record the tour which has the current optimal cost
     double (*opt_tour)[2] = new double[size][2];
     double optimal = recur_permute_cost(tour, size, 0, size - 1, opt_tour);
@@ -232,7 +237,7 @@ void bruteForce3(double tour[][2], int size) {
     stringstream msg;
     msg << "Found the optimal tour, cost = " << setprecision(8) << optimal;
     info(__func__, msg.str());
-    print(tour, 5);
+    print(tour, size);
 }
 #endif // ifdef  EXTRA_CREDIT_RECURSIVE
 
@@ -240,17 +245,23 @@ void bruteForce3(double tour[][2], int size) {
 // ---------------------------------------------------------------------------
 #ifdef  EXTRA_CREDIT_NON_RECURSIVE
 
-static int tour_exists_1(double tour[][2], double *** queue, long queue_size) {
+static int tour_exists_1(double tour[][2], int size, double *** queue, long queue_size) {
+    stringstream msg;
+    msg << "checking whether the tour exists in queue...";
+    msg << "queue size = " << queue_size << ", tour size = " << size;
+    debug(__func__, msg.str());
+    msg.clear();
+    msg.str("");
     for (long i = 0; i < queue_size; ++i) {
         int same = 0;
-        for (int j = 0; j < 5; ++j) {
-            if ((queue[i][j][0] - tour[j][0] <= 0.0000001) &&
-                (queue[i][j][1] - tour[j][1] <= 0.0000001))
+        for (int j = 0; j < size; ++j) {
+            if ((((double (*)[2])queue[i])[j][0] - tour[j][0] <= 0.0000001) &&
+                (((double (*)[2])queue[i])[j][1] - tour[j][1] <= 0.0000001))
                 same++;
             else
                 break;
         }
-        if (same == 5)
+        if (same == size)
             return 0;
     }
     return 1;
@@ -265,11 +276,15 @@ static int tour_exists_1(double tour[][2], double *** queue, long queue_size) {
  *    double (*tmp)[2] = new double[n][2];  //tmp is a ptr to pairs of doubles
  */
 void bruteForce4(double tour[][2], int size) {
+    if (0 != check_array_sanity(tour, size))
+        return;
+
     if (size == 5) {
         bruteForce2(tour);
         return;
     }
 
+    debug(__func__, "size != 5, go full round");
     long permutations = (size <= 10) ? fact((long)size) : factRecursive((long)size);
     // optimal costs
     double optimal = DBL_MAX, local_optm;
@@ -298,34 +313,35 @@ void bruteForce4(double tour[][2], int size) {
         msg.clear();
         msg.str("");
 
-        double (*tmp)[2] = new double[5][2];
+        double (*tmp)[2] = new double[size][2];
         // dequeue head
-        copy(tmp, 5, (double (*)[2])queue[head++]);
+        copy(tmp, size, (double (*)[2])queue[head++]);
         debug(__func__, "polled head:");
-        // print(tmp, 5);
+        // print(tmp, size);
         // calc cost
-        local_optm = cost(tmp, 5);
+        local_optm = cost(tmp, size);
         if (local_optm < optimal) {
             msg << "found better route. local=" << setprecision(8) << local_optm;
             msg << ", global=" << setprecision(8) << optimal;
             debug(__func__, msg.str());
             msg.clear();
             msg.str("");
-            copy(opt_tour, 5, tmp);
+            copy(opt_tour, size, tmp);
             optimal = local_optm;
         }
-
+        debug(__func__, "looking for better routes");
         // permute head
-        for (int i = 0; i < 5; ++i) {
-            for (int j = 0; j < 5; ++j) {
+        for (int i = 0; i < size; ++i) {
+            for (int j = 0; j < size; ++j) {
                 if (j != i) {
                     swap_position(tmp, i, j);
+                    debug(__func__, "swap position");
                     // now we have one permutation
                     // check if it exists in queue
-                    if (0 != tour_exists_1(tmp, queue, tail + 1)) {
+                    if (0 != tour_exists_1(tmp, size, queue, tail + 1)) {
                         debug(__func__, "route not exists, add route");
                         // print(tmp, 5);
-                        copy((double (*)[2])queue[++tail], 5, tmp);
+                        copy((double (*)[2])queue[++tail], size, tmp);
                     } else {
                         debug(__func__, "route exists");
                     }
@@ -344,7 +360,7 @@ void bruteForce4(double tour[][2], int size) {
         msg.str("");
     }
 
-    copy(tour, 5, opt_tour);
+    copy(tour, size, opt_tour);
 
     // clean up
     delete[] opt_tour;
@@ -359,6 +375,6 @@ void bruteForce4(double tour[][2], int size) {
     msg.str("");
     msg << "Permutations generated: " << tail + 1;
     info(__func__, msg.str());
-    print(tour, 5);
+    print(tour, size);
 } // bruteForce4
 #endif // ifdef  EXTRA_CREDIT_NON_RECURSIVE

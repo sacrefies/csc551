@@ -14,6 +14,15 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+
+int check_array_sanity(double list[][2], int size);
+
+/**
+ * Use random double values to initialize a tour.
+ */
+void fill_random_tour(double tour[][2], int size);
+
+
 /**
  * this function copies the tour in src (of length size) into tour dest
  * (also of length size). the caller must properly init and allocate the tours.

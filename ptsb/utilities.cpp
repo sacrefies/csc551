@@ -22,15 +22,33 @@
 
 
 using std::stringstream;
+using std::random_device;
 using std::mt19937_64;
+using std::uniform_real_distribution;
 using std::uniform_int_distribution;
 using std::setprecision;
 
 
 static mt19937_64 g;
+static random_device rd;
 
 
-static int check_array_sanity(double list[][2], int size) {
+
+/**
+ * Generate a random double number in between low and high.
+ */
+static double random_double(const int low, const int high) {
+    mt19937_64 gen(rd());
+
+    uniform_real_distribution<double> dist(low, high);
+
+    // hard-coded: precision == 1e6
+    return (double)(((int)(dist(gen) * 1e6))/1e6);
+}
+
+
+// O(n)
+int check_array_sanity(double list[][2], int size) {
     if (list == NULL) {
         error(__func__, "The specified array is NULL");
         return -1;
@@ -39,7 +57,7 @@ static int check_array_sanity(double list[][2], int size) {
     if (size < 1)
         return 0;
 
-    for (int i = 0; i < size; ++i) {
+    for (int i = 0; i < size; ++i)
         if (list[i] == NULL) {
             stringstream msg;
             msg << "Bad array struct at " << i;
@@ -49,19 +67,19 @@ static int check_array_sanity(double list[][2], int size) {
             msg.str("");
             return -1;
         }
-    }
     return 0;
 } // check_array_sanity
 
 
 /**
- * Calculate the Euclidean distance between 2 points.
+ * Calculate the Euclidean distance between 2 points. O(C)
  */
 static double calc_euclid_dist(double x0, double y0, double x1, double y1) {
     return sqrt(pow(x0 - x1, 2) + pow(y0 - y1, 2));
 }
 
 
+// lg(n)
 static long multiply(long start, long end) {
     if (start == end)
         return start;
@@ -71,7 +89,7 @@ static long multiply(long start, long end) {
 
 
 /**
- * A binary search.
+ * A binary search: lg(n)
  * Returns 0 if to_search exists in list; returns -1 if otherwise.
  */
 static int is_in_array(int to_search, int list[], int start, int end) {
@@ -85,11 +103,8 @@ static int is_in_array(int to_search, int list[], int start, int end) {
         return -1;
     }
 
-    if (start == end) {
-        if (to_search == list[start])
-            return 0;
-        return -1;
-    }
+    if (start == end)
+        return (to_search == list[start])? 0: -1;
     int mid = (end + start) >> 1;
     return is_in_array(to_search, list, start, mid) &
            is_in_array(to_search, list, mid + 1, end);
@@ -97,11 +112,11 @@ static int is_in_array(int to_search, int list[], int start, int end) {
 
 
 /**
+ * O(3n)
  * Copy the tour in src (of length size) into dest
  * (also of length size). the caller must properly init and allocate the tours.
  */
 void copy(double dest[][2], int size, double src[][2]) {
-
     if (check_array_sanity(dest, size) != 0 ||
         check_array_sanity(src, size) != 0) {
         error(__func__, "Failed to copy");
@@ -119,33 +134,41 @@ void copy(double dest[][2], int size, double src[][2]) {
 
 
 /**
- * Calculate the cost of tour (of length size).
+ * Calculate the cost of tour (of length size). O(n*(1+C))
  *
  * @return The cost of a tour. If error happens, return -1.0.
  */
 double cost(double tour[][2], int size) {
-    if (check_array_sanity(tour, size) != 0) {
+    if (check_array_sanity(tour, size) != 0) {    // O(n)
         error(__func__, "Failed to calculate cost");
         return -1.0;
     }
+
+    debug(__func__, "array received:");
+    // print(tour, size);
 
     if (size < 2)
         return 0.0;
 
     int next;
     double dist = 0.0;
-    for (int i = 0; i < size; ++i) {
+    for (int i = 0; i < size; ++i) {   // O(Cn)
         next = (i + 1) % size;
-        dist += calc_euclid_dist(
-                tour[i][0], tour[i][1],
-                tour[next][0], tour[next][1]);
+        dist += calc_euclid_dist(      // C, this constant cannot be ignored
+            tour[i][0], tour[i][1],
+            tour[next][0], tour[next][1]);
     }
+    stringstream msg;
+    msg << "cost computed: " << setprecision(8) << dist;
+    debug(__func__, msg.str());
+    msg.clear();
+    msg.str("");
     return dist;
 }
 
 
 /**
- * non-recursive version of n factorial. n! is returned.
+ * non-recursive version of n factorial. n! is returned. O(n)
  */
 long fact(long n) {
     if (n < 0L) {
@@ -161,16 +184,15 @@ long fact(long n) {
 
     long r = 2;
     // do math through 2 to n, inclusively.
-    for (long l = 3; l <= n; ++l) {
+    for (long l = 3; l <= n; ++l)
         r *= l;
-    }
 
     return r;
 }
 
 
 /**
- * recursive version of n factorial.  n! is returned.
+ * recursive version of n factorial.  n! is returned. lg(n)
  */
 long factRecursive(long n) {
     if (n < 0L) {
@@ -189,7 +211,7 @@ long factRecursive(long n) {
 
 
 /**
- * pretty print (to cout) tour of length size.
+ * pretty print (to cout) tour of length size. O(n)
  */
 void print(double list[][2], int size) {
     if (check_array_sanity(list, size) != 0) {
@@ -212,7 +234,7 @@ void print(double list[][2], int size) {
 
 
 /**
- * Swap 2 position
+ * Swap 2 position: O(C) - constant time
  */
 void swap_position(double tour[][2], int pos_a, int pos_b) {
     double tmp = tour[pos_a][0];
@@ -225,7 +247,7 @@ void swap_position(double tour[][2], int pos_a, int pos_b) {
 
 
 /**
- * randomize tour of length size in place
+ * randomize tour of length size in place - O(n)
  */
 void randomize_in_place(double tour[][2], int size) {
     if (check_array_sanity(tour, size) != 0) {
@@ -260,18 +282,39 @@ void randomize_in_place(double tour[][2], int size) {
 
 
 /**
- * Check whether to_search has been already in an array
+ * Check whether to_search exists in array list[]: lg(n)
  *
  * @return 0 if to_search exists in the array; returns -1 if otherwise.
  */
 int is_in_array(int to_search, int list[], int size) {
-    if (size < 1) {
-        error(__func__, "Error: size <= 0");
+    if (list == NULL) {
+        error(__func__, "Error: list is NULL");
         return -1;
     }
 
-    if (size == 1 && list[0] == to_search)
-        return 0;
+    if (size < 1) {
+        error(__func__, "Error: size < 1");
+        return -1;
+    }
+
+    if (size == 1)
+        return list[0] == to_search;
 
     return is_in_array(to_search, list, 0, size - 1);
 } // is_in_array
+
+
+/**
+ * Use random double values to initialize a tour.
+ * O(n*(C + 1)) => O(Cn)
+ */
+void fill_random_tour(double tour[][2], int size) {
+    // sanity checking
+    if (0 != check_array_sanity(tour, size))
+        return;
+
+    for (int i = 0; i < size; ++i) {
+        tour[i][0] = random_double(0, 1);
+        tour[i][1] = random_double(0, 1);
+    }
+}
