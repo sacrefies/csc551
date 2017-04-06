@@ -217,3 +217,19 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+
+# JetBrain IDE
+.idea/
+cmake-build*/
+
+# archives
+*.zip
+*.7z
+*.tar
+*.gz
+*.rar
+
+# documents
+*.pdf
+*.docx
+*.doc
