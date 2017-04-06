@@ -3,6 +3,10 @@ project(vectorbucketsort)
 
 set(CMAKE_CXX_STANDARD 11)
 
+add_definitions(-DGRAD)
+
+add_definitions(-DEXTRA_CREDIT)
+
 set(SOURCE_FILES
         headers/logging.h
         headers/unittests.h
