@@ -17,15 +17,20 @@ headers                                 // headers
   |- VectorBucketSort.h                 // class VectorBucketSort
   |- logging.h                          // functions for logging for testing
   |- unittests.h                        // unit tests
+  |- unittests_grad.h                   // unit tests
+  |- unittests_grad_extra.h             // unit tests
   |- utils.h                            // some helper functions
 logging.cpp                             // logging func implementation
 main.cpp                                // main program execution entry point
 unittests.cpp                           // unit test cases
+unittests_grad.cpp                      // unit test cases for grad's implementation
+unittests_grad_extra.cpp                // unit test cases for grad's extra points
 unittestsuite.cpp                       // unit test case execution entry point
 utilities.cpp                           // helper func implementation
 build.sh                                // Build tool for Linux
 build_tests.sh                          // Build tool for unit tesing program.
 README.txt                              // This file
+CMakeLists.txt                          // Build list for CMake tool chain.
 
 
 To Compile
@@ -35,25 +40,28 @@ This program is developed and runs only on Linux.
 1. Unizp the package and save the directories under a certain directory, i.e.: ~/source.
 2. Launch a terminal environment, change current directory to ~/source.
 3. Run build.sh
-    # . ./build.sh
+    $ . ./build.sh
 4. For test executable
-    # . ./build_tests.sh
+    $ . ./build_tests.sh
 5. Or run g++ directly:
-    # g++ -std=c++11 -DGRAD -DEXTRA_CREDIT -Wall -o unittests unittests.cpp logging.cpp utilities.cpp unittestsuite.cpp
-    # g++ -O3 -std=c++11 -Wall -DGRAD -DEXTRA_CREDIT -o bucketsort utilities.cpp main.cpp logging.cpp
+    $ g++ -std=c++11 -DGRAD -DEXTRA_CREDIT -Wall -o unittests unittests.cpp logging.cpp utilities.cpp unittestsuite.cpp unittests_grad.cpp unittests_grad_extra.cpp
+    $ g++ -O3 -std=c++11 -Wall -DGRAD -DEXTRA_CREDIT -o bucketsort utilities.cpp main.cpp logging.cpp
 
 
 To Run
 ------
 The command is as below:
-    # ./buckesort
+    $ ./buckesort
 
 The command for unit test runner (default log level is warning):
-    # ./unittests
-    # ./unittests -l debug
-    # ./unittests -l info
-    # ./unittests -h
-    # ./unittests --help
+    $ ./unittests
+    $ ./unittests -l debug
+    $ ./unittests -l info
+    $ ./unittests -h
+    $ ./unittests --help
+
+The command to extract error messages from the console outputs:
+    $ ./unittests 2>err.txt
 
 
 WINDOWS

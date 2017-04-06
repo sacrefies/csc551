@@ -1,14 +1,3 @@
-// ------------------------------------------------------------------------------------
-// Filename: unitTests.cpp
-// Revision: $Id$
-// Description: This file includes the standard unit tests
-// Created: 02/15/2016 01:20:29 PM
-// Compiler: G++
-// Author: Jason Meng (jm), jm652564@sju.edu
-//
-// Copyright (c) 2016 by Jason Meng
-// ------------------------------------------------------------------------------------
-
 // C headers
 #include <cmath>
 // C++ includes
@@ -21,8 +10,7 @@
 #include "headers/logging.h"
 #include "headers/VectorBucketSort.h"
 #include "headers/utils.h"
-#include "headers/unittests.h"
-
+#include "headers/unittests_grad_extra.h"
 
 using std::exception;
 using std::stringstream;
@@ -34,84 +22,9 @@ using std::to_string;
 using std::string;
 using std::isnan;
 
+#if defined(GRAD) && defined(EXTRA_CREDIT)
 
-int default_initialization_disposal_test() {
-    int testFlag = -1;
-    string msg = "******** Test Name: ";
-    msg += "Default Initialization and Disposal";
-    info("", msg);
-
-    VectorBucketSort *bs = nullptr;
-    // test starts
-    try {
-        bs = new VectorBucketSort();
-        if (bs->size() != 10) {
-            msg = "Failed. Size expected=10, actual=";
-            msg += to_string(bs->size());
-            throw runtime_error(msg);
-        }
-
-        stringstream buckets;
-        buckets << *bs;
-        info("", buckets.str());
-
-        testFlag = 0;
-    } catch (exception &e) {
-        error(__func__, e.what());
-        testFlag = -1;
-        if (bs != nullptr) {
-            stringstream buckets;
-            buckets << *bs;
-            error(__func__, "Problematic BucketSort:\n" + buckets.str());
-        }
-    }
-
-    if (bs != nullptr) {
-        delete bs;
-        bs = nullptr;
-    }
-    info("", "Test Finished: " + (testFlag == 0) ? "Passed" : "Failed");
-    return testFlag;
-}
-
-int initialization_disposal_test() {
-    string msg = "Initialization and Disposal in Size 1";
-    int testFlag = -1;
-    msg = "******** Test Name: " + msg;
-    info("", msg);
-
-    VectorBucketSort *bs = nullptr;
-    try {
-        bs = new VectorBucketSort(1);
-        if (bs->size() != 1) {
-            msg = "Failed. Size expected=1, actual=";
-            msg += to_string(bs->size());
-            throw runtime_error(msg);
-        }
-
-        stringstream buckets;
-        buckets << *bs;
-        info("", buckets.str());
-        testFlag = 0;
-    } catch (exception &e) {
-        error(__func__, e.what());
-        testFlag = -1;
-        if (bs != nullptr) {
-            stringstream buckets;
-            buckets << *bs;
-            error(__func__, "Problematic BucketSort: " + buckets.str());
-        }
-    }
-
-    if (bs != nullptr) {
-        delete bs;
-        bs = nullptr;
-    }
-    info("", "Test Finished: " + (testFlag == 0) ? "Passed" : "Failed");
-    return testFlag;
-}
-
-int get_random_in_random_size_test() {
+int get_random_in_random_size_test2() {
     string msg =
             "Get Value at Random Indices in [0, 50) out of 20 elements from Random Size in [5, 20) Bucket List";
     int testFlag = -1;
@@ -144,8 +57,8 @@ int get_random_in_random_size_test() {
                  "Fetch elements at index in range [0, 50], some of the returns should be NAN");
             for (int j = 0; j < valueLength; ++j) {
                 int random_index = random_int(0, 51);
-                msg = "get(" + to_string(random_index) + ")=";
-                double item = bs->get(random_index);
+                msg = "get2(" + to_string(random_index) + ")=";
+                double item = bs->get2(random_index);
                 if (true == isnan(item)) {
                     msg += "NAN";
                     debug(__func__, msg);
@@ -188,7 +101,7 @@ int get_random_in_random_size_test() {
     return testFlag;
 }
 
-int add_1_to_size_1_test() {
+int add_1_to_size_1_test2() {
     string msg = "Add 1 element into Size 1 Bucket List";
     int testFlag = -1;
 
@@ -204,15 +117,15 @@ int add_1_to_size_1_test() {
             msg += to_string(bs->size());
             throw runtime_error(msg);
         }
-        double item = bs->get(0);
+        double item = bs->get2(0);
         if (true == isnan(item)) {
-            msg = "Failed. Result from get(0) expected=";
+            msg = "Failed. Result from get2(0) expected=";
             msg += to_string(tmp);
             msg += ", actual=NAN";
             throw runtime_error(msg);
         }
         if (item - tmp > threshold) {
-            msg = "Failed. Result from get(0) expected=";
+            msg = "Failed. Result from get2(0) expected=";
             msg += to_string(tmp);
             msg += ", actual=" + to_string(item);
             throw runtime_error(msg);
@@ -239,7 +152,7 @@ int add_1_to_size_1_test() {
     return testFlag;
 }
 
-int add_same_5_to_size_1_test() {
+int add_same_5_to_size_1_test2() {
     string msg = "Add 5 Same elements into Size 1 Bucket List";
     msg = "******** Test Name: " + msg;
     int testFlag = -1;
@@ -255,11 +168,11 @@ int add_same_5_to_size_1_test() {
         }
         // add the values
         for (int i = 0; i < 5; ++i) bs->add(0.10);
-        // test get(i)
+        // test get2(i)
         for (int i = 0; i < 5; ++i) {
-            double item = bs->get(i);
+            double item = bs->get2(i);
             if (true == isnan(item) || item - 0.10 > threshold || item - 0.10 < 0.0) {
-                msg = "Failed. Result from get(" + to_string(i) + ") expected=0.10";
+                msg = "Failed. Result from get2(" + to_string(i) + ") expected=0.10";
                 msg += ", actual=" + to_string(item);
                 throw runtime_error(msg);
             }
@@ -287,7 +200,7 @@ int add_same_5_to_size_1_test() {
     return testFlag;
 }
 
-int add_random_5_to_size_2_sort_test() {
+int add_random_5_to_size_2_sort_test2() {
     string msg = "Add 5 Random Elements into Size 2 Sorted Bucket List";
     msg = "******** Test Name: " + msg;
     info("", msg);
@@ -310,11 +223,11 @@ int add_random_5_to_size_2_sort_test() {
         insertion_sort(values, 5);
         info("", "Sorted: " + array_to_string(values, 5));
         bs->sortAll();
-        // test get(i) == values[i]
+        // test get2(i) == values[i]
         for (int i = 0; i < 5; ++i) {
-            double item = bs->get(i);
+            double item = bs->get2(i);
             if (true == isnan(item) || item - values[i] > threshold || item - values[i] < 0.0) {
-                msg = "Failed. Result from get(" + to_string(i) + ") expected=";
+                msg = "Failed. Result from get2(" + to_string(i) + ") expected=";
                 msg += to_string(values[i]);
                 msg += ", actual=" + to_string(item);
                 throw runtime_error(msg);
@@ -342,7 +255,7 @@ int add_random_5_to_size_2_sort_test() {
     return testFlag;
 }
 
-int add_random_5_to_size_3_sort_test() {
+int add_random_5_to_size_3_sort_test2() {
     string msg = "Add 5 Ramdom Elements into Size 3 Sorted Bucket List";
     msg = "******** Test Name: " + msg;
     info("", msg);
@@ -365,11 +278,11 @@ int add_random_5_to_size_3_sort_test() {
         insertion_sort(values, 5);
         info("", "Sorted: " + array_to_string(values, 5));
         bs->sortAll();
-        // test get(i) == values[i]
+        // test get2(i) == values[i]
         for (int i = 0; i < 5; ++i) {
-            double item = bs->get(i);
+            double item = bs->get2(i);
             if (true == isnan(item) || item - values[i] > threshold || item - values[i] < 0.0) {
-                msg = "Failed. Result from get(" + to_string(i) + ") expected=";
+                msg = "Failed. Result from get2(" + to_string(i) + ") expected=";
                 msg += to_string(values[i]);
                 msg += ", actual=" + to_string(item);
                 throw runtime_error(msg);
@@ -397,7 +310,7 @@ int add_random_5_to_size_3_sort_test() {
     return testFlag;
 }
 
-int add_random_20_to_size_10_test() {
+int add_random_20_to_size_10_test2() {
     string msg = "Add 20 Random Elements into Size 10 Unsorted Bucket List";
     msg = "******** Test Name: " + msg;
     info("", msg);
@@ -419,15 +332,15 @@ int add_random_20_to_size_10_test() {
         info("", "Generated: " + array_to_string(values, 20));
 
         for (int i = 0; i < 20; ++i) {
-            double item = bs->get(i);
+            double item = bs->get2(i);
             if (true == isnan(item)) {
-                msg = "Failed. Result from get(" + to_string(i) + ") expected=";
+                msg = "Failed. Result from get2(" + to_string(i) + ") expected=";
                 msg += to_string(values[i]);
                 msg += ", actual=NAN";
                 throw runtime_error(msg);
             }
             if (0 != in_array(item, values, 20)) {
-                msg = "Failed. Result from get(" + to_string(i) + ")=";
+                msg = "Failed. Result from get2(" + to_string(i) + ")=";
                 msg += to_string(item);
                 msg += " does not exist in original values";
                 throw runtime_error(msg);
@@ -454,7 +367,7 @@ int add_random_20_to_size_10_test() {
     return testFlag;
 }
 
-int add_random_20_to_size_10_sort_test() {
+int add_random_20_to_size_10_sort_test2() {
     string msg = "Add 20 Random Elements into Size 10 Sorted Buckets List";
     msg = "******** Test Name: " + msg;
     info("", msg);
@@ -478,9 +391,9 @@ int add_random_20_to_size_10_sort_test() {
         info("", "Sorted: " + array_to_string(values, 20));
         bs->sortAll();
         for (int i = 0; i < 20; ++i) {
-            double item = bs->get(i);
+            double item = bs->get2(i);
             if (true == isnan(item) || item - values[i] > threshold || item - values[i] < 0.0) {
-                msg = "Failed. Result from get(" + to_string(i) + ") expected=";
+                msg = "Failed. Result from get2(" + to_string(i) + ") expected=";
                 msg += to_string(values[i]);
                 msg += ", actual=" + to_string(item);
                 throw runtime_error(msg);
@@ -508,7 +421,7 @@ int add_random_20_to_size_10_sort_test() {
     return testFlag;
 }
 
-int add_random_positive_invalid_values() {
+int add_random_positive_invalid_values2() {
     string msg = "Add 20 Random Elements in [1.0, 10.0) into Size 10 Buckets List";
     int testFlag = -1;
     msg = "******** Test Name: " + msg;
@@ -523,17 +436,17 @@ int add_random_positive_invalid_values() {
             bs->add(values[i]);
         }
         if (bs->size() != 10) {
-            msg = "Failed. Size expected=2, actual=";
+            msg = "Failed. Size expected=10, actual=";
             msg += to_string(bs->size());
             throw runtime_error(msg);
         }
         info("", "Generated: " + array_to_string(values, 20));
 
         for (int i = 0; i < 20; ++i) {
-            double item = bs->get(i);
+            double item = bs->get2(i);
             if (false == isnan(item))
                 throw runtime_error(
-                        "Failed. get(" + to_string(i) + ") = " + to_string(item) + ", is not NAN");
+                        "Failed. get2(" + to_string(i) + ") = " + to_string(item) + ", is not NAN");
         }
 
         stringstream buckets;
@@ -559,3 +472,5 @@ int add_random_positive_invalid_values() {
     info("", "Test Finished: " + (testFlag == 0) ? "Passed" : "Failed");
     return testFlag;
 }
+
+#endif // if defined(GRAD) && defined(EXTRA_CREDIT)

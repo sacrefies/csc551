@@ -14,9 +14,9 @@
 #ifndef UNITESTS_H
 #define UNITESTS_H
 
-int default_initialzation_disposal_test();
+int default_initialization_disposal_test();
 
-int initialzation_disposal_test();
+int initialization_disposal_test();
 
 int get_random_in_random_size_test();
 
@@ -32,25 +32,6 @@ int add_random_20_to_size_10_test();
 
 int add_random_20_to_size_10_sort_test();
 
-int load_factor_random_in_random_size_test();
-
-// ===============================================================
-#if defined(GRAD) && defined(EXTRA_CREDIT)
-
-int get_random_in_random_size_test2();
-
-int add_1_to_size_1_test2();
-
-int add_same_5_to_size_1_test2();
-
-int add_random_5_to_size_2_sort_test2();
-
-int add_random_5_to_size_3_sort_test2();
-
-int add_random_20_to_size_10_test2();
-
-int add_random_20_to_size_10_sort_test2();
-
-#endif // if defined(GRAD) && defined(EXTRA_CREDIT)
-#endif // ifndef UNITESTS_H
+int add_random_positive_invalid_values();
+#endif
 /** end of include guard */

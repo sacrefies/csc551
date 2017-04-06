@@ -1,6 +1,14 @@
-// file  : VectorBucketSort.h
-// author: ...
-// desc. : this file contains the VectorBucketSort class definition.
+// ------------------------------------------------------------------------------------
+// Filename: VectorBucketSort.h
+// Revision: $Id$
+// Description: This file contains the VectorBucketSort class definition.
+// Created: 02/15/2016 01:20:29 PM
+// Compiler: G++
+// Author: Jason Meng (jm), jm652564@sju.edu
+//
+// Copyright (c) 2016-2017 by Jason Meng
+// ------------------------------------------------------------------------------------
+
 
 #include <algorithm>
 #include <assert.h>
@@ -14,30 +22,34 @@
 #ifndef VECTORBUCKETSORT_H
 #define VECTORBUCKETSORT_H
 
-
 using namespace std;
 
 class VectorBucketSort {
 private:
-    int mLength = 0; // full length of all elements contained by this bucketlist
-    int mSize = 0;  // # of buckets
-    vector<double> * mBucketList = nullptr;  // treat as an array
-
-#ifdef  GRAD
-    int * mCounter = nullptr;  // number of buckets in each individual chain
-    bool isSorted = false;
-#endif
+    // full length of all elements contained by this bucket list
+    int mLength = 0;
+    // the size of buckets
+    int mSize = 0;
+    // The buckets
+    vector<double> *mBucketList = nullptr;
+    // is the elements are sorted?
+    bool mIsSorted = false;
 
 public:
-    bool sorted(void) const {
-        return isSorted;
+    /// Check whether the elements are sorted.
+    /// \return Returns true if all the elements are sorted.
+    bool isSorted(void) const {
+        return mIsSorted;
     }
 
+    /// Get the size of the bucket list maintained by this object.
+    /// \return Returns the size of the bucket list.
     int size(void) const {
         return mSize;
     }
 
-    // bucket sort ctor.  default size is 10 buckets.
+    /// bucket sort ctor.  default size is 10 buckets.
+    /// \param size The size of the inner buckets. If omitted, the default value is 10.
     VectorBucketSort(int size = 10) {
         cout << "in VectorBucketSort() ctor" << endl;
         assert(size > 0);
@@ -46,16 +58,9 @@ public:
         // create the bucket list array of the appropriate size.
         mBucketList = new vector<double>[size];
         if (mBucketList == nullptr) return;
-
-        #ifdef GRAD
-        // create the bucket list length array
-        mCounter = new int[size];
-        for (int i = 0; i < size; ++i)
-            mCounter[i] = 0;
-        #endif
     }
-    // -----------------------------------------------------------------------
-    // bucket sort dtor.
+
+    /// bucket sort dtor.
     ~VectorBucketSort(void) {
         cout << "in ~VectorBucketSort() dtor" << endl;
         // if there is no list, there's nothing to do.
@@ -69,101 +74,120 @@ public:
         delete[] mBucketList;
         mBucketList = nullptr;
         mSize = 0;
-        #ifdef GRAD
-        delete[] mCounter;
-        mCounter = nullptr;
-        #endif
     }
-    // -----------------------------------------------------------------------
-    // this function should add a new element to the appropriate list
-    // _in arbitrary order_.
+
+    /// Add a new element to the appropriate list.
+    /// \param value A double value which is in [0, 1).
     void add(double value) {
         if (value < 0. || value >= 1.) return;
+        if (mBucketList == nullptr) return;
+
+        mIsSorted = false;
         // which bucket?
-        int index  = (int)(value * mSize);
-        // adding this value into the bucket vectory at the beginning
+        int index = (int) (value * mSize);
+        // adding this value into the bucket vector at the beginning
         mBucketList[index].push_back(value);
         mLength++;
-
-        #ifdef GRAD
-        mCounter[index]++;
-        #endif
     }
-    // -----------------------------------------------------------------------
-    // this function sorts all of the lists.
+
+    /// Sort all of the lists.
     void sortAll(void) {
-        if (mBucketList == nullptr)    return;
+        if (mBucketList == nullptr) return;
+        if (mIsSorted) return;
+
         for (int i = 0; i < mSize; i++)
             sort(mBucketList[i].begin(), mBucketList[i].end());
-        isSorted = true;
+        mIsSorted = true;
     }
-    // -----------------------------------------------------------------------
-    // return the ith (starting at 0) value in the list.
-    // if there is no such entry, then return NAN.
+
+    /// Get the i-th (starting at 0) value in the list.
+    /// if there is no such entry, then return NAN.
+    ///
+    /// \param i The index at which the desired value is.
+    /// \return Returns the value at the given index
+    ///         or NAN if the given index is invalid.
     double get(const int i) {
         // O(n)
         int count = 0;
         for (int bucketIndex = 0; bucketIndex < mSize; ++bucketIndex)
-            for (int j = 0; j < (int)mBucketList[bucketIndex].size(); ++j) {
+            for (int j = 0; j < (int) mBucketList[bucketIndex].size(); ++j) {
                 if (count == i) return mBucketList[bucketIndex][j];
                 count++;
             }
         return NAN;
     }
-    // -----------------------------------------------------------------------
+
 #if defined(GRAD) && defined(EXTRA_CREDIT)
-    /**
-     * An alternative get method with better performance.
-     */
+
+    /// An alternative get method to get the i-th (starting at 0) value in the list.
+    /// if there is no such entry, then return NAN.
+    ///
+    /// This implement is a bit more efficient that get(i)
+    /// because its computation complexity is O(bucketSize).
+    ///
+    /// \param i The index at which the desired value is.
+    /// \return Returns the value at the given index
+    ///         or NAN if the given index is invalid.
     double get2(const int i) {
         if (i >= mLength) return NAN;
 
+        if (i < (int) mBucketList[0].size()) return mBucketList[0][i];
+
         int count = 0, bucketIndex = 0;
-        while (bucketIndex < mSize && (mCounter[bucketIndex] + count - 1) < i)
-            count += mCounter[bucketIndex++];
-        // failsafe: prevent from crashing
-        if (count > i) return NAN;
+        while (bucketIndex < mSize && ((int) mBucketList[bucketIndex].size() + count - 1) < i)
+            count += (int) mBucketList[bucketIndex++].size();
+        // failsafe: prevent it from crashing
+        if (count > i || mBucketList[bucketIndex].empty() ||
+            (int) mBucketList[bucketIndex].size() <= (i - count))
+            return NAN;
 
         return mBucketList[bucketIndex][i - count];
     }
+
 #endif
     // -----------------------------------------------------------------------
 #ifdef GRAD
-    // this function returns the number of buckets in a particular bucket
-    // list.
-    int getCount(int which) {
+
+    /// Get the chain size of the bucket at the given position.
+    /// \param which The position of a bucket.
+    /// \return The size of the chain.
+    int getCount(int which) const {
         if (which < 0 || which >= mSize)
-            return NAN;
-
-        return mCounter[which];
+            return -1;
+        return (int) mBucketList[which].size();
     }
 
-    // this function calculates and returns the load factor (LF).
-    // the LF is the average chain length (# of data values added / total #
-    // of bucket lists).
-    double getLoadFactor(void) {
-        return (double)mLength / (double)mSize;
+    /// Get the load factor (LF), or return NAN if this object is not initialized correctly.
+    /// \return The load factor or NAN.
+    double getLoadFactor(void) const {
+        // the LF is the average chain length (# of data values added / total #
+        // of bucket lists).
+        return (mSize == 0 || mBucketList == nullptr) ? NAN : (double) mLength / (double) mSize;
     }
 
-    int length(void) const {
+    /// Get the length of the elements contained by this object.
+    /// \return The total number of the elements.
+    int getLength(void) const {
         return mLength;
     }
+
 #endif
 
     // -----------------------------------------------------------------------
     // pretty print the contents of the bucket list to an output stream.
-    friend ostream& operator<< (ostream& os, const VectorBucketSort& bs) {
+    friend ostream &operator<<(ostream &os, const VectorBucketSort &bs) {
         os << "  mSize=" << bs.mSize;
-        os << "  mBucketList=0x" << hex << (unsigned long)(bs.mBucketList) <<
-            dec << endl;
+        os << "  mBucketList=0x" << hex << (unsigned long) (bs.mBucketList) <<
+           dec << endl;
 
         for (int i = 0; i < bs.mSize; i++) {
-            os << "[" << i << "][" << bs.mCounter[i] << "]";
-            for (int j = 0; j < (int)bs.mBucketList[i].size(); j++)
+            os << "[" << i << "][" << bs.mBucketList[i].size() << "]";
+            for (int j = 0; j < (int) bs.mBucketList[i].size(); j++)
                 os << " " << setprecision(6) << bs.mBucketList[i].at(j);
             os << endl;
         }
         return os;
     }
 };
+
 #endif
