@@ -70,7 +70,8 @@ int default_initialization_disposal_test() {
         delete bs;
         bs = nullptr;
     }
-    info("", "Test Finished: " + (testFlag == 0)? "Passed": "Failed");
+    msg = (testFlag == 0)? "Passed": "Failed";
+    info("", "Test Finished: " + msg);
     return testFlag;
 }
 
@@ -107,7 +108,8 @@ int initialization_disposal_test() {
         delete bs;
         bs = nullptr;
     }
-    info("", "Test Finished: " + (testFlag == 0)? "Passed": "Failed");
+    msg = (testFlag == 0)? "Passed": "Failed";
+    info("", "Test Finished: " + msg);
     return testFlag;
 }
 
@@ -143,6 +145,9 @@ int get_random_in_random_size_test() {
                 bs->add(values[j]);
             }
             debug("", "Generated: " + array_to_string(values, valueLength));
+            stringstream buckets;
+            buckets << *bs;
+            debug("", "Generated Buckets:\n" + buckets.str());
             info("",
                  "Fetch elements at index in range [0, 50], some of the returns should be NAN");
             for (int j = 0; j < valueLength; ++j) {
@@ -169,9 +174,6 @@ int get_random_in_random_size_test() {
                     }
                 }
             }
-            stringstream buckets;
-            buckets << *bs;
-            debug("", buckets.str());
             delete bs;
             bs = nullptr;
         }
@@ -189,7 +191,8 @@ int get_random_in_random_size_test() {
         delete bs;
         bs = nullptr;
     }
-    info("", "Test Finished: " + (testFlag == 0)? "Passed": "Failed");
+    msg = (testFlag == 0)? "Passed": "Failed";
+    info("", "Test Finished: " + msg);
     return testFlag;
 }
 
@@ -205,6 +208,9 @@ int add_1_to_size_1_test() {
         const double tmp = 0.30;
         debug(__func__, "adding values[0]=" + to_string(tmp));
         bs->add(tmp);
+        stringstream buckets;
+        buckets << *bs;
+        debug("", "Generated Buckets:\n" + buckets.str());
         if (bs->size() != 1) {
             msg = "Failed. Size expected=1, actual=";
             msg += to_string(bs->size());
@@ -225,9 +231,6 @@ int add_1_to_size_1_test() {
             msg += ", actual=" + to_string(item);
             throw runtime_error(msg);
         }
-        stringstream buckets;
-        buckets << *bs;
-        debug("", buckets.str());
         testFlag = 0;
     } catch (exception &e) {
         error(__func__, e.what());
@@ -242,8 +245,8 @@ int add_1_to_size_1_test() {
         delete bs;
         bs = nullptr;
     }
-
-    info("", "Test Finished: " + (testFlag == 0)? "Passed": "Failed");
+    msg = (testFlag == 0)? "Passed": "Failed";
+    info("", "Test Finished: " + msg);
     return testFlag;
 }
 
@@ -268,6 +271,9 @@ int add_same_5_to_size_1_test() {
                   to_string(0.10));
             bs->add(0.10);
         }
+        stringstream buckets;
+        buckets << *bs;
+        debug("", "Generated Buckets:\n" + buckets.str());
         // test get(i)
         for (int i = 0; i < 5; ++i) {
             debug(__func__, "get(" + to_string(i) + ")=");
@@ -281,9 +287,6 @@ int add_same_5_to_size_1_test() {
                 throw runtime_error(msg);
             }
         }
-        stringstream buckets;
-        buckets << *bs;
-        debug("", buckets.str());
         testFlag = 0;
     } catch (exception &e) {
         error(__func__, e.what());
@@ -299,8 +302,8 @@ int add_same_5_to_size_1_test() {
         delete bs;
         bs = nullptr;
     }
-
-    info("", "Test Finished: " + (testFlag == 0)? "Passed": "Failed");
+    msg = (testFlag == 0)? "Passed": "Failed";
+    info("", "Test Finished: " + msg);
     return testFlag;
 }
 
@@ -327,9 +330,15 @@ int add_random_5_to_size_2_sort_test() {
             bs->add(values[i]);
         }
         debug("", "Generated: " + array_to_string(values, 5));
+        stringstream buckets;
+        buckets << *bs;
+        debug("", "Generated Buckets:\n" + buckets.str());
         insertion_sort(values, 5);
         debug("", "Sorted: " + array_to_string(values, 5));
         bs->sortAll();
+        buckets.clear();
+        buckets << *bs;
+        debug("", "Sorted Buckets:\n" + buckets.str());
         // test get(i) == values[i]
         for (int i = 0; i < 5; ++i) {
             debug(__func__, "get(" + to_string(i) + ")=");
@@ -343,9 +352,6 @@ int add_random_5_to_size_2_sort_test() {
                 throw runtime_error(msg);
             }
         }
-        stringstream buckets;
-        buckets << *bs;
-        debug("", buckets.str());
         testFlag = 0;
     } catch (exception &e) {
         error(__func__, e.what());
@@ -360,8 +366,8 @@ int add_random_5_to_size_2_sort_test() {
         delete bs;
         bs = nullptr;
     }
-
-    info("", "Test Finished: " + (testFlag == 0)? "Passed": "Failed");
+    msg = (testFlag == 0)? "Passed": "Failed";
+    info("", "Test Finished: " + msg);
     return testFlag;
 }
 
@@ -388,9 +394,15 @@ int add_random_5_to_size_3_sort_test() {
             bs->add(values[i]);
         }
         debug("", "Generated: " + array_to_string(values, 5));
+        stringstream buckets;
+        buckets << *bs;
+        debug("", "Generated Buckets:\n" + buckets.str());
         insertion_sort(values, 5);
         debug("", "Sorted: " + array_to_string(values, 5));
         bs->sortAll();
+        buckets.clear();
+        buckets << *bs;
+        debug("", "Sorted Buckets:\n" + buckets.str());
         // test get(i) == values[i]
         for (int i = 0; i < 5; ++i) {
             debug(__func__, "get(" + to_string(i) + ")=");
@@ -404,9 +416,6 @@ int add_random_5_to_size_3_sort_test() {
                 throw runtime_error(msg);
             }
         }
-        stringstream buckets;
-        buckets << *bs;
-        debug("", buckets.str());
         testFlag = 0;
     } catch (exception &e) {
         error(__func__, e.what());
@@ -422,7 +431,8 @@ int add_random_5_to_size_3_sort_test() {
         delete bs;
         bs = nullptr;
     }
-    info("", "Test Finished: " + (testFlag == 0)? "Passed": "Failed");
+    msg = (testFlag == 0)? "Passed": "Failed";
+    info("", "Test Finished: " + msg);
     return testFlag;
 }
 
@@ -449,7 +459,9 @@ int add_random_20_to_size_10_test() {
             bs->add(values[i]);
         }
         debug("", "Generated: " + array_to_string(values, 20));
-
+        stringstream buckets;
+        buckets << *bs;
+        debug("", "Generated Buckets:\n" + buckets.str());
         for (int i = 0; i < 20; ++i) {
             debug(__func__, "get(" + to_string(i) + ")=");
             double item = bs->get(i);
@@ -467,9 +479,6 @@ int add_random_20_to_size_10_test() {
                 throw runtime_error(msg);
             }
         }
-        stringstream buckets;
-        buckets << *bs;
-        debug("", buckets.str());
         testFlag = 0;
     } catch (exception &e) {
         error(__func__, e.what());
@@ -484,7 +493,8 @@ int add_random_20_to_size_10_test() {
         delete bs;
         bs = nullptr;
     }
-    info("", "Test Finished: " + (testFlag == 0)? "Passed": "Failed");
+    msg = (testFlag == 0)? "Passed": "Failed";
+    info("", "Test Finished: " + msg);
     return testFlag;
 }
 
@@ -511,9 +521,15 @@ int add_random_20_to_size_10_sort_test() {
             bs->add(values[i]);
         }
         debug("", "Generated: " + array_to_string(values, 20));
+        stringstream buckets;
+        buckets << *bs;
+        debug("", "Generated Buckets:\n" + buckets.str());
         insertion_sort(values, 20);
         debug("", "Sorted: " + array_to_string(values, 20));
         bs->sortAll();
+        buckets.clear();
+        buckets << *bs;
+        debug("", "Sorted Buckets:\n" + buckets.str());
         for (int i = 0; i < 20; ++i) {
             debug(__func__, "get(" + to_string(i) + ")=");
             double item = bs->get(i);
@@ -526,9 +542,6 @@ int add_random_20_to_size_10_sort_test() {
                 throw runtime_error(msg);
             }
         }
-        stringstream buckets;
-        buckets << *bs;
-        debug("", buckets.str());
         testFlag = 0;
     } catch (exception &e) {
         error(__func__, e.what());
@@ -544,7 +557,8 @@ int add_random_20_to_size_10_sort_test() {
         delete bs;
         bs = nullptr;
     }
-    info("", "Test Finished: " + (testFlag == 0)? "Passed": "Failed");
+    msg = (testFlag == 0)? "Passed": "Failed";
+    info("", "Test Finished: " + msg);
     return testFlag;
 }
 
@@ -572,6 +586,9 @@ int add_random_positive_invalid_values() {
             throw runtime_error(msg);
         }
         debug("", "Generated: " + array_to_string(values, 20));
+        stringstream buckets;
+        buckets << *bs;
+        debug("", "Generated Buckets:\n" + buckets.str());
         for (int i = 0; i < 20; ++i) {
             debug(__func__, "get(" + to_string(i) + ")=");
             double item = bs->get(i);
@@ -581,11 +598,6 @@ int add_random_positive_invalid_values() {
                           "Failed. get(" + to_string(i) + ") = " +
                           to_string(item) + ", is not NAN");
         }
-
-        stringstream buckets;
-        buckets << *bs;
-        debug("", buckets.str());
-
         testFlag = 0;
     } catch (exception &e) {
         error(__func__, e.what());
@@ -601,7 +613,7 @@ int add_random_positive_invalid_values() {
         delete bs;
         bs = nullptr;
     }
-
-    info("", "Test Finished: " + (testFlag == 0)? "Passed": "Failed");
+    msg = (testFlag == 0)? "Passed": "Failed";
+    info("", "Test Finished: " + msg);
     return testFlag;
 }
