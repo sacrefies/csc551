@@ -79,7 +79,8 @@ public:
     /// Add a new element to the appropriate list.
     /// \param value A double value which is in [0, 1).
     void add(double value) {
-        if (value < 0. || value >= 1.) return;
+        if (isnan(value) || (int)value < 0 || (int)value >= 1)
+            return;
         if (mBucketList == nullptr) return;
 
         mIsSorted = false;

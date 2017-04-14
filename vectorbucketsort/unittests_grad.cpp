@@ -43,9 +43,12 @@ int load_factor_random_in_random_size_test() {
             bs = new VectorBucketSort(bucketSize);
             for (int j = 0; j < dataSize; ++j) {
                 values[j] = random_double(0, 1);
+                debug(__func__,
+                      "adding values[" + to_string(j) + "]=" +
+                      to_string(values[j]));
                 bs->add(values[j]);
             }
-            info("", "Generated: " + array_to_string(values, dataSize));
+            debug("", "Generated: " + array_to_string(values, dataSize));
             // testing the load factors
             double expectedLoadFactor = (double) dataSize / bucketSize;
             double actualLoadFactor = bs->getLoadFactor();
@@ -91,6 +94,7 @@ int add_random_invalid_values_load_factor_test() {
         int upperBound = random_int(1, 10);
         for (int i = 0; i < 20; ++i) {
             values[i] = random_double(1, upperBound);
+            debug(__func__, "adding values[" + to_string(i) + "]=" + to_string(values[i]));
             bs->add(values[i]);
         }
         if (bs->size() != 10) {
@@ -98,7 +102,7 @@ int add_random_invalid_values_load_factor_test() {
             msg += to_string(bs->size());
             throw runtime_error(msg);
         }
-        info("", "Generated: " + array_to_string(values, 20));
+        debug("", "Generated: " + array_to_string(values, 20));
 
         double factor = bs->getLoadFactor();
         if (true == isnan(factor) || factor - 0.0 > threshold)
@@ -106,7 +110,7 @@ int add_random_invalid_values_load_factor_test() {
 
         stringstream buckets;
         buckets << *bs;
-        info("", buckets.str());
+        debug("", buckets.str());
 
         testFlag = 0;
     } catch (exception &e) {
@@ -138,15 +142,18 @@ int chain_size_negative_index_test() {
         bs = new VectorBucketSort();
         const int dataSize = random_int(0, 50) + 1;
         double *values = new double[dataSize];
-        for (int j = 0; j < dataSize; ++j) {
-            values[j] = random_double(0, 1);
-            bs->add(values[j]);
+        for (int i = 0; i < dataSize; ++i) {
+            values[i] = random_double(0, 1);
+            debug(__func__,
+                  "adding values[" + to_string(i) + "]=" +
+                  to_string(values[i]));
+            bs->add(values[i]);
         }
-        info("", "Generated: " + array_to_string(values, dataSize));
-        int index = random_int(-20, 0);
+        debug("", "Generated: " + array_to_string(values, dataSize));
+        int index = random_int(-20, -1);
         int actualSize = bs->getCount(index);
-        if (actualSize >= 0) {
-            msg = "Failed. getCount(" + to_string(index) + ") result is expected < 0, ";
+        if (actualSize > 0) {
+            msg = "Failed. getCount(" + to_string(index) + ") result is expected <= 0, ";
             msg += "actual=" + to_string(actualSize);
             throw runtime_error(msg);
         }
@@ -174,15 +181,20 @@ int chain_size_positive_invalid_index_test() {
         bs = new VectorBucketSort();
         const int dataSize = random_int(0, 50) + 1;
         double *values = new double[dataSize];
-        for (int j = 0; j < dataSize; ++j) {
-            values[j] = random_double(0, 1);
-            bs->add(values[j]);
+        for (int i = 0; i < dataSize; ++i) {
+            values[i] = random_double(0, 1);
+            debug(__func__,
+                  "adding values[" + to_string(i) + "]=" +
+                  to_string(values[i]));
+            bs->add(values[i]);
         }
-        info("", "Generated: " + array_to_string(values, dataSize));
+        debug("", "Generated: " + array_to_string(values, dataSize));
         int index = random_int(0, 20) + 51;
+        debug(__func__, "getConut(" + to_string(index) + ")=");
         int actualSize = bs->getCount(index);
-        if (actualSize >= 0) {
-            msg = "Failed. getCount(" + to_string(index) + ") result is expected < 0, ";
+        debug(__func__, "getConut(" + to_string(index) + ")=" + to_string(actualSize));
+        if (actualSize > 0) {
+            msg = "Failed. getCount(" + to_string(index) + ") result is expected <= 0, ";
             msg += "actual=" + to_string(actualSize);
             throw runtime_error(msg);
         }
