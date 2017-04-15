@@ -21,7 +21,7 @@
 #ifdef GRAD
 #include "headers/unittests_grad.h"
 #endif
-#if defined(GRAD) && defined(EXTRA_CREDIT)
+#ifdef EXTRA_CREDIT
 #include "headers/unittests_grad_extra.h"
 #endif
 #include "headers/logging.h"
@@ -36,7 +36,7 @@ using std::endl;
 using std::exit;
 
 
-static void printUsage(const char *prog) {
+static void printUsage(const char * prog) {
     cout << "Usage: " << prog << " [OPTIONS]" << endl;
     cout << "Run all unit test cases for bucket sort" << endl;
     cout << endl;
@@ -45,7 +45,7 @@ static void printUsage(const char *prog) {
     cout << endl;
     cout << "                   debug, warn, error, info" << endl;
     cout <<
-         "               The default is warn if this argument is not specified.";
+        "               The default is warn if this argument is not specified.";
     cout << endl;
     cout << "  -h/--help    Print this usage information." << endl;
     cout << "E.g.:" << endl;
@@ -54,7 +54,7 @@ static void printUsage(const char *prog) {
     cout << endl;
 }
 
-static void prepare(const int argc, const char *argv[]) {
+static void prepare(const int argc, const char * argv[]) {
     string arg;
 
     setLoggingLevel(WARNING);
@@ -102,67 +102,67 @@ static double testsuite(int &passed, int &failed, int &total) {
     info("", "************* " + testSuite + " *************");
     info("", "");
     rc = default_initialization_disposal_test();
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     info("", "");
     rc = initialization_disposal_test();
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     info("", "");
     rc = get_random_in_random_size_test();
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     info("", "");
     rc = add_1_to_size_1_test();
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     info("", "");
     rc = add_same_5_to_size_1_test();
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     info("", "");
     rc = add_random_5_to_size_2_sort_test();
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     info("", "");
     rc = add_random_5_to_size_3_sort_test();
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     info("", "");
     rc = add_random_20_to_size_10_test();
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     info("", "");
     rc = add_random_20_to_size_10_sort_test();
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     info("", "");
     rc = add_random_positive_invalid_values();
-    passed += (rc == 0) ? 1 : 0;
-    failed += (rc == -1) ? 1 : 0;
+    passed += (rc == 0)? 1: 0;
+    failed += (rc == -1)? 1: 0;
     total++;
 
     info("", "");
     // statistic data output
-    passRatio = (double) passed / total * 100;
+    passRatio = (double)passed / total * 100;
     info("", "");
     msg << "TOTAL CASES: " << total << ", ";
     msg << "PASSED: " << passed << ", ";
@@ -232,9 +232,10 @@ static double testsuite_grad(int& passed, int& failed, int& total) {
 }
 #endif
 
-#if defined(GRAD) && defined(EXTRA_CREDIT)
+#ifdef EXTRA_CREDIT
 static double testsuite_grad_extra(int& passed, int& failed, int& total) {
-    const string testSuite = "Test Suite for GRAD with Extra Credit: Vector Bucket Sort";
+    const string testSuite =
+        "Test Suite for GRAD with Extra Credit: Vector Bucket Sort";
     stringstream msg;
 
     int rc;
@@ -310,7 +311,7 @@ static double testsuite_grad_extra(int& passed, int& failed, int& total) {
 } // testsuite2
 #endif // if defined(GRAD) && defined(EXTRA_CREDIT)
 
-int main(const int argc, const char *argv[]) {
+int main(const int argc, const char * argv[]) {
     prepare(argc, argv);
 
     int passed, failed, total;
@@ -326,18 +327,19 @@ int main(const int argc, const char *argv[]) {
     failed += failed2;
 #endif
 
-#if defined(GRAD) && defined(EXTRA_CREDIT)
-    testsuite_grad_extra(passed2, failed2, total2);
-    total += total2;
-    passed += passed2;
-    failed += failed2;
+#ifdef EXTRA_CREDIT
+    int passed3, failed3, total3;
+    testsuite_grad_extra(passed3, failed3, total3);
+    total += total3;
+    passed += passed3;
+    failed += failed3;
 #endif
 
     info("", "");
     info("", "");
     info("", "");
     // statistic data output
-    double passRatio = (double) passed / total * 100;
+    double passRatio = (double)passed / total * 100;
     info("", "");
     msg << "OVERALL TOTAL CASES: " << total << ", ";
     msg << "OVERALL PASSED: " << passed << ", ";

@@ -108,7 +108,7 @@ public:
     /// \return Returns the value at the given index
     ///         or NAN if the given index is invalid.
     double get(const int i) {
-        // O(n)
+        if (i < 0 || i >= mLength) return NAN;
         int count = 0;
         for (int bucketIndex = 0; bucketIndex < mSize; ++bucketIndex)
             for (int j = 0; j < (int) mBucketList[bucketIndex].size(); ++j) {
@@ -130,7 +130,7 @@ public:
     /// \return Returns the value at the given index
     ///         or NAN if the given index is invalid.
     double get2(const int i) {
-        if (i >= mLength) return NAN;
+        if (i < 0 || i >= mLength) return NAN;
 
         if (i < (int) mBucketList[0].size()) return mBucketList[0][i];
 

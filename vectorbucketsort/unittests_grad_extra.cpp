@@ -22,7 +22,7 @@ using std::to_string;
 using std::string;
 using std::isnan;
 
-#if defined(GRAD) && defined(EXTRA_CREDIT)
+#ifdef EXTRA_CREDIT
 
 int get_random_in_random_size_test2() {
     string msg =
@@ -469,7 +469,7 @@ int add_random_20_to_size_10_sort_test2() {
         if (bs != nullptr) {
             stringstream buckets;
             buckets << *bs;
-            error(__func__, "Problematic BucketSort: " + msg);
+            error(__func__, "Problematic BucketSort: " + buckets.str());
         }
     }
 
