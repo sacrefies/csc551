@@ -24,7 +24,7 @@
 #include <iostream>         // os
 #include <iomanip>
 // home made headers
-#include "logging.hpp"
+#include "logging.h"
 
 
 using std::numeric_limits;

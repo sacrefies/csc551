@@ -15,9 +15,9 @@
 // C++ headers
 #include <iostream>     // cout, endl
 // home-made headers
-#include "headers/Prim.hpp"
-#include "headers/logging.hpp"
-#include "headers/args.hpp"
+#include "headers/Prim.h"
+#include "headers/logging.h"
+#include "headers/args.h"
 
 
 using std::cout;

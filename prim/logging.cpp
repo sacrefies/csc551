@@ -22,7 +22,7 @@
 #include <string>
 #include <sstream>
 // homemade headers
-#include "headers/logging.hpp"
+#include "headers/logging.h"
 
 
 /** fold all 'using std::foo' togethor */
@@ -123,10 +123,10 @@ void warning(string tag, string msg) {
  */
 void error(string tag, string msg) {
     if (level <= ERROR) {
-        cout << getFormattedTime() << " - ";
-        cout << setw(5) << "ERROR" << " - ";
+        cerr << getFormattedTime() << " - ";
+        cerr << setw(5) << "ERROR" << " - ";
         if (!tag.empty())
-            cout << tag << " - ";
-        cout << msg << endl << flush;
+            cerr << tag << " - ";
+        cerr << msg << endl << flush;
     }
 }

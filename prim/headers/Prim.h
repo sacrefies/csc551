@@ -37,8 +37,8 @@
 #include <limits>       // numeric_limits
 #include <sstream>      // stringstream
 // home made include
-#include "Vertex.hpp"
-#include "logging.hpp"
+#include "Vertex.h"
+#include "logging.h"
 
 
 using std::invalid_argument;
