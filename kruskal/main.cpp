@@ -49,8 +49,8 @@
 #include <string>
 // homemade headers
 #include "headers/Kruskal.h"
-#include "headers/logging.hpp"
-#include "headers/args.hpp"
+#include "headers/logging.h"
+#include "headers/args.h"
 
 
 using std::stringstream;

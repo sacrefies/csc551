@@ -15,7 +15,7 @@
 
 
 #include <string>
-#include "logging.hpp"
+#include "logging.h"
 
 
 using std::string;

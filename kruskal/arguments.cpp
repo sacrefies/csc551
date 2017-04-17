@@ -26,8 +26,8 @@
 
 #include <string>
 #include <iostream>
-#include "headers/args.hpp"
-#include "headers/logging.hpp"
+#include "headers/args.h"
+#include "headers/logging.h"
 
 
 using std::string;

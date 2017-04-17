@@ -53,7 +53,7 @@
 #include <vector>
 // custom headers
 #include "Edge.h"
-#include "logging.hpp"
+#include "logging.h"
 
 
 /** include guard */
