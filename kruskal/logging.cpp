@@ -76,7 +76,7 @@ void debug(string tag, string msg) {
         cout << setw(5) << "DEBUG" << " - ";
         if (!tag.empty())
             cout << tag << " - ";
-        cout << msg << endl;
+        cout << msg << endl << flush;
     }
 }
 
@@ -93,7 +93,7 @@ void info(string tag, string msg) {
         cout << setw(5) << "INFO" << " - ";
         if (!tag.empty())
             cout << tag << " - ";
-        cout << msg << endl;
+        cout << msg << endl << flush;
     }
 }
 
@@ -110,7 +110,7 @@ void warning(string tag, string msg) {
         cout << setw(5) << "WARN" << " - ";
         if (!tag.empty())
             cout << tag << " - ";
-        cout << msg << endl;
+        cout << msg << endl << flush;
     }
 }
 
@@ -127,6 +127,6 @@ void error(string tag, string msg) {
         cerr << setw(5) << "ERROR" << " - ";
         if (!tag.empty())
             cerr << tag << " - ";
-        cerr << msg << endl;
+        cerr << msg << endl << flush;
     }
 }

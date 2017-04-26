@@ -156,6 +156,10 @@ int main(const int argc, const char * argv[]) {
     }
 
     options_t op = parseArgs(argc, argv);
+    if (true == op.help) {
+        printUsages(argv[0]);
+        exit(0);
+    }
     setLoggingLevel(op.logLevel);
     if (true == op.file) {
         run_file_setup(op.filePath);

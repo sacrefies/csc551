@@ -77,30 +77,40 @@ using std::to_string;
 using std::ostream;
 
 
+/// A class which implements the Kruskal MST algorithm.
+///
+/// Example:
+/// \code{.cpp}
+/// Kruskal krsk(8);
+/// k1.addEdge(4, 5, 0.35);
+/// k1.addEdge(4, 7, 0.37);
+/// k1.addEdge(5, 7, 0.28);
+/// k1.addEdge(0, 7, 0.16);
+/// ...
+/// k1.process();
+/// cout << "min cost: " << k1.getMSTCost() << endl << flush;
+///
+/// \endcode
 class Kruskal {
 
 private:
-    /** number of nodes/vertices (0..mVertexCount-1) */
+    /// number of nodes/vertices (0..mVertexCount-1)
     int mVertexCount = 0;
-    /** 2d array indicating what is in each set */
-    bool ** mVertexSet = nullptr;
-    /** type alias for a priority_queue of edges */
-    typedef priority_queue < Edge *, vector < Edge * >, Edge > SortedEdges;
-    /** edges sorted by weight */
+    /// 2d array indicating what is in each set
+    bool **mVertexSet = nullptr;
+    /// type alias for a priority_queue of edges
+    typedef priority_queue<Edge *, vector<Edge *>, Edge> SortedEdges;
+    /// edges sorted by weight
     SortedEdges mSortedEdges;
-    /** type alias for the set of edges which stores the min-spanning-tree */
-    typedef set < Edge * > MSTEdgeSet;
-    /** result set of edges in MST */
+    /// type alias for the set of edges which stores the min-spanning-tree
+    typedef set<Edge *> MSTEdgeSet;
+    /// result set of edges in MST
     MSTEdgeSet mA;
-    /** the cost of the current MST */
+    /// the cost of the current MST
     double mCost = 0.;
 
-
-    /**
-     * allocate memory for the 2d array representing sets of vertices.
-     *
-     * @param vCount    number of vertices
-     */
+    /// allocate memory for the 2d array representing sets of vertices.
+    /// \param vCount number of vertices
     void initSet(int vCount) {
         mVertexCount = vCount;
         debug(__func__,
@@ -117,7 +127,7 @@ private:
         debugPrintVertexSet();
     }
 
-
+    /// Print the entire vertex set to DEBUG log level.
     void debugPrintVertexSet() {
         debug(__func__, "Vertex set ====> ");
         if (mVertexSet == nullptr) {
@@ -135,14 +145,14 @@ private:
             row = "";
             for (int j = 0; j < mVertexCount; ++j)
                 row +=
-                    ((true == mVertexSet[i][j])?
-                     to_string(true): to_string(false))
-                    + ",";
+                        ((true == mVertexSet[i][j]) ?
+                         to_string(true) : to_string(false))
+                        + ",";
             debug(__func__, row);
         }
     }
 
-
+    /// Print one vertex set to DEBUG log level.
     void debugPrintSingleVertexSet(int vertex) {
         string msg = "Vertex set ";
         msg += to_string(vertex) + " ====> ";
@@ -153,18 +163,15 @@ private:
         debug(__func__, msg);
     }
 
-
-    /**
-     * Check whether an edge exists already in the priority queue by given the edge's
-     * both end vertices.
-     * Note: This method is resource-consuming because it basically rebuilds the
-     * queue to examine each edge in the queue.
-     *
-     * @param u A vertex which is one end of the edge.
-     * @param v A vertex which is one end of the edge.
-     *
-     * @return Returns true if the edge exists in queue; otherwise returns false.
-     */
+    /// Check whether an edge exists already in the priority queue
+    /// by given the edge's both end vertices.
+    ///
+    /// Note: This method is resource-consuming because it basically
+    /// rebuilds the queue to examine each edge in the queue.
+    ///
+    /// \param u A vertex which is one end of the edge.
+    /// \param v A vertex which is one end of the edge.
+    /// \return Returns true if the edge exists in queue.
     bool edgeExistsInQueue(int u, int v) {
         if (true == mSortedEdges.empty()) {
             debug(__func__, "edge queue is empty. nothing in queue");
@@ -178,8 +185,9 @@ private:
         debug(__func__, msg);
 
         int f = -1, t = -1;
+        SortedEdges tmp(mSortedEdges);
         if (size == 1) {
-            Edge * e = mSortedEdges.top();
+            Edge *e = tmp.top();
             f = e->getFrom();
             t = e->getTo();
             e = nullptr; // kill dangling ptr
@@ -188,15 +196,14 @@ private:
             msg += ")";
             debug(__func__, msg);
             msg = "return: ";
-            msg += ((f == u && t == v) || (f == v && t == u))? "true": "false";
+            msg += ((f == u && t == v) || (f == v && t == u)) ? "true" : "false";
             debug(__func__, msg);
             return (f == u && t == v) || (f == v && t == u);
         }
 
         bool found = false;
-        SortedEdges tmp(mSortedEdges);
         while (false == tmp.empty() && false == found) {
-            Edge * e = tmp.top();
+            Edge *e = tmp.top();
             tmp.pop();
             f = e->getFrom();
             t = e->getTo();
@@ -207,14 +214,12 @@ private:
     }
 
 public:
-    /**
-     * ctor which simply sets the numbers of vertices and puts each one in its
-     * own set.  if you use this, you will have to add edges on your own and
-     * one at a time.
-     *
-     * @param vCount    number of vertices. this number should be greater than 2
-     *                  because 2 vertice has only 1 edge which is a MST natually.
-     */
+    /// ctor which simply sets the numbers of vertices and puts each one in its
+    /// own set. if you use this, you will have to add edges on your own and
+    /// one at a time.
+    ///
+    /// \param vCount   number of vertices. this number should be greater than 2
+    /// because 2 vertice has only 1 edge which is a MST naturally.
     Kruskal(int vCount) {
         debug(__func__, "init KK");
         // in fact
@@ -232,12 +237,8 @@ public:
         debug(__func__, "finished make vertex set");
     }
 
-    /**
-     * ctor which loads vertices and edges (and their weights) from an input
-     * file.
-     *
-     * @param fname The data file path (can be a relative path)
-     */
+    /// ctor which loads vertices and edges (and their weights) from an input file.
+    /// \param fname    The data file path (can be a relative path)
     Kruskal(string fname) {
         debug(__func__, "init KK, file: " + fname);
         // open the input file
@@ -272,8 +273,7 @@ public:
         in.close();
     }
 
-
-    /** dtor */
+    /// dtor
     ~Kruskal(void) {
         // prints are useful to determine when dtors are actually called (or not).
         debug(__func__, "disposing Kruskal object");
@@ -301,7 +301,7 @@ public:
         msg += to_string(mSortedEdges.size());
         debug(__func__, msg);
         while (!mSortedEdges.empty()) {
-            Edge * e = mSortedEdges.top();
+            Edge *e = mSortedEdges.top();
             mSortedEdges.pop();
             if (mA.end() == mA.find(e)) {
                 msg = ":::: ==> (";
@@ -331,15 +331,11 @@ public:
         debug(__func__, ":: MST set ==> empty");
     }
 
-
-    /**
-     * add the edge  with its weight to the automagically sorted set of
-     * edges.
-     *
-     * @param u A vertex which is one end of the edge.
-     * @param v A vertex which is one end of the edge.
-     * @param w The weight of the edge
-     */
+    /// add the edge  with its weight to the automatically sorted set of edges.
+    ///
+    /// \param u A vertex which is one end of the edge.
+    /// \param v A vertex which is one end of the edge.
+    /// \param w The weight of the edge
     void addEdge(int u, int v, double w) {
         string msg = "---------------------------------";
         debug(__func__, msg);
@@ -364,7 +360,7 @@ public:
         msg += ")";
         debug(__func__, msg);
         if (false == edgeExistsInQueue(u, v)) {
-            Edge * e = new Edge(u, v, w);
+            Edge *e = new Edge(u, v, w);
             mSortedEdges.push(e);
         } else
             warning(__func__, "No adding. The edge exists.");
@@ -372,7 +368,6 @@ public:
         msg += to_string(mSortedEdges.size());
         debug(__func__, msg);
     }
-
 
     /**
      *(public for testing.)
@@ -389,7 +384,6 @@ public:
             mVertexSet[vertex][vertex] = true;
         debugPrintVertexSet();
     }
-
 
     /**
      *(public for testing.)
@@ -415,11 +409,10 @@ public:
         debugPrintSingleVertexSet(u);
         debugPrintSingleVertexSet(v);
         string msg = "same set: ";
-        msg += (true == mVertexSet[u][v])? "true": "false";
+        msg += (true == mVertexSet[u][v]) ? "true" : "false";
         debug(__func__, msg);
         return mVertexSet[u][v];
     }
-
 
     /**
      * (public for testing.)
@@ -459,26 +452,23 @@ public:
         debugPrintVertexSet();
     }
 
-
     /**
      * (public for testing.)
      * implement the algorithm (lines 5 through 9).
      */
-    MSTEdgeSet * process(void) {
+    MSTEdgeSet *process(void) {
         info(__func__, "---------------------------------");
         info(__func__, "Processing MST...");
         debug(__func__, "clear total cost to 0.");
         mCost = 0.;
-        int u = -1, v = -1;
-        double w = 0.;
         string msg;
         SortedEdges tmp(mSortedEdges);
         while (false == tmp.empty()) {
-            Edge * e = tmp.top();
+            Edge *e = tmp.top();
             tmp.pop();
-            u = e->getFrom();
-            v = e->getTo();
-            w = e->getW();
+            int u = e->getFrom();
+            int v = e->getTo();
+            double w = e->getW();
             // e = nullptr;    // kill dangling ptr
             msg = "processing edge: (";
             msg += to_string(u) + ", " + to_string(v) + ", " + to_string(w);
@@ -487,15 +477,7 @@ public:
             if (false == sameSet(u, v)) {
                 msg = "not in same set, this edge is added into MST";
                 debug(__func__, msg);
-                // we need a copy Edge object other than the ptr, to add
-                // into mA, or there will be stack dump when this object
-                // is being destroyed.
-                // msg = "make a copy of the edge and add the copy into MST";
-                // Edge * eCopy = new Edge(u, v, w);
-                // mA.insert(eCopy);
-                // eCopy = nullptr;    // kill dangling ptr
                 mA.insert(e);
-
                 // accumlate the cost
                 mCost += w;
 
@@ -516,31 +498,32 @@ public:
         return &mA;
     }
 
+    /// Reset this instance for the next process.
+    void reset(void) {
+        initSet(mVertexCount);
+        makeSet(mVertexCount);
+    }
 
-    // -----------------------------------------------------------------------
-    // return the cost of the MST (by summing all of the weights of its edges.
+    /// return the cost of the MST (by summing all of the weights of its edges.
     double getMSTCost(void) const {
         return mCost;
     }
 
-
-    // -----------------------------------------------------------------------
-    // getter for private vertex count
+    /// getter for private vertex count
     int getVertexCount(void) const {
         return mVertexCount;
     }
 
-
-    // -----------------------------------------------------------------------
-    // allow one to pretty print the contents of the Kruskal object to an output
-    // stream.
-    // note: unsigned long casts below should be unsigned long long when building
-    // 64-bit versions.
-    friend ostream& operator << (ostream & os, const Kruskal &k) {
+    /// allow one to pretty print the contents of the Kruskal object to an output
+    /// stream.
+    ///
+    /// note: unsigned long casts below should be unsigned long long when building
+    /// 64-bit versions.
+    friend ostream &operator<<(ostream &os, const Kruskal &k) {
         os << endl <<
-        "--------------------- MST::Kruskal ---------------------" << endl;
+           "--------------------- MST::Kruskal ---------------------" << endl;
         os << "Vertices: " << k.mVertexCount;
-        os << ", Vertex Set: 0x" << hex << (unsigned long)k.mVertexSet;
+        os << ", Vertex Set: 0x" << hex << (unsigned long) k.mVertexSet;
         os << dec << endl;
         os << "MST Size: " << k.mA.size();
         os << ", Edge Queue Size: " << k.mSortedEdges.size() << endl;
@@ -570,13 +553,14 @@ public:
         os << ":::: Edges in Graph ====>" << endl;
         SortedEdges tmp(k.mSortedEdges);     // edges sorted by weight
         while (!tmp.empty()) {
-            Edge * e = tmp.top();
+            Edge *e = tmp.top();
             tmp.pop();
             os << "  " << *e << endl << flush;
         }
         os << "--------------------------------------------------------";
         os << endl << flush;
         return os;
-        }
+    }
 };
+
 #endif /** end of include guard */

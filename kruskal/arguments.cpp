@@ -38,17 +38,21 @@ using std::endl;
 void printUsages(const string prog) {
     cout << "Usage: " << prog << " [OPTIONS]" << endl;
     cout << "OPTIONS" << endl;
-    cout << "   -a               run all tests, including manual,";
+    cout << "   -a               Run all tests, including manual,";
     cout << endl;
     cout << "                    files in sizes of tinyEWG, mediumEWG,";
     cout << endl;
     cout << "                    largeEWG, 1000EWG, 10000EWG." << endl;
-    cout << "   -m               run only manual test, overrides --all.";
+    cout << "   -m               Run only manual test, overrides --all.";
     cout << endl;
-    cout << "   -f <filePath>    run with the specified data file,";
+    cout << "   -f <filePath>    Run with the specified data file,";
     cout << endl;
     cout << "                    overrides -a, -m." << endl;
-    cout << "   -h               print out this usage, overrides all others.";
+    cout << "   -h               Print out this usage, overrides all others.";
+    cout << endl;
+    cout << "   -l               The log level amongst debug, warn, info, error.";
+    cout << endl;
+    cout << "                    The default log level is warn.";
     cout << endl;
     cout << "-m is the default argument." << endl;
 }
@@ -105,10 +109,8 @@ options_t parseArgs(const int argc, const char * argv[]) {
             op.file = true;
             op.filePath = string(argv[++i]);
         }
-        if (0 == arg.compare("-a"))
-            op.all = true;
-        if (0 == arg.compare("-m"))
-            op.manual = true;
+        if (0 == arg.compare("-a")) op.all = true;
+        if (0 == arg.compare("-m")) op.manual = true;
         if (0 == arg.compare("-l")) {
             arg = string(argv[++i]);
             op.logOn = true;
@@ -121,6 +123,7 @@ options_t parseArgs(const int argc, const char * argv[]) {
             else if (00 == arg.compare("error"))
                 op.logLevel = ERROR;
         }
+        if (0 == arg.compare("-h")) op.help = true;
     }
     // check if print help is needed
     if (op.logOn && false == op.manual &&
