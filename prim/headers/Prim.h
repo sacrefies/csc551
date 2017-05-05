@@ -16,7 +16,7 @@
 //                 11             v.key = w( u, v )
 //
 // Created:     04/26/2016 01:20:29 PM
-// Compiler:    G++
+// Compiler:    G++, cmake
 // Author:      George J. Grevera, Ph.d, Jason Qiao Meng
 //
 // Copyright (c) 2016 by Jason Meng, no rights reserved.
@@ -36,6 +36,7 @@
 #include <exception>    // invalid_argument
 #include <limits>       // numeric_limits
 #include <sstream>      // stringstream
+#include <string>       // string, to_string()
 // home made include
 #include "Vertex.h"
 #include "logging.h"
@@ -55,6 +56,8 @@ using std::ostream;
 using std::numeric_limits;
 using std::setprecision;
 using std::setw;
+using std::string;
+using std::to_string;
 
 
 /**
@@ -64,45 +67,44 @@ class Prim {
 
 private:
     /** number of nodes/vertices (0..mVertexCount-1) */
-    int mVertexCount  = 0;
+    int mVertexCount = 0;
     /**
      * matrix of weights:
      * mWeights[u][v] = mWeights[v][u] = weight value for edge (u,v)
      * this matrix can be considered as the adjacency matrix too
      */
-    double ** mWeights = nullptr;
+    double **mWeights = nullptr;
     /** defines an inner type of a priority queue of vertices */
     typedef priority_queue<Vertex *, vector<Vertex *>, Vertex> SortedVertices;
     /** a priority queue which stores all the vertices, sorted by keys */
     SortedVertices mQueue;
     // the following are subscripted by vertex (one for each vertex):
-    bool * mIsInQ = nullptr; // is it in the q or not?
-    double * mBestKeyValue = nullptr; // best assigned key value so far
-    int * mBestParent = nullptr; // the resulting MST (keep track of best parent)
+    bool *mIsInQ = nullptr; // is it in the q or not?
+    double *mBestKeyValue = nullptr; // best assigned key value so far
+    int *mBestParent = nullptr; // the resulting MST (keep track of best parent)
 
-
-    /** holds a double_max value for convenience */
+    /// Get the maximum double value.
+    /// \return Returns the maximum double value.
     const double DBL_MAX(void) const {
         return numeric_limits<double>::max();
     }
 
-
-    /**
-     * Print the specified 1-D array.
-     */
-    template <typename T>
-    void debugPrintArray(T * list, const int size) const {
-        stringstream msg;
+    /// Print the specified 1-D array with DEBUG tag.
+    /// \tparam T The type of the element in the array to be printed.
+    /// \param list The array to be printed.
+    /// \param size The size of the array.
+    template<typename T>
+    void debugPrintArray(T *list, const int size) const {
+        string msg = "";
         for (int i = 0; i < size; ++i) {
-            if ((double)list[i] == DBL_MAX()) {
-                msg << "MAX,";
+            if ((double) list[i] == DBL_MAX()) {
+                msg += "MAX,";
                 continue;
             }
-            msg << list[i] << ",";
+            msg += to_string(list[i]) + ",";
         }
-        debug(__func__, msg.str());
+        debug(__func__, msg);
     }
-
 
     /**
      * perform initialization/allocation
@@ -115,56 +117,33 @@ private:
             throw invalid_argument("Vertices count is less than 3");
         }
 
-        stringstream msg;
-
         mVertexCount = vCount;
-        msg << "vertex count: " << mVertexCount;
-        debug(__func__, msg.str());
-        msg.clear();
-        msg.str("");
+        debug(__func__, "vertex count: " + to_string(mVertexCount));
 
         mIsInQ = new bool[mVertexCount];
         mBestKeyValue = new double[mVertexCount];
         mBestParent = new int[mVertexCount];
         for (int i = 0; i < mVertexCount; ++i) {
-            mIsInQ[i]  = false;
+            mIsInQ[i] = false;
             mBestKeyValue[i] = DBL_MAX();
             mBestParent[i] = -1;
         }
 
-        msg << "vertex in queue: array@" << hex << mIsInQ << dec;
-        info(__func__, msg.str());
-        msg.clear();
-        msg.str("");
+        debug(__func__, "vertex in queue:");
         debugPrintArray<bool>(mIsInQ, mVertexCount);
-
-        msg << "best keys: array@" << hex << mBestKeyValue;
-        msg << dec;
-        info(__func__, msg.str());
-        msg.clear();
-        msg.str("");
+        debug(__func__, "best keys:");
         debugPrintArray<double>(mBestKeyValue, mVertexCount);
-
-        msg << "best parents: array@" << hex << mBestParent;
-        msg << dec;
-        info(__func__, msg.str());
-        msg.clear();
-        msg.str("");
+        debug(__func__, "best parents:");
         debugPrintArray<int>(mBestParent, mVertexCount);
 
         // init 2d matrix of weights
         mWeights = new double *[mVertexCount];
-        for (int r = 0; r < mVertexCount; ++r)
+        for (int r = 0; r < mVertexCount; ++r) {
             mWeights[r] = new double[mVertexCount];
-        for (int r = 0; r < mVertexCount; ++r)
             for (int c = 0; c < mVertexCount; ++c)
                 mWeights[r][c] = DBL_MAX();
-
-        msg << "weights(adj matrix): array@" << hex << mWeights;
-        msg << dec;
-        info(__func__, msg.str());
-        msg.clear();
-        msg.str("");
+        }
+        debug(__func__, "weights(adj matrix):");
     }
 
 public:
@@ -216,27 +195,22 @@ public:
         info(__func__, "done");
 
         // init root vertex (choice is arbitrary, so we'll choose 0)
-        Vertex * r = new Vertex(0, 0.0, -1);
+        Vertex *r = new Vertex(0, 0.0, -1);
         mQueue.push(r);
         mIsInQ[r->getI()] = true;
         mBestKeyValue[r->getI()] = 0.;
 
         // init the remaining vertices
         for (int i = 1; i < mVertexCount; ++i) {
-            Vertex * v = new Vertex(i, DBL_MAX(), -1);
-            mQueue.push(v);
-            mIsInQ[v->getI()] = true;
+            Vertex *vert = new Vertex(i, DBL_MAX(), -1);
+            mQueue.push(vert);
+            mIsInQ[vert->getI()] = true;
+            vert = nullptr;
         }
 
-        stringstream msg;
-        msg << "queue of vertices: queue@" << hex << &mQueue << dec;
-        msg << ", size: " << mQueue.size();
-        info(__func__, msg.str());
-        msg.clear();
-        msg.str("");
+        info(__func__, "queue of vertices, size=" + to_string(mQueue.size()));
         debug(__func__, "ctor done");
     }
-
 
     /**
      * dtor
@@ -289,7 +263,6 @@ public:
         debug(__func__, "dtor done");
     }
 
-
     /**
      * (public for testing.)
      * implement the algorithm (lines 6 through 11):
@@ -303,8 +276,8 @@ public:
     void process(void) {
         int u;
         double w;
-        Vertex * uVert = nullptr;
-        Vertex * vVert = nullptr;
+        Vertex *uVert = nullptr;
+        Vertex *vVert = nullptr;
 
         info(__func__, "start processing MST");
         stringstream msg;
@@ -320,7 +293,7 @@ public:
             // kill dangling ptr
             uVert = nullptr;
 
-            msg << " in_Q=" << ((mIsInQ[u] == true)? "true": "false");
+            msg << " in_Q=" << ((mIsInQ[u] == true) ? "true" : "false");
             info(__func__, msg.str());
             msg.clear();
             msg.str("");
@@ -356,8 +329,7 @@ public:
                     msg << "MAX";
                 else
                     msg << mBestKeyValue[v];
-                msg << " v.bestparent=" << mBestParent[v] << " in_Q=" <<
-                    mIsInQ[v];
+                msg << " v.bestparent=" << mBestParent[v] << " in_Q=" << mIsInQ[v];
                 debug(__func__, msg.str());
                 msg.clear();
                 msg.str("");
@@ -435,7 +407,6 @@ public:
         debug(__func__, "::process done");
     }
 
-
     /**
      * Get the MST total cost (sum of the edge weights).
      */
@@ -448,14 +419,13 @@ public:
         return sum;
     }
 
-
     /**
      * allow one to pretty print the contents of the Prim object to an output
      * stream.
      * note: unsigned long casts below should be unsigned long long when building
      * 64-bit versions.
      */
-    friend ostream& operator<< (ostream& os, const Prim& p) {
+    friend ostream &operator<<(ostream &os, const Prim &p) {
         stringstream tmp;
         os << "--------------------" << endl;
         os << "Prim:" << endl;

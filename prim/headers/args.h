@@ -18,10 +18,9 @@
 #include <string>
 #include "logging.h"
 
-
-
 using std::string;
 
+/// A struct which holds the parsed command line arguments
 struct options_t {
     bool file;
     bool all;
@@ -31,10 +30,23 @@ struct options_t {
     string filePath;
 };
 
+/// Print this program's usage.
+///
+/// \param prog The name of this program.
 void printUsages(string prog);
 
-bool checkArgsSanity(const int argc, const char * argv[]);
+/// Validate the command line arguments.
+///
+/// \param argc The number of the arguments
+/// \param argv The command line arguments
+/// \return Returns true if the validation passes.
+bool checkArgsSanity(const int argc, const char *argv[]);
 
-options_t parseArgs(const int argc, const char * argv[]);
+/// Parse the command line arguments.
+///
+/// \param argc The number of the arguments
+/// \param argv The command line arguments
+/// \return Returns an instance of the struct options_t
+options_t parseArgs(const int argc, const char *argv[]);
 
 #endif /** end of include guard */

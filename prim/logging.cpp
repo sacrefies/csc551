@@ -28,10 +28,8 @@
 /** fold all 'using std::foo' togethor */
 using namespace std;
 
-
 /** Set the default level is INFO */
 loglevel_t level = INFO;
-
 
 /**
  * Convert current date and time into a string.
@@ -55,14 +53,12 @@ static string getFormattedTime() {
     return ss.str();
 }
 
-
 /**
  * Set current logging level
  */
 void setLoggingLevel(loglevel_t logLevel) {
     level = logLevel;
 }
-
 
 /**
  * Output debug log message to current stdout.
@@ -80,7 +76,6 @@ void debug(string tag, string msg) {
     }
 }
 
-
 /**
  * Output info log message to current stdout.
  *
@@ -97,7 +92,6 @@ void info(string tag, string msg) {
     }
 }
 
-
 /**
  * Output warning log message to current stdout.
  *
@@ -113,7 +107,6 @@ void warning(string tag, string msg) {
         cout << msg << endl << flush;
     }
 }
-
 
 /**
  * Output error log message to current stdout.
