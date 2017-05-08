@@ -108,59 +108,98 @@ private:
     MSTEdgeSet mA;
     /// the cost of the current MST
     double mCost = 0.;
+    /// An internal adjacency matrix which tells whether an edge is in queue or not.
+    bool **mEdgeInQueue = nullptr;
+
+    /// allocate memory for the internal adjacency matrix.
+    /// \param vCount number of vertices.
+    void initAdjMatrix() {
+        if (mVertexCount < 3) {
+            debug(__func__, "The # of vertices are less than 3. Do nothing.");
+            return;
+        }
+        debug(__func__, "init the internal adjacency matrix, vCount=" + to_string(mVertexCount));
+        if (mEdgeInQueue != nullptr) {
+            debug(__func__, "the matrix was allocated previously, destroy it first.");
+            // reset the matrix
+            for (int i = 0; i < mVertexCount; ++i)
+                if (nullptr != mEdgeInQueue[i]) {
+                    delete[] mEdgeInQueue[i];
+                    mEdgeInQueue[i] = nullptr;
+                }
+            delete[] mEdgeInQueue;
+        }
+        debug(__func__, "create the matrix, vCount=" + to_string(mVertexCount));
+        mEdgeInQueue = new bool *[mVertexCount];
+        for (int i = 0; i < mVertexCount; ++i)
+            mEdgeInQueue[i] = new bool[mVertexCount];
+        for (int i = 0; i < mVertexCount; ++i)
+            for (int j = i; j < mVertexCount; ++j)
+                mEdgeInQueue[i][j] = mEdgeInQueue[j][i] = false;
+    }
 
     /// allocate memory for the 2d array representing sets of vertices.
     /// \param vCount number of vertices
     void initSet(int vCount) {
+        if (vCount < 3) {
+            debug(__func__, "The # of vertices are less than 3. Do nothing.");
+            return;
+        }
         mVertexCount = vCount;
         debug(__func__,
               "vCount=" + to_string(vCount) + ", mVertexCount=" +
               to_string(mVertexCount));
+        if (mVertexSet != nullptr) {
+            debug(__func__, "the vertice set was allocated previously, destroy it first.");
+            // reset the matrix
+            for (int i = 0; i < mVertexCount; ++i)
+                if (nullptr != mVertexSet[i]) {
+                    delete[] mVertexSet[i];
+                    mVertexSet[i] = nullptr;
+                }
+            delete[] mVertexSet;
+        }
         // allocate & init memory for the 2d array
         mVertexSet = new bool *[vCount];
-        for (int i = 0; i < vCount; ++i) {
+        for (int i = 0; i < vCount; ++i)
             mVertexSet[i] = new bool[vCount];
-            for (int j = 0; j < vCount; ++j)
-                mVertexSet[i][j] = false;
-        }
-
-        debugPrintVertexSet();
+        for (int i = 0; i < vCount; ++i)
+            for (int j = i; j < vCount; ++j)
+                mVertexSet[i][j] = mVertexSet[j][i] = false;
+        debugPrintMatrix(mVertexSet, mVertexCount);
     }
 
-    /// Print the entire vertex set to DEBUG log level.
-    void debugPrintVertexSet() {
-        debug(__func__, "Vertex set ====> ");
-        if (mVertexSet == nullptr) {
+    /// Print an array to DEBUG log level.
+    ///
+    /// \tparam T The element type in the array
+    /// \param list The array
+    /// \param size the length of the array
+    template<typename T>
+    void debugPrintArray(T *list, int size) const {
+        if (list == nullptr || size < 1) {
             debug(__func__, "NULL");
             return;
         }
-
-        string row;
-        for (int i = 0; i < mVertexCount; ++i) {
-            if (mVertexSet[i] == nullptr) {
-                debug(__func__, "NULL");
-                continue;
-            }
-
-            row = "";
-            for (int j = 0; j < mVertexCount; ++j)
-                row +=
-                        ((true == mVertexSet[i][j]) ?
-                         to_string(true) : to_string(false))
-                        + ",";
-            debug(__func__, row);
-        }
+        string msg = "Print array ===> [";
+        for (int i = 0; i < size; ++i)
+            msg += to_string(list[i]) + ",";
+        debug(__func__, msg);
     }
 
-    /// Print one vertex set to DEBUG log level.
-    void debugPrintSingleVertexSet(int vertex) {
-        string msg = "Vertex set ";
-        msg += to_string(vertex) + " ====> ";
-        debug(__func__, msg);
-        msg = "";
-        for (int i = 0; i < mVertexCount; ++i)
-            msg += to_string(mVertexSet[vertex][i]) + ",";
-        debug(__func__, msg);
+    /// Print a matrix (2d array) to DEBUG log level
+    ///
+    /// \tparam T The element type in the matrix
+    /// \param matrix The matrix
+    /// \param size the lengh of the matrix.
+    template<typename T>
+    void debugPrintMatrix(T **matrix, int size) const {
+        if (matrix == nullptr || size < 1) {
+            debug(__func__, "NULL");
+            return;
+        }
+        debug(__func__, "Print matrix, length=" + to_string(size));
+        for (int i = 0; i < size; ++i)
+            debugPrintArray(matrix[i], size);
     }
 
     /// Check whether an edge exists already in the priority queue
@@ -177,40 +216,7 @@ private:
             debug(__func__, "edge queue is empty. nothing in queue");
             return false;
         }
-
-        // save the initial size of the queue
-        int size = mSortedEdges.size();
-        string msg = "edge queue size: ";
-        msg += to_string(size);
-        debug(__func__, msg);
-
-        int f = -1, t = -1;
-        SortedEdges tmp(mSortedEdges);
-        if (size == 1) {
-            Edge *e = tmp.top();
-            f = e->getFrom();
-            t = e->getTo();
-            e = nullptr; // kill dangling ptr
-            msg = "what's in queue: (";
-            msg += to_string(f) + "," + to_string(t);
-            msg += ")";
-            debug(__func__, msg);
-            msg = "return: ";
-            msg += ((f == u && t == v) || (f == v && t == u)) ? "true" : "false";
-            debug(__func__, msg);
-            return (f == u && t == v) || (f == v && t == u);
-        }
-
-        bool found = false;
-        while (false == tmp.empty() && false == found) {
-            Edge *e = tmp.top();
-            tmp.pop();
-            f = e->getFrom();
-            t = e->getTo();
-            e = nullptr;
-            found = (f == u && t == v) || (f == v && t == u);
-        }
-        return found;
+        return mEdgeInQueue[u][v];
     }
 
 public:
@@ -235,6 +241,9 @@ public:
         // make each vertex as one set, the there should be vCount sets
         makeSet(vCount);
         debug(__func__, "finished make vertex set");
+        // init adj matrix
+        initAdjMatrix();
+        debug(__func__, "finished init adjacency matrix");
     }
 
     /// ctor which loads vertices and edges (and their weights) from an input file.
@@ -255,6 +264,8 @@ public:
         // put each vertex in its own separate set
         initSet(vertices);
         makeSet(vertices);
+        // init adj matrix
+        initAdjMatrix();
 
         // load the edges and their weights
         int u, v;
@@ -277,7 +288,20 @@ public:
     ~Kruskal(void) {
         // prints are useful to determine when dtors are actually called (or not).
         debug(__func__, "disposing Kruskal object");
-        string msg;
+        string msg = "";
+        // free adj matrix
+        if (mEdgeInQueue != nullptr) {
+            debug(__func__, ":: adjacency matrix, vertices count: " + to_string(mVertexCount));
+            for (int i = 0; i < mVertexCount; ++i)
+                if (mEdgeInQueue[i] != nullptr) {
+                    delete[] mEdgeInQueue[i];
+                    mEdgeInQueue[i] = nullptr;
+                    debug(__func__, ":::: " + to_string(i) + " ==> NULL");
+                }
+            delete[] mEdgeInQueue;
+            mEdgeInQueue = nullptr;
+            debug(__func__, ":: adjacency matrix ==> NULL");
+        }
         // free vertex sets
         if (mVertexSet != nullptr) {
             msg = ":: vertex set, vertices count: ";
@@ -295,14 +319,12 @@ public:
             mVertexSet = nullptr;
             debug(__func__, ":: vertex set ==> NULL");
         }
-
         // free anything left
-        msg = ":: edge set, size: ";
-        msg += to_string(mSortedEdges.size());
-        debug(__func__, msg);
+        debug(__func__, ":: edge set, size: " + to_string(mSortedEdges.size()));
         while (!mSortedEdges.empty()) {
             Edge *e = mSortedEdges.top();
             mSortedEdges.pop();
+            // delete the edge only if it is not in mA.
             if (mA.end() == mA.find(e)) {
                 msg = ":::: ==> (";
                 msg += to_string(e->getFrom()) + ", " + to_string(e->getTo());
@@ -314,11 +336,8 @@ public:
             e = nullptr;
         }
         debug(__func__, ":: edge set ==> NULL");
-
         // free anything in the MST
-        msg = ":: MST set, size: ";
-        msg += to_string(mA.size());
-        debug(__func__, msg);
+        debug(__func__, ":: MST set, size: " + to_string(mA.size()));
         // this is simply a for-each loop over each edge in A (the resulting MST)
         for (auto e : mA) {
             msg = ":::: (";
@@ -362,6 +381,7 @@ public:
         if (false == edgeExistsInQueue(u, v)) {
             Edge *e = new Edge(u, v, w);
             mSortedEdges.push(e);
+            mEdgeInQueue[u][v] = mEdgeInQueue[v][u] = true;
         } else
             warning(__func__, "No adding. The edge exists.");
         msg = "[AFTER ADD] edge queue size: ";
@@ -382,7 +402,7 @@ public:
         debug(__func__, "---------------------------------");
         for (int vertex = 0; vertex < vCount; ++vertex)
             mVertexSet[vertex][vertex] = true;
-        debugPrintVertexSet();
+        debugPrintMatrix(mVertexSet, vCount);
     }
 
     /**
@@ -397,17 +417,14 @@ public:
     bool sameSet(int u, int v) {
         debug(__func__, "---------------------------------");
         // make sure that args are valid.
-        assert(0 <= u && u < mVertexCount);
-        assert(0 <= v && v < mVertexCount);
         if (u < 0 || u >= mVertexCount || v < 0 || v >= mVertexCount)
-            return false;
+            throw invalid_argument("Invalid vertices: u=" + to_string(u) + " v=" + to_string(v));
 
         // check only one row to speed up a bit because if they are in v' set,
         // they are definitely in u's set. (according vertexSetUnion())
-        // and if u is chosen, no need to check mVertexSet[v][u] which must be
-        // true
-        debugPrintSingleVertexSet(u);
-        debugPrintSingleVertexSet(v);
+        // and if u is chosen, no need to check mVertexSet[v][u] which must be true
+        // debugPrintArray(mVertexSet[u], mVertexCount);
+        // debugPrintArray(mVertexSet[v], mVertexCount);
         string msg = "same set: ";
         msg += (true == mVertexSet[u][v]) ? "true" : "false";
         debug(__func__, msg);
@@ -422,11 +439,11 @@ public:
      * @param v A vertex which is one end of the edge.
      */
     void vertexSetUnion(int u, int v) {
-        debug(__func__, "---------------------------------");
-        debug(__func__, "[BEFORE UNION] vertex set:");
-        debugPrintVertexSet();
         // already there, do nothing
         if (true == mVertexSet[u][v]) return;
+        debug(__func__, "---------------------------------");
+        debug(__func__, "[BEFORE UNION] vertex set:");
+        debugPrintMatrix(mVertexSet, mVertexCount);
         // union from set(v) to set(u)
         for (int i = 0; i < mVertexCount; ++i)
             // copy true values from v to u
@@ -443,13 +460,9 @@ public:
         for (int i = 0; i < mVertexCount; ++i)
             if (i != u && i != v && true == mVertexSet[u][i])
                 // copy set(u) to set(i)
-                memcpy(mVertexSet[i], mVertexSet[u],
-                       sizeof(bool) * mVertexCount);
-        // for (int j = 0; j < mVertexCount; ++j)
-        //    mVertexSet[i][j] = mVertexSet[u][j];
-
+                memcpy(mVertexSet[i], mVertexSet[u], sizeof(bool) * mVertexCount);
         debug(__func__, "[AFTER UNION] vertex set:");
-        debugPrintVertexSet();
+        debugPrintMatrix(mVertexSet, mVertexCount);
     }
 
     /**
@@ -461,7 +474,6 @@ public:
         info(__func__, "Processing MST...");
         debug(__func__, "clear total cost to 0.");
         mCost = 0.;
-        string msg;
         SortedEdges tmp(mSortedEdges);
         while (false == tmp.empty()) {
             Edge *e = tmp.top();
@@ -469,10 +481,9 @@ public:
             int u = e->getFrom();
             int v = e->getTo();
             double w = e->getW();
-            // e = nullptr;    // kill dangling ptr
-            msg = "processing edge: (";
-            msg += to_string(u) + ", " + to_string(v) + ", " + to_string(w);
-            msg += ")";
+            // set e is no longer in the queue
+            mEdgeInQueue[u][v] = mEdgeInQueue[v][u] = false;
+            string msg = "processing edge: (" + to_string(u) + ", " + to_string(v) + ", " + to_string(w) + ")";
             debug(__func__, msg);
             if (false == sameSet(u, v)) {
                 msg = "not in same set, this edge is added into MST";
@@ -480,20 +491,13 @@ public:
                 mA.insert(e);
                 // accumlate the cost
                 mCost += w;
-
-                msg = "cost so far: ";
-                msg += to_string(mCost);
-                debug(__func__, msg);
+                debug(__func__, "cost so far: " + to_string(mCost));
                 vertexSetUnion(u, v);
-                msg = "union sets ";
-                msg += to_string(u) + " and " + to_string(v);
-                debug(__func__, msg);
+                debug(__func__, "union sets " + to_string(u) + " and " + to_string(v));
             }
-            e = nullptr;
+            e = nullptr; // kill the dangling ptr.
         }
-        msg = "MST has been built, cost: ";
-        msg += to_string(mCost);
-        info(__func__, msg);
+        info(__func__, "MST has been built, cost: " + to_string(mCost));
         info(__func__, "Done.");
         return &mA;
     }
@@ -502,6 +506,7 @@ public:
     void reset(void) {
         initSet(mVertexCount);
         makeSet(mVertexCount);
+        initAdjMatrix();
     }
 
     /// return the cost of the MST (by summing all of the weights of its edges.
