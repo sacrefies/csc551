@@ -11,11 +11,12 @@
 // Copyright (c) George J. Grevera, 2016.  All rights reserved.
 // -----------------------------------------------------------------------------
 
+#include <iostream> // for ostream, cout, endl
+#include "logging.h"
+
 #ifndef EDGE_H
 #define EDGE_H
 
-
-#include <iostream> // for ostream, cout, endl
 
 using std::ostream;
 using std::endl;
@@ -42,7 +43,7 @@ public:
     /// dtor (nothing to do)
     ~Edge(void) {
         // prints are useful to determine when dtors are actually called (or not).
-        // cout << "Edge::~Edge" << endl;
+        debug(__func__, "Edge::~Edge");
     }
 
     /// Get the weight of this edge.

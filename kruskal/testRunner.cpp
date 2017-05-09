@@ -129,7 +129,7 @@ static void testsuite(const string dataDir) {
 
     fileName = "10000EWG.txt";
     filePath = dataDir + "/" + fileName;
-    expected = 20.7732;
+    expected = 65.2407;
     rc = test_file_kruskal(filePath, expected);
     passed += (rc == true) ? 1 : 0;
     failed += (rc == false) ? 1 : 0;

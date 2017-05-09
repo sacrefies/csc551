@@ -26,8 +26,9 @@
 
 #include <string>
 #include <iostream>
-#include "headers/args.h"
+
 #include "headers/logging.h"
+#include "headers/args.h"
 
 
 using std::string;
@@ -88,32 +89,31 @@ bool checkArgsSanity(const int argc, const char * argv[]) {
 }
 
 
-options_t parseArgs(const int argc, const char * argv[]) {
-    options_t op;
-    op.manual = false;
-    op.file = false;
-    op.all = false;
-    op.help = false;
-    op.logOn = false;
+Options parseArgs(const int argc, const char * argv[]) {
+    Options op;
+    op.isManual = false;
+    op.isFile = false;
+    op.isAll = false;
+    op.isHelp = false;
+    op.isLogOn = false;
     op.filePath = "";
     op.logLevel = WARNING;
 
     if (argc < 2) {
-        op.manual = true;
+        op.isManual = true;
         return op;
     }
-
     for (int i = 1; i < argc; ++i) {
         string arg(argv[i]);
         if (0 == arg.compare("-f")) {
-            op.file = true;
+            op.isFile = true;
             op.filePath = string(argv[++i]);
         }
-        if (0 == arg.compare("-a")) op.all = true;
-        if (0 == arg.compare("-m")) op.manual = true;
+        if (0 == arg.compare("-a")) op.isAll = true;
+        if (0 == arg.compare("-m")) op.isManual = true;
         if (0 == arg.compare("-l")) {
             arg = string(argv[++i]);
-            op.logOn = true;
+            op.isLogOn = true;
             if (0 == arg.compare("debug"))
                 op.logLevel = DEBUG;
             else if (0 == arg.compare("info"))
@@ -123,11 +123,11 @@ options_t parseArgs(const int argc, const char * argv[]) {
             else if (00 == arg.compare("error"))
                 op.logLevel = ERROR;
         }
-        if (0 == arg.compare("-h")) op.help = true;
+        if (0 == arg.compare("-h")) op.isHelp = true;
     }
     // check if print help is needed
-    if (op.logOn && false == op.manual &&
-        false == op.file && false == op.all)
-        op.manual = true;
+    if (op.isLogOn && false == op.isManual &&
+        false == op.isFile && false == op.isAll)
+        op.isManual = true;
     return op;
 }

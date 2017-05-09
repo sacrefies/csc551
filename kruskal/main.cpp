@@ -46,11 +46,10 @@
 // cpp includes
 #include <sstream> // for stringstream
 #include <iostream> // for endl;
-#include <string>
 // homemade headers
-#include "headers/Kruskal.h"
 #include "headers/logging.h"
 #include "headers/args.h"
+#include "headers/Kruskal.h"
 
 
 using std::stringstream;
@@ -117,7 +116,6 @@ static void run_manually_setup() {
     msg.str("");
 }
 
-
 static void run_file_setup(string fileName) {
     // another test
     stringstream msg;
@@ -147,7 +145,6 @@ static void run_file_setup(string fileName) {
     msg.str("");
 }
 
-
 // ---------------------------------------------------------------------------
 int main(const int argc, const char * argv[]) {
     if (false == checkArgsSanity(argc, argv)) {
@@ -155,23 +152,23 @@ int main(const int argc, const char * argv[]) {
         exit(1);
     }
 
-    options_t op = parseArgs(argc, argv);
-    if (true == op.help) {
+    Options op = parseArgs(argc, argv);
+    if (true == op.isHelp) {
         printUsages(argv[0]);
         exit(0);
     }
     setLoggingLevel(op.logLevel);
-    if (true == op.file) {
+    if (true == op.isFile) {
         run_file_setup(op.filePath);
         exit(0);
     }
 
-    if (true == op.manual) {
+    if (true == op.isManual) {
         run_manually_setup();
         exit(0);
     }
 
-    if (true == op.all) {
+    if (true == op.isAll) {
         run_file_setup("test_data/tinyEWG.txt");
         run_file_setup("test_data/mediumEWG.txt");
         run_file_setup("test_data/1000EWG.txt");

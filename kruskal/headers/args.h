@@ -20,12 +20,13 @@
 
 using std::string;
 
-struct options_t {
-    bool manual;
-    bool file;
-    bool all;
-    bool help;
-    bool logOn;
+class Options {
+public:
+    bool isManual;
+    bool isFile;
+    bool isAll;
+    bool isHelp;
+    bool isLogOn;
     loglevel_t logLevel;
     string filePath;
 };
@@ -34,6 +35,6 @@ void printUsages(string prog);
 
 bool checkArgsSanity(const int argc, const char *argv[]);
 
-options_t parseArgs(const int argc, const char * argv[]);
+Options parseArgs(const int argc, const char * argv[]);
 
 #endif

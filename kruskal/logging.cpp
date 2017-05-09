@@ -28,17 +28,14 @@
 /** fold all 'using std::foo' togethor */
 using namespace std;
 
-
-/** Set the default level is INFO */
 loglevel_t level = INFO;
-
 
 /**
  * Convert current date and time into a string.
  *
  * @return A string which contains the formatted datetime value.
  */
-static string getFormattedTime() {
+string getFormattedTime() {
     // a string stream to form the final output
     stringstream ss;
     // a time value which to be set by gettimeofday()
@@ -55,6 +52,12 @@ static string getFormattedTime() {
     return ss.str();
 }
 
+/// Print out the leading tag of a log line
+/// \param tag The tag of the line of log
+void printTag(string tag) {
+    if (!tag.empty())
+        cout << tag << " - " << flush;
+}
 
 /**
  * Set current logging level
@@ -62,7 +65,6 @@ static string getFormattedTime() {
 void setLoggingLevel(loglevel_t logLevel) {
     level = logLevel;
 }
-
 
 /**
  * Output debug log message to current stdout.
@@ -74,12 +76,10 @@ void debug(string tag, string msg) {
     if (level <= DEBUG) {
         cout << getFormattedTime() << " - ";
         cout << setw(5) << "DEBUG" << " - ";
-        if (!tag.empty())
-            cout << tag << " - ";
+        printTag(tag);
         cout << msg << endl << flush;
     }
 }
-
 
 /**
  * Output info log message to current stdout.
@@ -91,12 +91,10 @@ void info(string tag, string msg) {
     if (level <= INFO) {
         cout << getFormattedTime() << " - ";
         cout << setw(5) << "INFO" << " - ";
-        if (!tag.empty())
-            cout << tag << " - ";
+        printTag(tag);
         cout << msg << endl << flush;
     }
 }
-
 
 /**
  * Output warning log message to current stdout.
@@ -108,12 +106,10 @@ void warning(string tag, string msg) {
     if (level <= WARNING) {
         cout << getFormattedTime() << " - ";
         cout << setw(5) << "WARN" << " - ";
-        if (!tag.empty())
-            cout << tag << " - ";
+        printTag(tag);
         cout << msg << endl << flush;
     }
 }
-
 
 /**
  * Output error log message to current stdout.
@@ -125,8 +121,7 @@ void error(string tag, string msg) {
     if (level <= ERROR) {
         cerr << getFormattedTime() << " - ";
         cerr << setw(5) << "ERROR" << " - ";
-        if (!tag.empty())
-            cerr << tag << " - ";
+        printTag(tag);
         cerr << msg << endl << flush;
     }
 }

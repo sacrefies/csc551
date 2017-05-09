@@ -8,11 +8,13 @@ set(SOURCE_FILES
         headers/Edge.h
         headers/Kruskal.h
         headers/logging.h
+        headers/debugutils.h
         #headers/unittest.h
         arguments.cpp
         logging.cpp
         main.cpp
         #unittest.cpp
-        #testRunner.cpp)
+        #testRunner.cpp
+)
 
 add_executable(kruskal ${SOURCE_FILES})

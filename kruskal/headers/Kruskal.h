@@ -54,6 +54,7 @@
 // custom headers
 #include "Edge.h"
 #include "logging.h"
+#include "debugutils.h"
 
 
 /** include guard */
@@ -62,7 +63,6 @@
 
 
 using std::invalid_argument;
-// using std::cerr;
 using std::endl;
 using std::priority_queue;
 using std::vector;
@@ -166,40 +166,7 @@ private:
         for (int i = 0; i < vCount; ++i)
             for (int j = i; j < vCount; ++j)
                 mVertexSet[i][j] = mVertexSet[j][i] = false;
-        debugPrintMatrix(mVertexSet, mVertexCount);
-    }
-
-    /// Print an array to DEBUG log level.
-    ///
-    /// \tparam T The element type in the array
-    /// \param list The array
-    /// \param size the length of the array
-    template<typename T>
-    void debugPrintArray(T *list, int size) const {
-        if (list == nullptr || size < 1) {
-            debug(__func__, "NULL");
-            return;
-        }
-        string msg = "Print array ===> [";
-        for (int i = 0; i < size; ++i)
-            msg += to_string(list[i]) + ",";
-        debug(__func__, msg);
-    }
-
-    /// Print a matrix (2d array) to DEBUG log level
-    ///
-    /// \tparam T The element type in the matrix
-    /// \param matrix The matrix
-    /// \param size the lengh of the matrix.
-    template<typename T>
-    void debugPrintMatrix(T **matrix, int size) const {
-        if (matrix == nullptr || size < 1) {
-            debug(__func__, "NULL");
-            return;
-        }
-        debug(__func__, "Print matrix, length=" + to_string(size));
-        for (int i = 0; i < size; ++i)
-            debugPrintArray(matrix[i], size);
+        debugPrintMatrix<bool>(__func__, mVertexSet, mVertexCount);
     }
 
     /// Check whether an edge exists already in the priority queue
@@ -402,7 +369,7 @@ public:
         debug(__func__, "---------------------------------");
         for (int vertex = 0; vertex < vCount; ++vertex)
             mVertexSet[vertex][vertex] = true;
-        debugPrintMatrix(mVertexSet, vCount);
+        debugPrintMatrix<bool>(__func__, mVertexSet, vCount);
     }
 
     /**
@@ -423,8 +390,8 @@ public:
         // check only one row to speed up a bit because if they are in v' set,
         // they are definitely in u's set. (according vertexSetUnion())
         // and if u is chosen, no need to check mVertexSet[v][u] which must be true
-        // debugPrintArray(mVertexSet[u], mVertexCount);
-        // debugPrintArray(mVertexSet[v], mVertexCount);
+        debugPrintArray<bool>(__func__, mVertexSet[u], mVertexCount);
+        debugPrintArray<bool>(__func__, mVertexSet[v], mVertexCount);
         string msg = "same set: ";
         msg += (true == mVertexSet[u][v]) ? "true" : "false";
         debug(__func__, msg);
@@ -443,7 +410,7 @@ public:
         if (true == mVertexSet[u][v]) return;
         debug(__func__, "---------------------------------");
         debug(__func__, "[BEFORE UNION] vertex set:");
-        debugPrintMatrix(mVertexSet, mVertexCount);
+        debugPrintMatrix<bool>(__func__, mVertexSet, mVertexCount);
         // union from set(v) to set(u)
         for (int i = 0; i < mVertexCount; ++i)
             // copy true values from v to u
@@ -462,7 +429,7 @@ public:
                 // copy set(u) to set(i)
                 memcpy(mVertexSet[i], mVertexSet[u], sizeof(bool) * mVertexCount);
         debug(__func__, "[AFTER UNION] vertex set:");
-        debugPrintMatrix(mVertexSet, mVertexCount);
+        debugPrintMatrix<bool>(__func__, mVertexSet, mVertexCount);
     }
 
     /**
