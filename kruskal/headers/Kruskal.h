@@ -163,10 +163,6 @@ private:
         mVertexSet = new bool *[vCount];
         for (int i = 0; i < vCount; ++i)
             mVertexSet[i] = new bool[vCount];
-        for (int i = 0; i < vCount; ++i)
-            for (int j = i; j < vCount; ++j)
-                mVertexSet[i][j] = mVertexSet[j][i] = false;
-        debugPrintMatrix<bool>(__func__, mVertexSet, mVertexCount);
     }
 
     /// Check whether an edge exists already in the priority queue
@@ -366,9 +362,10 @@ public:
      * @see initSet
      */
     void makeSet(int vCount) {
-        debug(__func__, "---------------------------------");
-        for (int vertex = 0; vertex < vCount; ++vertex)
-            mVertexSet[vertex][vertex] = true;
+        debug(__func__, "set the initial values to the vertex set.");
+        for (int i = 0; i < vCount; ++i)
+            for (int j = i; j < vCount; ++j)
+                mVertexSet[i][j] = mVertexSet[j][i] = (i == j);
         debugPrintMatrix<bool>(__func__, mVertexSet, vCount);
     }
 
