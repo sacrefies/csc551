@@ -4,12 +4,16 @@ project(prim)
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
-        headers/args.h
+        #headers/args.h
         headers/Vertex.h
         headers/Prim.h
         headers/logging.h
-        arguments.cpp
+        headers/debugutils.h
+        headers/unittest.h
+        #arguments.cpp
         logging.cpp
-        main.cpp)
+        #main.cpp
+        testRunner.cpp
+        unittest.cpp)
 
-add_executable(prim ${SOURCE_FILES})
+add_executable(testRunner ${SOURCE_FILES})

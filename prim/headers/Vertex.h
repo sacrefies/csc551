@@ -49,7 +49,6 @@ private:
     /** key value for this entry */
     double mKey = DBL_MAX();
 
-
     /** holds a double_max value for convenience */
     const double DBL_MAX(void) const {
         return numeric_limits<double>::max();
@@ -69,7 +68,6 @@ public:
         mParent = parent;
     }
 
-
     /**
      * dtor (nothing to do)
      */
@@ -83,14 +81,12 @@ public:
         msg.str("");
     }
 
-
     /**
      * getter for vertex number
      */
     int getI(void) const {
         return mVert;
     }
-
 
     /**
      * Getter for the parent vertex number
@@ -99,7 +95,6 @@ public:
         return mParent;
     }
 
-
     /**
      * Getter for the key value.
      */
@@ -107,12 +102,11 @@ public:
         return mKey;
     }
 
-
     /**
      * allow one to pretty print the contents of the Vertex object to an output
      * stream.
      */
-    friend ostream& operator<< (ostream& os, const Vertex& v) {
+    friend ostream &operator<<(ostream &os, const Vertex &v) {
         os << "vertex: (i=" << v.mVert << ",";
         if (v.mKey == v.DBL_MAX())
             os << "MAX";
@@ -122,15 +116,11 @@ public:
         return os;
     }
 
-
-    // -----------------------------------------------------------------------
-    // do not use (used for priority queue sorting):
+    /// do not use (used for priority queue sorting)
     Vertex(void) {}
 
-
-    // -----------------------------------------------------------------------
-    // do not use (used for priority queue sorting):
-    bool operator() (const Vertex * v1, const Vertex * v2) {
+    /// do not use (used for priority queue sorting)
+    bool operator()(const Vertex *v1, const Vertex *v2) {
         return v2->mKey < v1->mKey;
     }
 };

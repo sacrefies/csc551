@@ -9,15 +9,14 @@
 // Copyright (c) 2016 by Jason Meng, no rights reserved.
 // ------------------------------------------------------------------------------------
 
+#include <string>
+
 /** include guard:  */
 #ifndef LOGGING_H
 #define LOGGING_H
 
 
-#include <string>
-
 using std::string;
-
 
 /**
  * An Enum to define possible Log levels
@@ -28,6 +27,19 @@ enum loglevel_t {
     ERROR,
     INFO
 };
+
+extern loglevel_t level;
+
+/**
+ * Convert current date and time into a string.
+ *
+ * @return A string which contains the formatted datetime value.
+ */
+string getFormattedTime();
+
+/// Print out the leading tag of a log line
+/// \param tag The tag of the line of log
+void printTag(string tag);
 
 /**
  * Set current logging level

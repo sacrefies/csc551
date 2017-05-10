@@ -28,7 +28,6 @@
 /** fold all 'using std::foo' togethor */
 using namespace std;
 
-/** Set the default level is INFO */
 loglevel_t level = INFO;
 
 /**
@@ -36,7 +35,7 @@ loglevel_t level = INFO;
  *
  * @return A string which contains the formatted datetime value.
  */
-static string getFormattedTime() {
+string getFormattedTime() {
     // a string stream to form the final output
     stringstream ss;
     // a time value which to be set by gettimeofday()
@@ -51,6 +50,13 @@ static string getFormattedTime() {
     strftime(buffer, sizeof(buffer), "%F %T.", gmtime(&t_value.tv_sec));
     ss << buffer << t_value.tv_usec / 1000;
     return ss.str();
+}
+
+/// Print out the leading tag of a log line
+/// \param tag The tag of the line of log
+void printTag(string tag) {
+    if (!tag.empty())
+        cout << tag << " - " << flush;
 }
 
 /**
@@ -70,8 +76,7 @@ void debug(string tag, string msg) {
     if (level <= DEBUG) {
         cout << getFormattedTime() << " - ";
         cout << setw(5) << "DEBUG" << " - ";
-        if (!tag.empty())
-            cout << tag << " - ";
+        printTag(tag);
         cout << msg << endl << flush;
     }
 }
@@ -86,8 +91,7 @@ void info(string tag, string msg) {
     if (level <= INFO) {
         cout << getFormattedTime() << " - ";
         cout << setw(5) << "INFO" << " - ";
-        if (!tag.empty())
-            cout << tag << " - ";
+        printTag(tag);
         cout << msg << endl << flush;
     }
 }
@@ -102,8 +106,7 @@ void warning(string tag, string msg) {
     if (level <= WARNING) {
         cout << getFormattedTime() << " - ";
         cout << setw(5) << "WARN" << " - ";
-        if (!tag.empty())
-            cout << tag << " - ";
+        printTag(tag);
         cout << msg << endl << flush;
     }
 }
@@ -118,8 +121,7 @@ void error(string tag, string msg) {
     if (level <= ERROR) {
         cerr << getFormattedTime() << " - ";
         cerr << setw(5) << "ERROR" << " - ";
-        if (!tag.empty())
-            cerr << tag << " - ";
+        printTag(tag);
         cerr << msg << endl << flush;
     }
 }
