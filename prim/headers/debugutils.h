@@ -49,14 +49,10 @@ void debugPrintMatrix(string tag, T **matrix, int matrixSize);
 template<typename T>
 void debugPrintArray(string tag, T *list, int size) {
     if (level <= DEBUG) {
-        cout << getFormattedTime() << " - ";
-        cout << setw(5) << "DEBUG" << " - ";
-        printTag(tag);
-        string msg = "Print array ===> ";
+        string msg = "";
         if (list == nullptr || size < 1)
             msg += "NULL";
         else {
-            cout << endl << flush;
             cout << getFormattedTime() << " - ";
             cout << setw(5) << "DEBUG" << " - ";
             printTag(tag);
