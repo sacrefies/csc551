@@ -20,7 +20,7 @@ static int partition(int list[], int startIndex, int endIndex) {
     for (int j = startIndex; j < endIndex; ++j) {
         if (list[j] <= p) {
             i++;
-            // guarantee that the element < p stays at the left hand side of p.
+            // guarantee that the element <= p stays at the left hand side of p.
             // swap [i], [j]
             int tmp = list[i];
             list[i] = list[j];
@@ -39,13 +39,9 @@ static int partition(int list[], int startIndex, int endIndex) {
 /// \param startIndex The start index of the array.
 /// \param endIndex The end index of the array.
 static void innerQuickSort(int list[], int startIndex, int endIndex) {
-    //debug(__func__, "s=" + to_string(startIndex) + " e=" + to_string(endIndex));
     // the base case - it's already sorted
     if (startIndex >= endIndex) return;
-    //printArray(endIndex - startIndex + 1, list, "before partition");
     int pivotIndex = partition(list, startIndex, endIndex);
-    //debug(__func__, "pIndex=" + to_string(pivotIndex));
-    //printArray(endIndex - startIndex + 1, list, "after partition");
     // the left sub-array:
     innerQuickSort(list, startIndex, pivotIndex - 1);
     // the right sub-array

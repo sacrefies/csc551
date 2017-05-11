@@ -31,10 +31,10 @@ using namespace std;
 static random_device rd;
 
 void debug(string tag, string msg) {
-    cout << setw(5) << "DEBUG" << " - ";
+    cout << setw(5) << "DEBUG" << " - " << flush;
     if (!tag.empty())
-        cout << tag << " - ";
-    cout << msg << endl;
+        cout << tag << " - " << flush;
+    cout << msg << endl << flush;
 }
 
 /**
@@ -47,7 +47,7 @@ void fillArray(const int size, int list[]) {
     if (size < 1) return;
     // debug(__func__, "generating random elements for the array...");
     mt19937_64 gen(rd());
-    uniform_int_distribution<int> dist(1, 100);
+    uniform_int_distribution<int> dist(1, 999);
     int upperBound = dist(gen);
     for (int i = 0; i < size; i++) {
         mt19937_64 gen(rd());
@@ -65,9 +65,14 @@ void fillArray(const int size, int list[]) {
 void printArray(const int size, int list[], const string msg) {
     debug(__func__, msg);
     string m = "";
-    for (int i = 0; i < size; i++)
-        m += to_string(list[i]) + ",";
-    m = m.substr(0, m.length() - 1);
+    for (int i = 0; i < 10; ++i) m += to_string(list[i]) + ", ";
+    if (size > 10) {
+        int fixedDisplay = (size - 10 > 5) ? 5 : size - 10;
+        if (size - 10 > 5) m += "..., ";
+        for (int i = 0; i < fixedDisplay; ++i)
+            m += to_string(list[size - 1 - fixedDisplay + i]) + ", ";
+    }
+    m = m.substr(0, m.length() - 2);
     debug(__func__, "[" + m + "]");
 }
 
@@ -101,9 +106,10 @@ int timing(const int runs, const int size, void (*func)(int[], int)) {
         // create a new array in size of the given size.
         fillArray(size, list);
         // print out the original
-        // printArray(size, list, "The shuffled: ");
+        //printArray(size, list, "The shuffled: ");
         // do sorting
         (*func)(list, size);
+        //printArray(size, list, "The sorted: ");
     }
     // cpu time end
     end = clock();
@@ -119,6 +125,7 @@ int timing(const int runs, const int size, void (*func)(int[], int)) {
     printArray(size, list, "The last sorted: ");
     // free the array
     delete[] list;
+    list = NULL;
     // outputs
     debug(__func__, "profiling done.");
     debug(__func__, "Runs: " + to_string(runs));
