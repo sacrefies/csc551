@@ -13,8 +13,10 @@
 // Copyright (c) 2016, Jason Meng
 // ------------------------------------------------------------------------------------
 
-#pragma once
+#include <string>
 
+#ifndef TIMING_H
+#define TIMING_H
 
 using namespace std;
 
@@ -24,3 +26,22 @@ using namespace std;
  * @param
  */
 int timing(const int runs, const int size, void (*func)(int[], int));
+
+/**
+ * Print the given array to the stdout
+ *
+ * @param size The size of the array
+ * @param list The array of type int64
+ */
+void printArray(const int size, int list[], string msg);
+
+/**
+ * Fill up a given array by using random int64 numbers
+ *
+ * @param size The size of the array
+ * @param list The array to be filled
+ */
+void fillArray(const int size, int list[]);
+
+void debug(string tag, string msg);
+#endif
